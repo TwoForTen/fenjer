@@ -1,9 +1,13 @@
 import React from 'react';
 
+import Appbar from './components/Appbar';
+import Footer from './components/Footer';
+
 function App() {
   return (
     <>
-      <h1>Fenjer.hr</h1>
+      <Appbar />
+      <Footer />
     </>
   );
 }
