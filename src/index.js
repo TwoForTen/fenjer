@@ -2,10 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './styles/_main.scss';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import reducers from './reducers/index';
-import { Provider } from 'react-redux';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducers from './reducers/index';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+    primary: {
+      contrastText: '#fff',
+      dark: '#8a6d3c',
+      light: '#e9ac90',
+      main: '#835038',
+    },
+  },
+});
 
 const store = createStore(
   reducers,
@@ -15,7 +29,11 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Router>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
