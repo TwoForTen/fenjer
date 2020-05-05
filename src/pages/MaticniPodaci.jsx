@@ -8,7 +8,7 @@ import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 const useStyles = makeStyles((theme) => ({
   paragraphContainer: {
-    padding: '4rem 1.5rem',
+    padding: theme.spacing(4) + theme.spacing(1.5),
   },
 }));
 
@@ -21,8 +21,8 @@ const MaticniPodaci = () => {
 
   return (
     <>
+      <PageBreadcrumbs title="Matični podaci" />
       <Container>
-        <PageBreadcrumbs title="Matični podaci" />
         <div className={classes.paragraphContainer}>
           <Typography color="textPrimary" variant="h4" element="h2">
             DEKORACIJE MAVRIN d.o.o.

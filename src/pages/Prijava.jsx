@@ -66,9 +66,11 @@ const Prijava = () => {
             <Typography className="mb-4" variant="h6">
               Niste registrirani korisnik?
             </Typography>
-            <Button color="primary" variant="contained">
-              Registriraj se
-            </Button>
+            <Link to="/registracija">
+              <Button color="primary" variant="contained">
+                Registriraj se
+              </Button>
+            </Link>
           </Grid>
         </Grid>
       </Paper>
