@@ -13,11 +13,17 @@ const theme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
-      contrastText: '#fff',
-      dark: '#8a6d3c',
+      contrastText: '#ECEFF6',
+      dark: '#835038',
       light: '#e9ac90',
-      main: '#835038',
+      main: '#B57D62',
     },
+    background: {
+      paper: '#313437',
+    },
+  },
+  shape: {
+    borderRadius: '5px',
   },
 });
 

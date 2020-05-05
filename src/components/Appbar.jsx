@@ -22,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
 const Appbar = () => {
   const classes = useStyles();
   return (
-    <AppBar color="default" position="fixed">
+    <AppBar color="default">
       <Container>
-        <Toolbar>
+        <Toolbar disableGutters>
           <Typography variant="h6">Dekoracije Mavrin</Typography>
-          <Toolbar className={classes.rightToolbar}>
+          <Toolbar disableGutters className={classes.rightToolbar}>
             <Link className={classes.navItem}>
               <Typography>Novosti</Typography>
             </Link>
@@ -41,9 +41,11 @@ const Appbar = () => {
             <IconButton className="ml-3">
               <ShoppingCart />
             </IconButton>
-            <Button variant="contained" color="primary">
-              Prijavi se
-            </Button>
+            <Link to="/prijava">
+              <Button variant="contained" color="primary">
+                Prijavi se
+              </Button>
+            </Link>
           </Toolbar>
         </Toolbar>
       </Container>
