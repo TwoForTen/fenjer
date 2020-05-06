@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import AppBar from '@material-ui/core/AppBar';
+import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
@@ -38,8 +39,14 @@ const Appbar = () => {
             <Link to="/kontakt" className={classes.navItem}>
               <Typography>Kontakt</Typography>
             </Link>
-            <IconButton className="ml-3">
-              <ShoppingCart />
+            <IconButton className="ml-3 mr-3">
+              <Badge
+                className={classes.badge}
+                badgeContent={'0'}
+                color="secondary"
+              >
+                <ShoppingCart />
+              </Badge>
             </IconButton>
             <Link to="/prijava">
               <Button variant="contained" color="primary">
