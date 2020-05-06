@@ -27,15 +27,15 @@ const Appbar = () => {
         <Toolbar disableGutters>
           <Typography variant="h6">Dekoracije Mavrin</Typography>
           <Toolbar disableGutters className={classes.rightToolbar}>
-            <Link className={classes.navItem}>
+            <Link to="/novosti" className={classes.navItem}>
               <Typography>Novosti</Typography>
             </Link>
             •
-            <Link className={classes.navItem}>
+            <Link to="/proizvodi" className={classes.navItem}>
               <Typography>Proizvodi</Typography>
             </Link>
             •
-            <Link className={classes.navItem}>
+            <Link to="/kontakt" className={classes.navItem}>
               <Typography>Kontakt</Typography>
             </Link>
             <IconButton className="ml-3">

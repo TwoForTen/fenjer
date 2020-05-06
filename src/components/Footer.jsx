@@ -62,7 +62,7 @@ const Footer = () => {
                   </Link>
                 </ListItem>
                 <ListItem>
-                  <Link>
+                  <Link to="/proizvodi">
                     <Typography variant="body2">Proizvodi</Typography>
                   </Link>
                 </ListItem>
