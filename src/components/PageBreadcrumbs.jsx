@@ -20,6 +20,7 @@ const PageBreadcrumbs = ({ title, showBorder }) => {
   const location = useLocation();
   const crumbs = location.pathname.split('/').slice(1);
   const titles = title.split(',');
+  let url = '';
   return (
     <Container>
       <div className={classes.breadcrumbsContainer}>
@@ -38,8 +39,9 @@ const PageBreadcrumbs = ({ title, showBorder }) => {
             </Typography>
           </Link>
           {crumbs.map((crumb, iterator) => {
+            url += `${crumb}/`;
             return (
-              <Link to={`/${crumb}`} key={crumb}>
+              <Link to={`/${url.slice(0, -1)}`} key={crumb}>
                 <Typography>
                   {titles[iterator]}
                 </Typography>
