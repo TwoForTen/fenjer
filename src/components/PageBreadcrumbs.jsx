@@ -19,9 +19,7 @@ const PageBreadcrumbs = ({ title, showBorder }) => {
   const classes = useStyles(showBorder);
   const location = useLocation();
   const crumbs = location.pathname.split('/').slice(1);
-
-  //TODO fix čćžđš
-
+  const titles = title.split(',');
   return (
     <Container>
       <div className={classes.breadcrumbsContainer}>
@@ -31,7 +29,7 @@ const PageBreadcrumbs = ({ title, showBorder }) => {
           component="h1"
           variant="h2"
         >
-          {title}
+          {titles[titles.length - 1]}
         </Typography>
         <Breadcrumbs aria-label="breadcrumb">
           <Link to="/">
@@ -39,11 +37,11 @@ const PageBreadcrumbs = ({ title, showBorder }) => {
               POČETNA
             </Typography>
           </Link>
-          {crumbs.map((crumb) => {
+          {crumbs.map((crumb, iterator) => {
             return (
               <Link to={`/${crumb}`} key={crumb}>
                 <Typography>
-                  {crumb.split('-').join(' ').toUpperCase()}
+                  {titles[iterator]}
                 </Typography>
               </Link>
             );
