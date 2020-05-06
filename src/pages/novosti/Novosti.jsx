@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
-
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import PageBreadcrumbs from '../components/PageBreadcrumbs';
+import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-
+import {
+  Link,
+  useLocation
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -50,10 +52,13 @@ const Novosti = () => {
     window.scrollTo({ top: '0' });
   }, []);
 
+  const location = useLocation();
+
   return (
     <>
       <PageBreadcrumbs title="Novosti" />
       <Container>
+
         <div className={classes.paragraphContainer}>
           <Card className={classes.card}>
             <CardContent>
@@ -65,9 +70,11 @@ const Novosti = () => {
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-              <ColorButton className={classes.margin}>
-                Pročitajte više
-              </ColorButton>
+              <Link to={`${location.pathname}/1`}>
+                <ColorButton  className={classes.margin}>
+                  Pročitajte više
+                </ColorButton>
+              </Link>
               <Button className={classes.date} size="small">24. travnja 2020.</Button>
             </CardActions>
           </Card>
@@ -81,9 +88,11 @@ const Novosti = () => {
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-              <ColorButton className={classes.margin}>
-                Pročitajte više
-              </ColorButton>
+              <Link to={`${location.pathname}/2`}>
+                <ColorButton  className={classes.margin}>
+                  Pročitajte više
+                </ColorButton>
+              </Link>
               <Button className={classes.date} size="small">24. travnja 2020.</Button>
             </CardActions>
           </Card>
@@ -97,9 +106,11 @@ const Novosti = () => {
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-              <ColorButton className={classes.margin}>
-                Pročitajte više
-              </ColorButton>
+              <Link to={`${location.pathname}/3`}>
+                <ColorButton  className={classes.margin}>
+                  Pročitajte više
+                </ColorButton>
+              </Link>
               <Button className={classes.date} size="small">24. travnja 2020.</Button>
             </CardActions>
           </Card>

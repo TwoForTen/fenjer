@@ -8,7 +8,8 @@ import Prijava from './pages/Prijava';
 import Registracija from './pages/Registracija';
 import UvjetiProdaje from './pages/UvjetiProdaje';
 import Proizvodi from './pages/Proizvodi';
-import Novosti from './pages/Novosti';
+import Novosti from './pages/novosti/Novosti';
+import Novost from './pages/novosti/Novost';
 
 function App() {
   return (
@@ -17,6 +18,12 @@ function App() {
         <Switch>
           <Route path="/uvjeti-prodaje" exact component={UvjetiProdaje} />
           <Route path="/novosti" exact component={Novosti} />
+          <Route
+              path="/novosti/:novostId"
+              render={() => {
+                return <Novost />;
+              }}
+          />
           <Route path="/proizvodi" exact component={Proizvodi} />
           <Route path="/prijava" exact component={Prijava} />
           <Route path="/registracija" exact component={Registracija} />
