@@ -21,6 +21,9 @@ const theme = createMuiTheme({
     background: {
       paper: '#313437',
     },
+    text: {
+      primary: '#ECEFF6',
+    },
   },
   shape: {
     borderRadius: '5px',

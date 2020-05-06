@@ -31,17 +31,20 @@ const Appbar = () => {
             <Link to="/novosti" className={classes.navItem}>
               <Typography>Novosti</Typography>
             </Link>
-            •
             <Link to="/proizvodi" className={classes.navItem}>
               <Typography>Proizvodi</Typography>
             </Link>
-            •
+            <Link to="/showroom" className={classes.navItem}>
+              <Typography>Showroom</Typography>
+            </Link>
             <Link to="/kontakt" className={classes.navItem}>
               <Typography>Kontakt</Typography>
             </Link>
             <IconButton className="ml-3 mr-3">
               <Badge
                 className={classes.badge}
+                // TODO When implementing global state set badgeContent to integer
+                // Sad je string jer ako je int 0 badge se nece pojavit
                 badgeContent={'0'}
                 color="secondary"
               >
