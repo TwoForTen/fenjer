@@ -6,7 +6,6 @@ import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -21,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
   },
   date: {
     marginLeft: 'auto',
-    color: '#B57D62',
   },
 }));
 
@@ -34,7 +32,7 @@ const Novost = () => {
 
   return (
     <>
-      <PageBreadcrumbs title="Novosti,Naslov" />
+      <PageBreadcrumbs titles={['Novosti', 'Naslov']} />
       <Container>
         <div className={classes.paragraphContainer}>
           <Card className={classes.card}>
@@ -72,9 +70,9 @@ const Novost = () => {
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-              <Button className={classes.date} size="small">
+              <Typography className={classes.date} variant="subtitle2">
                 24. travnja 2020.
-              </Button>
+              </Typography>
             </CardActions>
           </Card>
         </div>

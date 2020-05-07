@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   paperRoot: {
     padding: theme.spacing(6),
     marginBottom: theme.spacing(6),
+    backgroundColor: theme.palette.background.default,
   },
   formRoot: {
     borderBottom: `1px solid ${theme.palette.divider}`,

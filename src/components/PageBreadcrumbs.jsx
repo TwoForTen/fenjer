@@ -15,11 +15,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PageBreadcrumbs = ({ title, showBorder }) => {
+const PageBreadcrumbs = ({ titles, showBorder }) => {
   const classes = useStyles(showBorder);
   const location = useLocation();
   const crumbs = location.pathname.split('/').slice(1);
-  const titles = title.split(',');
   let url = '';
   return (
     <Container>

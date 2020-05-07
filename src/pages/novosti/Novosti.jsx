@@ -16,7 +16,7 @@ const Novosti = () => {
 
   return (
     <>
-      <PageBreadcrumbs title="Novosti" />
+      <PageBreadcrumbs titles={['Novosti']} />
       <Container>
         {posts.map((post) => {
           return <NovostKartica novost={post} key={post.id} />;

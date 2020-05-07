@@ -8,7 +8,11 @@ import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 const useStyles = makeStyles((theme) => ({
   paragraphContainer: {
-    padding: theme.spacing(4) + theme.spacing(1.5),
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(4) + theme.spacing(1.5),
+    },
   },
 }));
 
@@ -21,7 +25,7 @@ const UvjetiProdaje = () => {
 
   return (
     <>
-      <PageBreadcrumbs title="Uvjeti prodaje" />
+      <PageBreadcrumbs titles={['Uvjeti prodaje']} />
       <Container>
         <div className={classes.paragraphContainer}>
           <Typography color="textPrimary" variant="h6" element="h2">

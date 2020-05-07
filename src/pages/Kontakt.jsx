@@ -8,11 +8,19 @@ import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 const useStyles = makeStyles((theme) => ({
   paragraphContainer: {
-    padding: theme.spacing(4) + theme.spacing(1.5),
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
     borderBottom: `1px solid ${theme.palette.primary.main}`,
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(4) + theme.spacing(1.5),
+    },
   },
   googleMaps: {
-    padding: theme.spacing(4) + theme.spacing(1.5),
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(4) + theme.spacing(1.5),
+    },
   },
 }));
 
@@ -25,7 +33,7 @@ const Kontakt = () => {
 
   return (
     <>
-      <PageBreadcrumbs title="Kontakt" />
+      <PageBreadcrumbs titles={['Kontakt']} />
       <Container>
         <div className={classes.paragraphContainer}>
           <Typography color="textPrimary" variant="h6" element="h2">
@@ -60,7 +68,7 @@ const Kontakt = () => {
           frameBorder="0"
           height="450"
           src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxHcVuajrRGTFmp5bS6NHK8JHA6JlyXH8
-          &q=zagreb"
+          &q=Slavonska%20Avenija%2052"
           title="Maps"
           width="100%"
         ></iframe>

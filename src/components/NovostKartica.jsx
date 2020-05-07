@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
   card: {
     margin: `${theme.spacing(4)}px 0`,
     padding: theme.spacing(2),
-    background: '#45484C',
   },
   date: {
     marginLeft: 'auto',
@@ -25,9 +24,6 @@ const NovostKartica = ({ novost }) => {
 
   const { content, title } = novost;
 
-  useEffect(() => {
-    window.scrollTo({ top: '0' });
-  }, []);
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -53,9 +49,9 @@ const NovostKartica = ({ novost }) => {
             Pročitajte više
           </Button>
         </Link>
-        <Button color="primary" className={classes.date} size="small">
+        <Typography className={classes.date} variant="subtitle2">
           24. travnja 2020.
-        </Button>
+        </Typography>
       </CardActions>
     </Card>
   );

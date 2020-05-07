@@ -31,7 +31,7 @@ const Registracija = () => {
   };
   return (
     <>
-      <PageBreadcrumbs title="Registracija" showBorder={false} />
+      <PageBreadcrumbs titles={['Registracija']} showBorder={false} />
       <div className={classes.tabsBorder}>
         <Container maxWidth="sm">
           <Tabs

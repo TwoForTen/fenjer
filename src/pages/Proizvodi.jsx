@@ -1,33 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from '../axiosInstance';
 
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 
+import CategoryKartica from '../components/CategoryKartica';
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
-const useStyles = makeStyles((theme) => ({
-  paragraphContainer: {
-    padding: theme.spacing(4) + theme.spacing(1.5),
-  },
-}));
-
 const Proizvodi = () => {
-  const classes = useStyles();
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    axios
+      .get('/categories')
+      .then((res) => setCategories((prevState) => [...prevState, ...res.data]));
+
     window.scrollTo({ top: '0' });
   }, []);
 
   return (
     <>
-      <PageBreadcrumbs title="Proizvodi" />
+      <PageBreadcrumbs titles={['Proizvodi']} />
       <Container>
-        <div className={classes.paragraphContainer}>
-          <Typography color="textPrimary" variant="h6" element="h2">
-            Proizvodi
-          </Typography>
-        </div>
+        {categories.map((category) => {
+          return <CategoryKartica category={category} key={category.id} />;
+        })}
       </Container>
     </>
   );

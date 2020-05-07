@@ -9,8 +9,6 @@ import ListItem from '@material-ui/core/ListItem';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import '../styles/footer.scss';
-
 const useStyles = makeStyles((theme) => ({
   footer: {
     width: '100%',
