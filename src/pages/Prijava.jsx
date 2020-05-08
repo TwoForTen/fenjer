@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   textInput: {
     width: '100%',
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(3),
   },
 }));
 

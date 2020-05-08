@@ -22,7 +22,6 @@ const NovostKartica = ({ category }) => {
   const classes = useStyles();
 
   const { name, img } = category;
-  console.log(img);
 
   return (
     <Link to="/">

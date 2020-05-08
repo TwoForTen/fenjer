@@ -22,7 +22,7 @@ const NovostKartica = ({ novost }) => {
   const location = useLocation();
   const classes = useStyles();
 
-  const { content, title } = novost;
+  const { title, excerpt } = novost;
 
   return (
     <Card className={classes.card}>
@@ -36,7 +36,7 @@ const NovostKartica = ({ novost }) => {
           component="p"
           variant="body2"
         >
-          {content}
+          {excerpt}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
