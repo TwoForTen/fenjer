@@ -12,6 +12,7 @@ import NewsList from './pages/novosti/NewsList';
 import Login from './pages/Login';
 import Products from './pages/Products';
 import Registration from './pages/Registration';
+import Showroom from './pages/Showroom';
 import Terms from './pages/Terms';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/prijava" exact component={Login} />
           <Route path="/proizvodi" exact component={Products} />
           <Route path="/registracija" exact component={Registration} />
+          <Route path="/showroom" exact component={Showroom} />
           <Route path="/uvjeti-prodaje" exact component={Terms} />
           <Route path="*" render={() => <div>404</div>} />
         </Switch>
