@@ -25,6 +25,10 @@ export const useLogin = () => {
     };
     axios.post('http://localhost:8000/api/auth/login', body).then((res) => {
       localStorage.setItem('_jwt', JSON.stringify(res.data.access_token));
+      const expiration = new Date(
+        new Date().getTime() + res.data.expires_in * 1000
+      );
+      localStorage.setItem('expiration_date', expiration);
       dispatch(userLogin(res.data));
     });
   };

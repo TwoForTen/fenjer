@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NovostKartica = ({ category }) => {
+const CategoryCard = ({ category }) => {
   const location = useLocation();
   const classes = useStyles();
 
@@ -43,4 +43,4 @@ const NovostKartica = ({ category }) => {
   );
 };
 
-export default NovostKartica;
+export default CategoryCard;

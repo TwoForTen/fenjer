@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const COUNTRIES = ['Hrvatska', 'Španjolska', 'Kina', 'Italija', 'Novi Zeland'];
 
-const Registracija = () => {
+const Registration = () => {
   const classes = useStyles();
 
   const [age, setAge] = useState('');
@@ -159,4 +159,4 @@ const Registracija = () => {
   );
 };
 
-export default Registracija;
+export default Registration;

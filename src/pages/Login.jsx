@@ -34,7 +34,7 @@ const validationSchema = yup.object().shape({
   email: yup.string().email('Mora biti valjan E-mail'),
 });
 
-const Prijava = () => {
+const Login = () => {
   const classes = useStyles();
   const login = useLogin();
   const history = useHistory();
@@ -123,4 +123,4 @@ const Prijava = () => {
   );
 };
 
-export default Prijava;
+export default Login;

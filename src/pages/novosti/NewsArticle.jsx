@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Novost = () => {
+const NewsArticle = () => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -81,4 +81,4 @@ const Novost = () => {
   );
 };
 
-export default Novost;
+export default NewsArticle;

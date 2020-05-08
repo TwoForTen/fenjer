@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../axiosInstance';
 
 import Container from '@material-ui/core/Container';
-import NovostKartica from '../../components/NovostKartica';
+import NewsCard from '../../components/NewsCard';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 
-const Novosti = () => {
+const NewsList = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -19,11 +19,11 @@ const Novosti = () => {
       <PageBreadcrumbs titles={['Novosti']} />
       <Container>
         {posts.map((post) => {
-          return <NovostKartica novost={post} key={post.id} />;
+          return <NewsCard novost={post} key={post.id} />;
         })}
       </Container>
     </>
   );
 };
 
-export default Novosti;
+export default NewsList;

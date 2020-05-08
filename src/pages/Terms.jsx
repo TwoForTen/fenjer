@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UvjetiProdaje = () => {
+const Terms = () => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -58,4 +58,4 @@ const UvjetiProdaje = () => {
   );
 };
 
-export default UvjetiProdaje;
+export default Terms;

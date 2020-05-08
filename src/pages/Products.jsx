@@ -3,7 +3,7 @@ import axios from '../axiosInstance';
 
 import Container from '@material-ui/core/Container';
 
-import CategoryKartica from '../components/CategoryKartica';
+import CategoryCard from '../components/CategoryCard';
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 const Proizvodi = () => {
@@ -22,7 +22,7 @@ const Proizvodi = () => {
       <PageBreadcrumbs titles={['Proizvodi']} />
       <Container>
         {categories.map((category) => {
-          return <CategoryKartica category={category} key={category.id} />;
+          return <CategoryCard category={category} key={category.id} />;
         })}
       </Container>
     </>

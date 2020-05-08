@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MaticniPodaci = () => {
+const LegalDocs = () => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -62,4 +62,4 @@ const MaticniPodaci = () => {
   );
 };
 
-export default MaticniPodaci;
+export default LegalDocs;

@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Kontakt = () => {
+const Contact = () => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -77,4 +77,4 @@ const Kontakt = () => {
   );
 };
 
-export default Kontakt;
+export default Contact;
