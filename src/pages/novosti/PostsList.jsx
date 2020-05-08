@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../axiosInstance';
 
 import Container from '@material-ui/core/Container';
-import NewsCard from '../../components/NewsCard';
+import PostCard from '../../components/PostCard';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 
-const NewsList = () => {
+const PostsList = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -18,12 +18,12 @@ const NewsList = () => {
     <>
       <PageBreadcrumbs titles={['Novosti']} />
       <Container>
-        {posts.map((post) => {
-          return <NewsCard novost={post} key={post.id} />;
+        {posts.reverse().map((post) => {
+          return <PostCard novost={post} key={post.id} />;
         })}
       </Container>
     </>
   );
 };
 
-export default NewsList;
+export default PostsList;

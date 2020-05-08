@@ -41,7 +41,7 @@ const PageBreadcrumbs = ({ titles, showBorder }) => {
             url += `${crumb}/`;
             return (
               <Link to={`/${url.slice(0, -1)}`} key={crumb}>
-                <Typography>{titles[iterator].toUpperCase()}</Typography>
+                <Typography>{titles[iterator]?.toUpperCase()}</Typography>
               </Link>
             );
           })}

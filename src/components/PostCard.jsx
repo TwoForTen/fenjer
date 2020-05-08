@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NewsCard = ({ novost }) => {
+const PostCard = ({ novost }) => {
   const location = useLocation();
   const classes = useStyles();
 
-  const { title, excerpt } = novost;
+  const { title, excerpt, id } = novost;
 
   return (
     <Card className={classes.card}>
@@ -40,7 +40,7 @@ const NewsCard = ({ novost }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Link to={`${location.pathname}/1`}>
+        <Link to={`${location.pathname}/${id}`}>
           <Button
             className={classes.margin}
             color="primary"
@@ -49,7 +49,11 @@ const NewsCard = ({ novost }) => {
             Pročitajte više
           </Button>
         </Link>
-        <Typography className={classes.date} variant="subtitle2">
+        <Typography
+          color="primary"
+          className={classes.date}
+          variant="subtitle2"
+        >
           24. travnja 2020.
         </Typography>
       </CardActions>
@@ -57,4 +61,4 @@ const NewsCard = ({ novost }) => {
   );
 };
 
-export default NewsCard;
+export default PostCard;

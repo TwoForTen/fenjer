@@ -7,8 +7,8 @@ import { userLogout } from './actions/auth';
 import Kontakt from './pages/Contact';
 import Layout from './components/Layout';
 import LegalDocs from './pages/LegalDocs';
-import NewsArticle from './pages/novosti/NewsArticle';
-import NewsList from './pages/novosti/NewsList';
+import PostArticle from './pages/novosti/PostArticle';
+import PostsList from './pages/novosti/PostsList';
 import Login from './pages/Login';
 import Products from './pages/Products';
 import Registration from './pages/Registration';
@@ -33,8 +33,8 @@ function App() {
         <Switch>
           <Route path="/kontakt" exact component={Kontakt} />
           <Route path="/maticni-podaci" exact component={LegalDocs} />
-          <Route path="/novosti/:novostId" exact component={NewsArticle} />
-          <Route path="/novosti" exact component={NewsList} />
+          <Route path="/novosti/:novostId" exact component={PostArticle} />
+          <Route path="/novosti" exact component={PostsList} />
           <Route path="/prijava" exact component={Login} />
           <Route path="/proizvodi" exact component={Products} />
           <Route path="/registracija" exact component={Registration} />
