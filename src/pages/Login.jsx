@@ -1,9 +1,11 @@
 import React from 'react';
+import axios from '../axiosInstance';
+import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import * as yup from 'yup';
 
-import { useLogin } from '../hooks/useAuth';
+import { userLogin } from '../actions/auth';
 
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -36,8 +38,14 @@ const validationSchema = yup.object().shape({
 
 const Login = () => {
   const classes = useStyles();
-  const login = useLogin();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const token = JSON.parse(localStorage.getItem('_jwt'));
+
+  if (token) {
+    return <Redirect to="/korisnicki-racun" />;
+  }
+
   return (
     <Container className="mt-4">
       <Paper className={classes.paperRoot}>
@@ -48,10 +56,32 @@ const Login = () => {
             </Typography>
             <Formik
               initialValues={{ email: '', password: '' }}
-              onSubmit={(values, actions) => {
-                login(values.email, values.password);
-                actions.setSubmitting(false);
-                history.replace('/');
+              onSubmit={({ email, password }, actions) => {
+                const body = {
+                  email,
+                  password,
+                };
+                axios
+                  .post('http://localhost:8000/api/auth/login', body)
+                  .then((res) => {
+                    localStorage.setItem(
+                      '_jwt',
+                      JSON.stringify(res.data.access_token)
+                    );
+                    const expiration = new Date(
+                      new Date().getTime() + res.data.expires_in * 1000
+                    );
+                    localStorage.setItem('expiration_date', expiration);
+                    dispatch(userLogin(res.data));
+                    history.replace('/korisnicki-racun');
+                  })
+                  .catch((err) => {
+                    actions.setSubmitting(false);
+                    actions.setErrors({
+                      authError:
+                        err.response.data.message || err.response.data.error,
+                    });
+                  });
               }}
               validationSchema={validationSchema}
             >
@@ -91,6 +121,11 @@ const Login = () => {
                         errors.password && touched.password && errors.password
                       }
                     />
+                    {errors.authError && (
+                      <Typography className="mb-2" color="secondary">
+                        {errors.authError}
+                      </Typography>
+                    )}
                     <Button
                       disabled={isSubmitting}
                       variant="contained"

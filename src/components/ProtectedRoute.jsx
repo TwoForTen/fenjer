@@ -9,9 +9,9 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) => {
         if (token) {
-          <Component {...props} />;
+          return <Component {...props} />;
         } else {
-          <Redirect to="/" />;
+          return <Redirect to="/" />;
         }
       }}
     />

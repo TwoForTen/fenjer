@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Switch, Route, useLocation } from 'react-router-dom';
 
 import { userLogout } from './actions/auth';
+import ProtectedRoute from './components/ProtectedRoute';
 
 import Kontakt from './pages/Contact';
 import Layout from './components/Layout';
@@ -14,6 +15,7 @@ import Products from './pages/Products';
 import Registration from './pages/Registration';
 import Showroom from './pages/Showroom';
 import Terms from './pages/Terms';
+import UserAccount from './pages/UserAccount';
 
 function App() {
   const location = useLocation();
@@ -40,6 +42,11 @@ function App() {
           <Route path="/registracija" exact component={Registration} />
           <Route path="/showroom" exact component={Showroom} />
           <Route path="/uvjeti-prodaje" exact component={Terms} />
+          <ProtectedRoute
+            path="/korisnicki-racun"
+            exact
+            component={UserAccount}
+          />
           <Route path="*" render={() => <div>404</div>} />
         </Switch>
       </Layout>

@@ -71,7 +71,7 @@ const Appbar = () => {
               </Badge>
             </IconButton>
             {token ? (
-              <Link to="/user">
+              <Link to="/korisnicki-racun">
                 <Button color="primary" variant="contained">
                   {name ? name : <CircularProgress color="inherit" size={20} />}
                 </Button>
