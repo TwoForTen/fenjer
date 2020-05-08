@@ -1,6 +1,9 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import * as yup from 'yup';
+
+import { useLogin } from '../hooks/useAuth';
 
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -27,8 +30,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const validationSchema = yup.object().shape({
+  email: yup.string().email('Mora biti valjan E-mail'),
+});
+
 const Prijava = () => {
   const classes = useStyles();
+  const login = useLogin();
+  const history = useHistory();
   return (
     <Container className="mt-4">
       <Paper className={classes.paperRoot}>
@@ -37,29 +46,64 @@ const Prijava = () => {
             <Typography className="mb-4" variant="h6">
               Prijava korisinika
             </Typography>
-            <Formik>
-              {() => {
+            <Formik
+              initialValues={{ email: '', password: '' }}
+              onSubmit={(values, actions) => {
+                login(values.email, values.password);
+                actions.setSubmitting(false);
+                history.replace('/');
+              }}
+              validationSchema={validationSchema}
+            >
+              {({
+                errors,
+                isSubmitting,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                touched,
+                values,
+              }) => {
                 return (
-                  <form className={classes.formRoot}>
+                  <form onSubmit={handleSubmit} className={classes.formRoot}>
                     <TextField
                       className={classes.textInput}
-                      label="Korisničko ime"
+                      label="E-mail"
+                      name="email"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.name}
                       variant="outlined"
+                      error={errors.email && touched.email && true}
+                      helperText={errors.email && touched.email && errors.email}
                     />
                     <TextField
                       className={classes.textInput}
                       label="Zaporka"
+                      name="password"
                       type="password"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.password}
                       variant="outlined"
+                      error={errors.password && touched.password && true}
+                      helperText={
+                        errors.password && touched.password && errors.password
+                      }
                     />
-                    <Button variant="contained" color="primary">
+                    <Button
+                      disabled={isSubmitting}
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                    >
                       Prijava
                     </Button>
                   </form>
                 );
               }}
             </Formik>
-            <Link>
+            <Link to="/">
               <Typography variant="caption">Zaboravili ste zaporku?</Typography>
             </Link>
           </Grid>

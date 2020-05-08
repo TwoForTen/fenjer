@@ -40,8 +40,8 @@ const Kontakt = () => {
             Informacije
           </Typography>
           <Typography color="textPrimary" variant="body1" paragraph>
-            Ukoliko imate upit vezan uz našu ponudu i poslovanje, slobdno nam se
-            obratite putem email formulara ili na naše brojeve telefona.
+            Ukoliko imate upit vezan uz našu ponudu i poslovanje, slobodno nam
+            se obratite putem email formulara ili na naše brojeve telefona.
           </Typography>
           <Typography color="textPrimary" variant="h6" element="h2">
             Info:

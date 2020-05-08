@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { useCheckAuth } from '../hooks/useAuth';
 
 import AppBar from '@material-ui/core/AppBar';
 import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -22,12 +26,27 @@ const useStyles = makeStyles((theme) => ({
 
 const Appbar = () => {
   const classes = useStyles();
+  const user = useSelector((state) => state.user);
+  const { token, name } = user;
+  const checkAuth = useCheckAuth();
+
+  useEffect(() => {
+    const isLoggedIn = Boolean(JSON.parse(localStorage.getItem('_jwt')));
+
+    if (isLoggedIn) {
+      checkAuth();
+    }
+  }, []);
+
   return (
     <AppBar color="default">
       <Container>
         <Toolbar disableGutters>
           <Typography variant="h6">Dekoracije Mavrin</Typography>
           <Toolbar disableGutters className={classes.rightToolbar}>
+            <Link to="/" className={classes.navItem}>
+              <Typography>Početna</Typography>
+            </Link>
             <Link to="/novosti" className={classes.navItem}>
               <Typography>Novosti</Typography>
             </Link>
@@ -46,16 +65,24 @@ const Appbar = () => {
                 // TODO When implementing global state set badgeContent to integer
                 // Sad je string jer ako je int 0 badge se nece pojavit
                 badgeContent={'0'}
-                color="secondary"
+                color="primary"
               >
                 <ShoppingCart />
               </Badge>
             </IconButton>
-            <Link to="/prijava">
-              <Button variant="contained" color="primary">
-                Prijavi se
-              </Button>
-            </Link>
+            {token ? (
+              <Link to="/user">
+                <Button color="primary" variant="contained">
+                  {name ? name : <CircularProgress color="inherit" size={20} />}
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/prijava">
+                <Button variant="contained" color="primary">
+                  Prijavi se
+                </Button>
+              </Link>
+            )}
           </Toolbar>
         </Toolbar>
       </Container>
