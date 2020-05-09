@@ -36,6 +36,18 @@ ul {
   padding: 0 !important;
 }
 
+.MuiDrawer-modal {
+  z-index: 0 !important;
+}
+
+.MuiDrawer-paperAnchorTop {
+  top: 64px !important;
+}
+
+.MuiToolbar-regular {
+  min-height: 64px !important;
+}
+
 //Helpers
 .mt-1 {
   margin-top: 4px !important;
