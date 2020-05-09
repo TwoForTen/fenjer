@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from '../axiosInstance';
 import { useHistory } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { useDispatch } from 'react-redux';
@@ -68,8 +69,10 @@ const UserAccount = () => {
                 variant="contained"
                 color="primary"
                 onClick={() => {
-                  dispatch(userLogout());
-                  history.replace('/');
+                  axios.post('/auth/logout').then((_) => {
+                    dispatch(userLogout());
+                    history.replace('/');
+                  });
                 }}
               >
                 Odjava

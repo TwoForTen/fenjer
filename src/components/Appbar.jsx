@@ -14,6 +14,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Menu from '@material-ui/icons/Menu';
+import Person from '@material-ui/icons/Person';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -34,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
   },
   mobileDrawer: {
     paddingTop: theme.spacing(6),
+  },
+  drawerListItem: {
+    justifyContent: 'center',
   },
 }));
 
@@ -73,6 +77,7 @@ const Appbar = () => {
         else return false;
       }}
       to="/"
+      onClick={handleCloseDrawer}
       className={classes.navItem}
     >
       <Typography>Početna</Typography>
@@ -80,6 +85,7 @@ const Appbar = () => {
     <NavLink
       activeStyle={activeStyle}
       to="/novosti"
+      onClick={handleCloseDrawer}
       className={classes.navItem}
     >
       <Typography>Novosti</Typography>
@@ -87,6 +93,7 @@ const Appbar = () => {
     <NavLink
       activeStyle={activeStyle}
       to="/proizvodi"
+      onClick={handleCloseDrawer}
       className={classes.navItem}
     >
       <Typography>Proizvodi</Typography>
@@ -94,6 +101,7 @@ const Appbar = () => {
     <NavLink
       activeStyle={activeStyle}
       to="/showroom"
+      onClick={handleCloseDrawer}
       className={classes.navItem}
     >
       <Typography>Showroom</Typography>
@@ -101,11 +109,34 @@ const Appbar = () => {
     <NavLink
       activeStyle={activeStyle}
       to="/kontakt"
+      onClick={handleCloseDrawer}
       className={classes.navItem}
     >
       <Typography>Kontakt</Typography>
     </NavLink>,
   ];
+
+  const APPBAR_BUTTON = (
+    <>
+      {token ? (
+        <NavLink to="/korisnicki-racun" onClick={handleCloseDrawer}>
+          <Button
+            color="primary"
+            startIcon={name && <Person />}
+            variant="contained"
+          >
+            {name ? name : <CircularProgress color="inherit" size={20} />}
+          </Button>
+        </NavLink>
+      ) : (
+        <NavLink to="/prijava" onClick={handleCloseDrawer}>
+          <Button variant="contained" color="primary">
+            Prijavi se
+          </Button>
+        </NavLink>
+      )}
+    </>
+  );
 
   const MOBILE_DRAWER = (
     <>
@@ -115,9 +146,16 @@ const Appbar = () => {
         open={showDrawer}
         onClose={handleCloseDrawer}
       >
-        <List onClick={handleCloseDrawer}>
+        <List>
+          <ListItem className={classes.drawerListItem}>
+            {APPBAR_BUTTON}
+          </ListItem>
           {NAV_LINKS.map((link, index) => {
-            return <ListItem key={index}>{link}</ListItem>;
+            return (
+              <ListItem className={classes.drawerListItem} key={index}>
+                {link}
+              </ListItem>
+            );
           })}
         </List>
       </Drawer>
@@ -156,22 +194,8 @@ const Appbar = () => {
                 >
                   <Menu style={{ fontSize: '28px' }} />
                 </IconButton>
-              ) : token ? (
-                <NavLink to="/korisnicki-racun">
-                  <Button color="primary" variant="contained">
-                    {name ? (
-                      name
-                    ) : (
-                      <CircularProgress color="inherit" size={20} />
-                    )}
-                  </Button>
-                </NavLink>
               ) : (
-                <NavLink to="/prijava">
-                  <Button variant="contained" color="primary">
-                    Prijavi se
-                  </Button>
-                </NavLink>
+                APPBAR_BUTTON
               )}
             </Toolbar>
           </Toolbar>
