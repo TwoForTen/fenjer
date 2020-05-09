@@ -79,7 +79,8 @@ const Login = () => {
                     actions.setSubmitting(false);
                     actions.setErrors({
                       authError:
-                        err.response.data.message || err.response.data.error,
+                        err.response?.data?.message ||
+                        err.response?.data?.error,
                     });
                   });
               }}

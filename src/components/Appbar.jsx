@@ -65,6 +65,48 @@ const Appbar = () => {
     }
   }, []);
 
+  const NAV_LINKS = [
+    <NavLink
+      activeStyle={activeStyle}
+      isActive={() => {
+        if (location.pathname === '/') return true;
+        else return false;
+      }}
+      to="/"
+      className={classes.navItem}
+    >
+      <Typography>Početna</Typography>
+    </NavLink>,
+    <NavLink
+      activeStyle={activeStyle}
+      to="/novosti"
+      className={classes.navItem}
+    >
+      <Typography>Novosti</Typography>
+    </NavLink>,
+    <NavLink
+      activeStyle={activeStyle}
+      to="/proizvodi"
+      className={classes.navItem}
+    >
+      <Typography>Proizvodi</Typography>
+    </NavLink>,
+    <NavLink
+      activeStyle={activeStyle}
+      to="/showroom"
+      className={classes.navItem}
+    >
+      <Typography>Showroom</Typography>
+    </NavLink>,
+    <NavLink
+      activeStyle={activeStyle}
+      to="/kontakt"
+      className={classes.navItem}
+    >
+      <Typography>Kontakt</Typography>
+    </NavLink>,
+  ];
+
   const MOBILE_DRAWER = (
     <>
       <Drawer
@@ -74,55 +116,9 @@ const Appbar = () => {
         onClose={handleCloseDrawer}
       >
         <List onClick={handleCloseDrawer}>
-          <ListItem>
-            <NavLink
-              activeStyle={activeStyle}
-              isActive={() => {
-                if (location.pathname === '/') return true;
-                else return false;
-              }}
-              to="/"
-              className={classes.navItem}
-            >
-              <Typography>Početna</Typography>
-            </NavLink>
-          </ListItem>
-          <ListItem>
-            <NavLink
-              activeStyle={activeStyle}
-              to="/novosti"
-              className={classes.navItem}
-            >
-              <Typography>Novosti</Typography>
-            </NavLink>
-          </ListItem>
-          <ListItem>
-            <NavLink
-              activeStyle={activeStyle}
-              to="/proizvodi"
-              className={classes.navItem}
-            >
-              <Typography>Proizvodi</Typography>
-            </NavLink>
-          </ListItem>
-          <ListItem>
-            <NavLink
-              activeStyle={activeStyle}
-              to="/showroom"
-              className={classes.navItem}
-            >
-              <Typography>Showroom</Typography>
-            </NavLink>
-          </ListItem>
-          <ListItem>
-            <NavLink
-              activeStyle={activeStyle}
-              to="/kontakt"
-              className={classes.navItem}
-            >
-              <Typography>Kontakt</Typography>
-            </NavLink>
-          </ListItem>
+          {NAV_LINKS.map((link, index) => {
+            return <ListItem key={index}>{link}</ListItem>;
+          })}
         </List>
       </Drawer>
     </>
@@ -137,45 +133,9 @@ const Appbar = () => {
             <Toolbar disableGutters className={classes.rightToolbar}>
               {desktopAppbar && (
                 <>
-                  <NavLink
-                    activeStyle={activeStyle}
-                    isActive={() => {
-                      if (location.pathname === '/') return true;
-                      else return false;
-                    }}
-                    to="/"
-                    className={classes.navItem}
-                  >
-                    <Typography>Početna</Typography>
-                  </NavLink>
-                  <NavLink
-                    activeStyle={activeStyle}
-                    to="/novosti"
-                    className={classes.navItem}
-                  >
-                    <Typography>Novosti</Typography>
-                  </NavLink>
-                  <NavLink
-                    activeStyle={activeStyle}
-                    to="/proizvodi"
-                    className={classes.navItem}
-                  >
-                    <Typography>Proizvodi</Typography>
-                  </NavLink>
-                  <NavLink
-                    activeStyle={activeStyle}
-                    to="/showroom"
-                    className={classes.navItem}
-                  >
-                    <Typography>Showroom</Typography>
-                  </NavLink>
-                  <NavLink
-                    activeStyle={activeStyle}
-                    to="/kontakt"
-                    className={classes.navItem}
-                  >
-                    <Typography>Kontakt</Typography>
-                  </NavLink>
+                  {NAV_LINKS.map((link) => {
+                    return link;
+                  })}
                 </>
               )}
               <IconButton className="ml-3 mr-3">
