@@ -53,7 +53,7 @@ const Appbar = () => {
   const [showDrawer, setShowDrawer] = useState(false);
 
   const handleCloseDrawer = () => {
-    setShowDrawer((prevState) => !prevState);
+    setShowDrawer(false);
   };
 
   const activeStyle = {

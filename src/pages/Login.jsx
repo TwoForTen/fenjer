@@ -80,7 +80,8 @@ const Login = () => {
                     actions.setErrors({
                       authError:
                         err.response?.data?.message ||
-                        err.response?.data?.error,
+                        err.response?.data?.error ||
+                        'Došlo je do greške, pokušajte ponovo',
                     });
                   });
               }}

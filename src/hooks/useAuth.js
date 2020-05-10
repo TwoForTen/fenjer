@@ -10,7 +10,7 @@ export const useCheckAuth = () => {
       .get('/auth/me')
       .then((res) => dispatch(storeUser(res.data)))
       .catch((err) => {
-        if (err.response.status === 401) {
+        if (err.response?.status === 401) {
           dispatch(userLogout());
         }
       });
