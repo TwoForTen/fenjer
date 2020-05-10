@@ -125,7 +125,13 @@ const Appbar = () => {
             startIcon={name && <Person />}
             variant="contained"
           >
-            {name ? name : <CircularProgress color="inherit" size={20} />}
+            {!name ? (
+              <CircularProgress color="inherit" size={20} />
+            ) : name.length < 14 ? (
+              name
+            ) : (
+              `${name.slice(0, 13)}...`
+            )}
           </Button>
         </NavLink>
       ) : (

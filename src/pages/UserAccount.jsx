@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../axiosInstance';
+import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { useDispatch } from 'react-redux';
@@ -12,6 +13,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
 
+import Orders from '../components/Orders';
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,6 +46,12 @@ const UserAccount = () => {
     setValue(index);
   };
 
+  const [userOrders, setUserOrders] = useState();
+
+  useEffect(() => {
+    axios.get('/auth/user').then((res) => console.log(res));
+  }, []);
+
   // useEffect(() => {
   //   axios
   //     .post('/auth/orders', {
@@ -66,7 +74,7 @@ const UserAccount = () => {
     <>
       <PageBreadcrumbs titles={['Korisnički račun']} showBorder={false} />
       <div className={classes.fullWidthBorder}>
-        <Container className={classes.tabs} maxWidth="sm">
+        <Container className={classes.tabs} maxWidth="xs">
           <Tabs
             value={value}
             onChange={handleChange}
@@ -76,8 +84,19 @@ const UserAccount = () => {
             aria-label="full width tabs example"
           >
             <Tab label="Moji podaci" />
-            <Tab label="Moje narudžbe" />
+            <Tab
+              label="Moje narudžbe"
+              onClick={() => {
+                if (!userOrders) {
+                  axios
+                    .get('/auth/orders')
+                    .then((res) => setUserOrders(res.data));
+                }
+              }}
+            />
           </Tabs>
+        </Container>
+        <Container>
           <SwipeableViews
             axis="x"
             index={value}
@@ -97,7 +116,7 @@ const UserAccount = () => {
                 Odjava
               </Button>
             </div>
-            <h1>Second</h1>
+            <Orders userOrders={userOrders} />
           </SwipeableViews>
         </Container>
       </div>
