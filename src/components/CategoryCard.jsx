@@ -29,7 +29,7 @@ const CategoryCard = ({ category }) => {
         <CardContent>
           <Grid container spacing={10}>
             <Grid item xs={6}>
-              <img src={img} alt="category_image" />
+              <img src={`http://localhost:8000/${img}`} alt="category_image" />
             </Grid>
             <Grid item xs={6}>
               <Typography className={classes.name} variant="h4" component="h2">

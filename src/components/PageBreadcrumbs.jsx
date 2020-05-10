@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,17 +21,28 @@ const PageBreadcrumbs = ({ titles, showBorder }) => {
   const location = useLocation();
   const crumbs = location.pathname.split('/').slice(1);
   let url = '';
+
   return (
     <Container>
       <div className={classes.breadcrumbsContainer}>
-        <Typography
-          className="mb-3"
-          color="textPrimary"
-          component="h1"
-          variant="h2"
-        >
-          {titles[titles.length - 1]}
-        </Typography>
+        {titles[titles.length - 1] ? (
+          <Typography
+            className="mb-3"
+            color="textPrimary"
+            component="h1"
+            variant="h2"
+          >
+            {titles[titles.length - 1]}
+          </Typography>
+        ) : (
+          <Skeleton
+            animation="wave"
+            variant="rect"
+            width={300}
+            height={72}
+            className="mb-3"
+          />
+        )}
         <Breadcrumbs aria-label="breadcrumb">
           <Link to="/">
             <Typography color="primary" variant="body1">

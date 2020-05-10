@@ -7,7 +7,7 @@ export const useCheckAuth = () => {
   const dispatch = useDispatch();
   return () =>
     axios
-      .get('/auth/me')
+      .get('/auth/user')
       .then((res) => dispatch(storeUser(res.data)))
       .catch((err) => {
         if (err.response?.status === 401) {

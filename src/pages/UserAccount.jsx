@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from '../axiosInstance';
 import { useHistory } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
@@ -43,6 +43,25 @@ const UserAccount = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
+
+  // useEffect(() => {
+  //   axios
+  //     .post('/auth/orders', {
+  //       user_id: 2,
+  //       cart: ['cart bokte'],
+  //       price: 102,
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     });
+  // }, []);
+
+  // useEffect(() => {
+  //   axios.get('/auth/orders').then((res) => {
+  //     console.log(res);
+  //   });
+  // }, []);
+
   return (
     <>
       <PageBreadcrumbs titles={['Korisnički račun']} showBorder={false} />
@@ -69,7 +88,7 @@ const UserAccount = () => {
                 variant="contained"
                 color="primary"
                 onClick={() => {
-                  axios.post('/auth/logout').then((_) => {
+                  axios.post('/auth/logout').then(() => {
                     dispatch(userLogout());
                     history.replace('/');
                   });

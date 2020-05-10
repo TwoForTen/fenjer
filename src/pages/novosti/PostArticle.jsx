@@ -6,9 +6,13 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
+
+import devImageSource from '../../helpers/devImageSource';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -16,10 +20,16 @@ const useStyles = makeStyles((theme) => ({
     background: '#45484C',
   },
   paragraphContainer: {
-    padding: theme.spacing(4) + theme.spacing(1.5),
+    padding: `${theme.spacing(4)}px 0`,
   },
-  text: {
-    color: '#7E7F80',
+  imageContainer: {
+    maxWidth: '100%',
+    height: 'auto',
+    objectFit: 'cover',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
   date: {
     marginLeft: 'auto',
@@ -45,12 +55,87 @@ const PostArticle = () => {
         <div className={classes.paragraphContainer}>
           <Card className={classes.card}>
             <CardContent>
-              <Typography variant="h5" component="h2">
-                {post.title}
-              </Typography>
-              <Typography className={classes.text} component="p">
-                {post.content}
-              </Typography>
+              {post.title ? (
+                <Typography variant="h5" component="h2" className="mb-4">
+                  {post.title}
+                </Typography>
+              ) : (
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  height={16}
+                  width={100}
+                  className="mb-4"
+                />
+              )}
+              <Grid container spacing={4}>
+                <Grid item md={6} xs={12}>
+                  <div className={classes.imageContainer}>
+                    {post.img ? (
+                      <img
+                        className={classes.image}
+                        src={devImageSource(post.img)}
+                        alt="Article img"
+                      />
+                    ) : (
+                      <Skeleton animation="wave" variant="rect" height={300} />
+                    )}
+                  </div>
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  {post.content ? (
+                    <Typography color="textSecondary" component="p">
+                      {post.content}
+                    </Typography>
+                  ) : (
+                    <>
+                      <Skeleton
+                        animation="wave"
+                        variant="rect"
+                        height={13}
+                        className="mb-2"
+                      />
+                      <Skeleton
+                        animation="wave"
+                        variant="rect"
+                        height={13}
+                        className="mb-2"
+                      />
+                      <Skeleton
+                        animation="wave"
+                        variant="rect"
+                        height={13}
+                        className="mb-2"
+                      />
+                      <Skeleton
+                        animation="wave"
+                        variant="rect"
+                        height={13}
+                        className="mb-2"
+                      />
+                      <Skeleton
+                        animation="wave"
+                        variant="rect"
+                        height={13}
+                        className="mb-2"
+                      />
+                      <Skeleton
+                        animation="wave"
+                        variant="rect"
+                        height={13}
+                        className="mb-2"
+                      />
+                      <Skeleton
+                        animation="wave"
+                        variant="rect"
+                        height={13}
+                        className="mb-2"
+                        style={{ width: '40%' }}
+                      />
+                    </>
+                  )}
+                </Grid>
+              </Grid>
             </CardContent>
             <CardActions disableSpacing>
               <Typography
