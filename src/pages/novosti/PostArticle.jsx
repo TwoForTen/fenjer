@@ -18,7 +18,6 @@ import pageTitle from '../../helpers/pageTitle';
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: '15px',
-    background: '#45484C',
   },
   paragraphContainer: {
     padding: `${theme.spacing(4)}px 0`,

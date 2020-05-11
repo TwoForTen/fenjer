@@ -3,12 +3,16 @@ import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 
 import { useCheckAuth } from '../hooks/useAuth';
+import logo from '../assets/fenjer_logo.svg';
 
 import AppBar from '@material-ui/core/AppBar';
 import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -18,14 +22,15 @@ import Person from '@material-ui/icons/Person';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-
 const useStyles = makeStyles((theme) => ({
   appBarRoot: {
     zIndex: theme.zIndex.drawer + 1,
-    minHeight: '64px',
+    maxHeight: '80px',
+  },
+  logoContainer: {
+    width: '120px',
+    height: 'auto',
+    padding: '5px',
   },
   rightToolbar: {
     marginLeft: 'auto',
@@ -173,7 +178,9 @@ const Appbar = () => {
       <AppBar className={classes.appBarRoot} color="default">
         <Container>
           <Toolbar disableGutters>
-            <Typography variant="h6">Dekoracije Mavrin</Typography>
+            <div className={classes.logoContainer}>
+              <img src={logo} alt="fenjer_logo" />
+            </div>
             <Toolbar disableGutters className={classes.rightToolbar}>
               {desktopAppbar && (
                 <>

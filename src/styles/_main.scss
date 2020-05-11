@@ -19,7 +19,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: 64px;
+  padding-top: 80px;
 }
 
 a {
@@ -41,11 +41,11 @@ ul {
 }
 
 .MuiDrawer-paperAnchorTop {
-  top: 64px !important;
+  top: 80px !important;
 }
 
 .MuiToolbar-regular {
-  min-height: 64px !important;
+  min-height: 80px !important;
 }
 
 //Helpers
