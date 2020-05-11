@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
@@ -30,7 +30,7 @@ const PageBreadcrumbs = ({ titles, showBorder }) => {
             className="mb-3"
             color="textPrimary"
             component="h1"
-            variant="h2"
+            variant="h3"
           >
             {titles[titles.length - 1]}
           </Typography>
@@ -39,7 +39,7 @@ const PageBreadcrumbs = ({ titles, showBorder }) => {
             animation="wave"
             variant="rect"
             width={300}
-            height={72}
+            height={40}
             className="mb-3"
           />
         )}

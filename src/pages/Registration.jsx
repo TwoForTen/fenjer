@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import axios from '../axiosInstance';
-import { Formik } from 'formik';
+import { Formik, FastField } from 'formik';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 
@@ -12,10 +12,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { TextField, Select } from 'formik-material-ui';
 
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
@@ -141,15 +140,13 @@ const Registration = () => {
                 <form onSubmit={handleSubmit}>
                   <Grid container spacing={4}>
                     <Grid item xs={12}>
-                      <TextField
+                      <FastField
                         fullWidth
                         name="company"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.company}
+                        id="company"
                         label="Tvrtka"
                         variant="outlined"
-                        error={errors.company && touched.company && true}
+                        component={TextField}
                         helperText={
                           errors.company && touched.company && errors.company
                         }
@@ -164,13 +161,11 @@ const Registration = () => {
                         <InputLabel className="mb-2" id="država">
                           Država
                         </InputLabel>
-                        <Select
+                        <FastField
                           label="Država"
                           labelId="država"
                           name="country"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.country}
+                          component={Select}
                           variant="outlined"
                         >
                           <MenuItem value="">
@@ -183,35 +178,29 @@ const Registration = () => {
                               </MenuItem>
                             );
                           })}
-                        </Select>
+                        </FastField>
                         <FormHelperText>
                           {errors.country && touched.country && errors.country}
                         </FormHelperText>
                       </FormControl>
                     </Grid>
                     <Grid item sm={6} xs={12}>
-                      <TextField
+                      <FastField
+                        component={TextField}
                         name="oib"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.oib}
                         fullWidth
                         label="OIB"
                         variant="outlined"
-                        error={errors.oib && touched.oib && true}
                         helperText={errors.oib && touched.oib && errors.oib}
                       />
                     </Grid>
                     <Grid item sm={6} xs={12}>
-                      <TextField
+                      <FastField
+                        component={TextField}
                         name="iban"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.iban}
                         fullWidth
                         label="IBAN"
                         variant="outlined"
-                        error={errors.iban && touched.iban && true}
                         helperText={errors.iban && touched.iban && errors.iban}
                       />
                     </Grid>
@@ -221,28 +210,22 @@ const Registration = () => {
                     </Grid>
 
                     <Grid item sm={6} xs={12}>
-                      <TextField
+                      <FastField
+                        component={TextField}
                         name="name"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.name}
                         fullWidth
                         label="Ime"
                         variant="outlined"
-                        error={errors.name && touched.name && true}
                         helperText={errors.name && touched.name && errors.name}
                       />
                     </Grid>
                     <Grid item sm={6} xs={12}>
-                      <TextField
+                      <FastField
+                        component={TextField}
                         name="surname"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.surname}
                         fullWidth
                         label="Prezime"
                         variant="outlined"
-                        error={errors.surname && touched.surname && true}
                         helperText={
                           errors.surname && touched.surname && errors.surname
                         }
@@ -250,15 +233,12 @@ const Registration = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <TextField
+                      <FastField
+                        component={TextField}
                         name="address"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.address}
                         fullWidth
                         label="Adresa"
                         variant="outlined"
-                        error={errors.address && touched.address && true}
                         helperText={
                           errors.address && touched.address && errors.address
                         }
@@ -266,30 +246,22 @@ const Registration = () => {
                     </Grid>
 
                     <Grid item sm={6} xs={12}>
-                      <TextField
+                      <FastField
+                        component={TextField}
                         name="city"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.city}
                         fullWidth
                         label="Mjesto"
                         variant="outlined"
-                        error={errors.city && touched.city && true}
                         helperText={errors.city && touched.city && errors.city}
                       />
                     </Grid>
                     <Grid item sm={6} xs={12}>
-                      <TextField
+                      <FastField
+                        component={TextField}
                         name="postal_code"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.postal_code}
                         fullWidth
                         label="Poštanski broj"
                         variant="outlined"
-                        error={
-                          errors.postal_code && touched.postal_code && true
-                        }
                         helperText={
                           errors.postal_code &&
                           touched.postal_code &&
@@ -298,17 +270,12 @@ const Registration = () => {
                       />
                     </Grid>
                     <Grid item sm={6} xs={12}>
-                      <TextField
+                      <FastField
+                        component={TextField}
                         name="mobile_phone"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.mobile_phone}
                         fullWidth
                         label="Mobitel"
                         variant="outlined"
-                        error={
-                          errors.mobile_phone && touched.mobile_phone && true
-                        }
                         helperText={
                           errors.mobile_phone &&
                           touched.mobile_phone &&
@@ -317,15 +284,12 @@ const Registration = () => {
                       />
                     </Grid>
                     <Grid item sm={6} xs={12}>
-                      <TextField
+                      <FastField
+                        component={TextField}
                         name="telephone"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.telephone}
                         fullWidth
                         label="Telefon"
                         variant="outlined"
-                        error={errors.telephone && touched.telephone && true}
                         helperText={
                           errors.telephone &&
                           touched.telephone &&
@@ -339,51 +303,38 @@ const Registration = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <TextField
+                      <FastField
+                        component={TextField}
                         name="email"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.email}
                         fullWidth
                         label="E-Mail"
                         variant="outlined"
-                        error={errors.email && touched.email && true}
                         helperText={
                           errors.email && touched.email && errors.email
                         }
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <TextField
+                      <FastField
+                        component={TextField}
                         name="password"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.password}
                         fullWidth
                         label="Lozinka"
                         type="password"
                         variant="outlined"
-                        error={errors.password && touched.password && true}
                         helperText={
                           errors.password && touched.password && errors.password
                         }
                       />
                     </Grid>
                     <Grid item xs={12} className="mb-4">
-                      <TextField
+                      <FastField
+                        component={TextField}
                         name="password_repeat"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.password_repeat}
                         fullWidth
                         label="Potvrda lozinke"
                         type="password"
                         variant="outlined"
-                        error={
-                          errors.password_repeat &&
-                          touched.password_repeat &&
-                          true
-                        }
                         helperText={
                           errors.password_repeat &&
                           touched.password_repeat &&

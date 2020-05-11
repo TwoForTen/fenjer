@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -9,6 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '12px',
     color: theme.palette.text.secondary,
   },
-  loaderContainer: {
+  centeredContainer: {
     margin: theme.spacing(6),
     textAlign: 'center',
   },
@@ -28,12 +29,18 @@ const useStyles = makeStyles((theme) => ({
 const Orders = ({ userOrders }) => {
   const classes = useStyles();
 
-  console.log(userOrders);
-
   if (!userOrders) {
     return (
-      <div className={classes.loaderContainer}>
+      <div className={classes.centeredContainer}>
         <CircularProgress />
+      </div>
+    );
+  }
+
+  if (userOrders?.length < 1) {
+    return (
+      <div className={classes.centeredContainer}>
+        <Typography variant="body2">Još nemate narudžbi.</Typography>
       </div>
     );
   }
@@ -55,7 +62,9 @@ const Orders = ({ userOrders }) => {
         <TableBody>
           {userOrders.map((order) => (
             <TableRow key={order.id}>
-              <TableCell>{order.id}</TableCell>
+              <TableCell>
+                {('0000' + order.id).substring(order.id.length)}
+              </TableCell>
               <TableCell>{order.price}</TableCell>
               <TableCell>Datum</TableCell>
               <TableCell>Status</TableCell>

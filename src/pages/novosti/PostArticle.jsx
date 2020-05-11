@@ -13,6 +13,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
 
 import devImageSource from '../../helpers/devImageSource';
+import pageTitle from '../../helpers/pageTitle';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -43,10 +44,14 @@ const PostArticle = () => {
   const [post, setPost] = useState({});
 
   useEffect(() => {
+    document.title = pageTitle(post.title);
+  }, [post]);
+
+  useEffect(() => {
     window.scrollTo({ top: '0' });
 
     axios.get(`/posts/${params.novostId}`).then((res) => setPost(res.data));
-  }, []);
+  }, [params.novostId]);
 
   return (
     <>

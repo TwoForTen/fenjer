@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import devImageSource from '../helpers/devImageSource';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -29,7 +30,7 @@ const CategoryCard = ({ category }) => {
         <CardContent>
           <Grid container spacing={10}>
             <Grid item xs={6}>
-              <img src={`http://localhost:8000/${img}`} alt="category_image" />
+              <img src={devImageSource(img)} alt="category_image" />
             </Grid>
             <Grid item xs={6}>
               <Typography className={classes.name} variant="h4" component="h2">
