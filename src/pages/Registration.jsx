@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import axios from '../axiosInstance';
 import { Formik, FastField } from 'formik';
 import { useHistory } from 'react-router-dom';
@@ -18,6 +19,8 @@ import { TextField, Select } from 'formik-material-ui';
 
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
+import { showSnackbar } from '../actions/snackbar';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(6),
@@ -33,6 +36,7 @@ const COUNTRIES = ['Hrvatska', 'Španjolska', 'Kina', 'Italija', 'Novi Zeland'];
 const Registration = () => {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const validationSchema = yup.object().shape({
     name: yup.string().required(),
@@ -114,7 +118,16 @@ const Registration = () => {
                   iban,
                   password,
                 })
-                .then((res) => history.push('/prijava'))
+                .then(() => {
+                  history.push('/prijava');
+                  dispatch(
+                    showSnackbar({
+                      message:
+                        'Registracija uspješna. Sada se možete prijaviti.',
+                      severity: 'success',
+                    })
+                  );
+                })
                 .catch((err) => {
                   actions.setSubmitting(false);
                   actions.setErrors({
@@ -127,15 +140,7 @@ const Registration = () => {
             }}
             validationSchema={validationSchema}
           >
-            {({
-              values,
-              errors,
-              touched,
-              handleBlur,
-              handleChange,
-              handleSubmit,
-              isSubmitting,
-            }) => {
+            {({ errors, touched, handleSubmit, isSubmitting }) => {
               return (
                 <form onSubmit={handleSubmit}>
                   <Grid container spacing={4}>

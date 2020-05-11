@@ -4,6 +4,7 @@ import { Switch, Route, useLocation } from 'react-router-dom';
 
 import { userLogout } from './actions/auth';
 import ProtectedRoute from './components/ProtectedRoute';
+import SnackbarComponent from './components/SnackbarComponent';
 
 import Kontakt from './pages/Contact';
 import Layout from './components/Layout';
@@ -22,15 +23,17 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const expirationDate = localStorage.getItem('expiration_date');
-
-    if (new Date(expirationDate).getTime() < new Date().getTime()) {
-      localStorage.clear();
-      dispatch(userLogout());
+    if (expirationDate) {
+      if (new Date(expirationDate).getTime() < new Date().getTime()) {
+        localStorage.clear();
+        dispatch(userLogout());
+      }
     }
   }, [location.pathname]);
 
   return (
     <>
+      <SnackbarComponent />
       <Layout>
         <Switch>
           <Route path="/kontakt" exact component={Kontakt} />
