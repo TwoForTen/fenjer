@@ -104,6 +104,16 @@ const Footer = () => {
                 COPYRIGHT 2020 DEKORACIJE MAVRIN D.O.O., SVA PRAVA ZADRŽANA.
               </Typography>
             </Grid>
+            <Grid item xs={12} className={classes.copyright}>
+              <Typography variant="caption" color="textSecondary">
+                Dekoracije Mavrin d.o.o., Sjedište: Dravska 26 A, 10040 Zagreb,
+                Hrvatska - OIB: 90083475889 Upisan u registar trgovačkog suda u
+                Zagrebu: Tt-17/22039-4, MBS: 081103509 - IBAN
+                HR8724840081135037396 Raiffeisenbank Austria d.d. - Temeljni
+                kapital: 20.000,00 upisan u cijelosti - član uprave: Mario
+                Mavrin
+              </Typography>
+            </Grid>
           </Grid>
         </Container>
       </Paper>
