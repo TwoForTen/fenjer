@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import moment from 'moment';
+import 'moment/locale/hr';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -15,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   date: {
     marginLeft: 'auto',
+    textTransform: 'capitalize',
   },
 }));
 
@@ -22,7 +25,11 @@ const PostCard = ({ novost }) => {
   const location = useLocation();
   const classes = useStyles();
 
-  const { title, excerpt, id } = novost;
+  const { title, excerpt, id, created_at: createdAt } = novost;
+
+  const postedAt = moment(createdAt, 'DD.MM.YYYY')
+    .locale('hr')
+    .format('DD. MMMM YYYY.');
 
   return (
     <Card className={classes.card}>
@@ -54,7 +61,7 @@ const PostCard = ({ novost }) => {
           className={classes.date}
           variant="subtitle2"
         >
-          24. travnja 2020.
+          {postedAt}
         </Typography>
       </CardActions>
     </Card>

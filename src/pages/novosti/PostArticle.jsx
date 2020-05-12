@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../axiosInstance';
+import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
+import moment from 'moment';
+import 'moment/locale/hr';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -33,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   date: {
     marginLeft: 'auto',
+    textTransform: 'capitalize',
   },
 }));
 
@@ -42,9 +46,9 @@ const PostArticle = () => {
 
   const [post, setPost] = useState({});
 
-  useEffect(() => {
-    document.title = pageTitle(post.title);
-  }, [post]);
+  const postedAt = moment(post.created_at, 'DD.MM.YYYY')
+    .locale('hr')
+    .format('DD. MMMM YYYY.');
 
   useEffect(() => {
     window.scrollTo({ top: '0' });
@@ -54,6 +58,10 @@ const PostArticle = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{pageTitle(post.title)}</title>
+      </Helmet>
+
       <PageBreadcrumbs titles={['Novosti', post.title]} />
       <Container>
         <div className={classes.paragraphContainer}>
@@ -147,7 +155,7 @@ const PostArticle = () => {
                 className={classes.date}
                 variant="subtitle2"
               >
-                24. travnja 2020.
+                {post.created_at && postedAt}
               </Typography>
             </CardActions>
           </Card>

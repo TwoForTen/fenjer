@@ -5,6 +5,8 @@ import { Formik } from 'formik';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import * as yup from 'yup';
 
+import PromotedProducts from './PromotedProducts';
+
 import { userLogin } from '../actions/auth';
 
 import Button from '@material-ui/core/Button';
@@ -156,6 +158,7 @@ const Login = () => {
           </Grid>
         </Grid>
       </Paper>
+      <PromotedProducts />
     </Container>
   );
 };

@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { createStore } from 'redux';
+import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import reducers from './reducers/index';
 
@@ -40,7 +41,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <ThemeProvider theme={theme}>
-        <App />
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
       </ThemeProvider>
     </Router>
   </Provider>,

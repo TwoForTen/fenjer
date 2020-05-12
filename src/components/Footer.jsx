@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import logo from '../assets/fenjer_logo.svg';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -23,10 +21,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'transparent',
     // textAlign: 'center',
   },
-  logoContainer: {
-    width: '150px',
-    height: 'auto',
-  },
   grid: {
     width: '100%',
     margin: '0',
@@ -45,9 +39,7 @@ const Footer = () => {
         <Container>
           <Grid container spacing={6} className={classes.grid}>
             <Grid item md={4} xs={12}>
-              <div className={classes.logoContainer}>
-                <img src={logo} alt="fenjer_logo" />
-              </div>
+              <Typography variant="h6">DEKORACIJE MAVRIN</Typography>
             </Grid>
             <Grid item md={4} xs={6}>
               <Typography variant="subtitle2">Odaberite</Typography>

@@ -52,24 +52,6 @@ const UserAccount = () => {
     axios.get('/auth/user').then((res) => console.log(res));
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .post('/auth/orders', {
-  //       user_id: 2,
-  //       cart: ['cart bokte'],
-  //       price: 102,
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   axios.get('/auth/orders').then((res) => {
-  //     console.log(res);
-  //   });
-  // }, []);
-
   return (
     <>
       <PageBreadcrumbs titles={['Korisnički račun']} showBorder={false} />

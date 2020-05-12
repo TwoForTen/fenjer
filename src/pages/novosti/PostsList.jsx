@@ -35,7 +35,7 @@ const PostsList = () => {
       <PageBreadcrumbs titles={['Novosti']} />
       <Container style={{ textAlign: !posts && 'center' }}>
         {posts ? (
-          posts.reverse().map((post) => {
+          posts.map((post) => {
             return <PostCard novost={post} key={post.id} />;
           })
         ) : (

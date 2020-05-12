@@ -2,43 +2,56 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import devImageSource from '../helpers/devImageSource';
 
+import sanitiseName from '../helpers/sanitiseName';
+
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   card: {
     margin: `${theme.spacing(4)}px 0`,
-    padding: theme.spacing(4),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   name: {
     textAlign: 'right',
+  },
+  imageContainer: {
+    height: '120px',
+    width: '200px',
+    objectFit: 'contain',
+    overflow: 'hidden',
+  },
+  categoryImage: {
+    height: 'auto',
+    width: '100%',
   },
 }));
 
 const CategoryCard = ({ category }) => {
   const location = useLocation();
+  console.log(location);
   const classes = useStyles();
 
   const { name, img } = category;
 
   return (
-    <Link to="/">
+    <Link to={`${location.pathname}/${sanitiseName(name)}`}>
       <Card className={classes.card}>
-        <CardContent>
-          <Grid container spacing={10}>
-            <Grid item xs={6}>
-              <img src={devImageSource(img)} alt="category_image" />
-            </Grid>
-            <Grid item xs={6}>
-              <Typography className={classes.name} variant="h4" component="h2">
-                {name}
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
+        <div className={classes.imageContainer}>
+          <img
+            className={classes.categoryImage}
+            src="http://localhost:8000/images/flower.png"
+            alt="category_image"
+          />
+        </div>
+        <Typography className={classes.name} variant="h4" component="h2">
+          {name}
+        </Typography>
       </Card>
     </Link>
   );
