@@ -40,7 +40,9 @@ const Orders = ({ userOrders }) => {
   if (userOrders?.length < 1) {
     return (
       <div className={classes.centeredContainer}>
-        <Typography variant="body2">Još nemate narudžbi.</Typography>
+        <Typography variant="h6" color="textPrimary">
+          Još nemate narudžbi.
+        </Typography>
       </div>
     );
   }

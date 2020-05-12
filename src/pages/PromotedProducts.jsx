@@ -20,7 +20,6 @@ const Showroom = () => {
   const [promotedProducts, setPromotedProducts] = useState([]);
   useEffect(() => {
     axios.get('/product-types').then((res) => {
-      console.log(res);
       setPromotedProducts(
         res.data.filter((promotedProduct) => promotedProduct.promoted)
       );

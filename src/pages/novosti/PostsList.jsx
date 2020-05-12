@@ -3,13 +3,14 @@ import axios from '../../axiosInstance';
 
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import PostCard from '../../components/PostCard';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 
 const useStyles = makeStyles((theme) => ({
-  canteredContainer: {
+  centeredContainer: {
     textAlign: 'center',
     margin: theme.spacing(6),
   },
@@ -25,8 +26,10 @@ const PostsList = () => {
 
   if (posts?.length < 1) {
     return (
-      <div className={classes.canteredContainer}>
-        <p>Nema nedavnih vijesti.</p>
+      <div className={classes.centeredContainer}>
+        <Typography variant="body1" color="textPrimary">
+          Nema nedavnih vijesti.
+        </Typography>
       </div>
     );
   }
