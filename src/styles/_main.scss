@@ -1,3 +1,6 @@
+$APPBAR_HEIGHT: 80px;
+$DARK_THEME_BG_COLOR: #292a2c;
+
 *,
 *:after,
 *:before {
@@ -11,7 +14,7 @@ html {
 }
 
 body {
-  background-color: #292a2c;
+  background-color: $DARK_THEME_BG_COLOR;
   min-height: 100%;
 }
 
@@ -19,7 +22,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: 80px;
+  padding-top: $APPBAR_HEIGHT;
 }
 
 a {
@@ -41,11 +44,11 @@ ul {
 }
 
 .MuiDrawer-paperAnchorTop {
-  top: 80px !important;
+  top: $APPBAR_HEIGHT !important;
 }
 
 .MuiToolbar-regular {
-  min-height: 80px !important;
+  min-height: $APPBAR_HEIGHT !important;
 }
 
 //Helpers
