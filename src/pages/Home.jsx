@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PromotedProducts from './PromotedProducts';
+import PromotedProducts from '../components/PromotedProducts';
 
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';

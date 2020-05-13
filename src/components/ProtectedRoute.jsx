@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
-  const token = JSON.parse(localStorage.getItem('_jwt'));
+  const token = useSelector((state) => state.user.token);
 
   return (
     <Route

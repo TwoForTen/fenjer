@@ -63,7 +63,7 @@ const Registration = () => {
       <PageBreadcrumbs titles={['Registracija']} />
       <Container maxWidth="md">
         <div className={classes.root}>
-          <Typography color="textPrimary" className="mb-2" variant="h4">
+          <Typography color="textPrimary" className="mb-2" variant="h6">
             Novi korisnik
           </Typography>
           <Typography color="textPrimary" className="mb-4" variant="body2">

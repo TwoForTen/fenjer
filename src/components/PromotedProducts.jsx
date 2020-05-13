@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../axiosInstance';
 
-import PromotedCard from '../components/PromotedCard';
+import PromotedCard from './PromotedCard';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';

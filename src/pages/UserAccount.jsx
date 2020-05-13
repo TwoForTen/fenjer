@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../axiosInstance';
-import { Formik } from 'formik';
-import { useHistory } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { userLogout } from '../actions/auth';
@@ -15,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Orders from '../components/Orders';
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
+import UserDetails from '../components/UserDetails';
 
 const useStyles = makeStyles((theme) => ({
   fullWidthBorder: {
@@ -46,10 +46,11 @@ const UserAccount = () => {
     setValue(index);
   };
 
+  const [user, setUser] = useState();
   const [userOrders, setUserOrders] = useState();
 
   useEffect(() => {
-    axios.get('/auth/user').then((res) => console.log(res));
+    axios.get('/auth/user').then((res) => setUser(res.data));
   }, []);
 
   return (
@@ -84,7 +85,8 @@ const UserAccount = () => {
             index={value}
             onChangeIndex={handleChangeIndex}
           >
-            <div>
+            <Container maxWidth="md">
+              {user && <UserDetails user={user} />}
               <Button
                 variant="contained"
                 color="primary"
@@ -97,8 +99,10 @@ const UserAccount = () => {
               >
                 Odjava
               </Button>
-            </div>
-            <Orders userOrders={userOrders} />
+            </Container>
+            <Container>
+              <Orders userOrders={userOrders} />
+            </Container>
           </SwipeableViews>
         </Container>
       </div>

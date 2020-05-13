@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import * as yup from 'yup';
 
-import PromotedProducts from './PromotedProducts';
+import PromotedProducts from '../components/PromotedProducts';
 
 import { userLogin } from '../actions/auth';
 
@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   textInput: {
-    width: '100%',
     marginBottom: theme.spacing(3),
   },
 }));
@@ -54,7 +53,7 @@ const Login = () => {
         <Grid container spacing={10}>
           <Grid sm={6} xs={12} item>
             <Typography className="mb-4" variant="h6">
-              Prijava korisinika
+              Prijava korisnika
             </Typography>
             <Formik
               initialValues={{ email: '', password: '' }}
@@ -101,6 +100,7 @@ const Login = () => {
                 return (
                   <form onSubmit={handleSubmit} className={classes.formRoot}>
                     <TextField
+                      fullWidth
                       className={classes.textInput}
                       label="E-mail"
                       name="email"
@@ -112,6 +112,7 @@ const Login = () => {
                       helperText={errors.email && touched.email && errors.email}
                     />
                     <TextField
+                      fullWidth
                       className={classes.textInput}
                       label="Zaporka"
                       name="password"

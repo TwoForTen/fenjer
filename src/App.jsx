@@ -25,7 +25,6 @@ function App() {
     const expirationDate = localStorage.getItem('expiration_date');
     if (expirationDate) {
       if (new Date(expirationDate).getTime() < new Date().getTime()) {
-        localStorage.clear();
         dispatch(userLogout());
       }
     }

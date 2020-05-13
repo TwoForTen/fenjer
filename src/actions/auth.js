@@ -13,7 +13,7 @@ export const userLogin = (payload) => {
   };
 };
 export const userLogout = () => {
-  localStorage.removeItem('_jwt');
+  localStorage.clear();
   return {
     type: USER_LOGOUT,
   };
