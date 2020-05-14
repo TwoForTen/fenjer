@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     margin: `${theme.spacing(6)}px 0`,
   },
-  button: {
+  buttonLink: {
     margin: `0 ${theme.spacing(2)}px`,
     minWidth: '160px',
   },
@@ -45,21 +45,13 @@ const NotFound = () => {
         Uuups, nažalost ne možemo naći stranicu koju tražite!
       </Typography>
       <div className={classes.buttonsContainer}>
-        <Link to="/">
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-          >
+        <Link to="/" className={classes.buttonLink}>
+          <Button fullWidth variant="contained" color="primary">
             Početna
           </Button>
         </Link>
-        <Link to="/">
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="secondary"
-          >
+        <Link to="/" className={classes.buttonLink}>
+          <Button fullWidth variant="contained" color="secondary">
             Kontakt
           </Button>
         </Link>
