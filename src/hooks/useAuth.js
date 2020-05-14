@@ -12,7 +12,7 @@ export const useCheckAuth = () => {
         dispatch(storeUser(`${res.data.full_name}`));
       })
       .catch((err) => {
-        if (err.response?.status === 401) {
+        if (err?.response?.status === 401) {
           dispatch(userLogout());
         }
       });

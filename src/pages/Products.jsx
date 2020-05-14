@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import axios from '../axiosInstance';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import Container from '@material-ui/core/Container';
@@ -10,6 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import CategoryCard from '../components/CategoryCard';
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
+import useDataFetch from '../hooks/useDataFetch';
+
 const useStyles = makeStyles((theme) => ({
   centeredContainer: {
     textAlign: 'center',
@@ -19,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Proizvodi = () => {
   const classes = useStyles();
-  const [categories, setCategories] = useState();
 
-  useEffect(() => {
-    axios.get('/categories').then((res) => setCategories(res.data));
-  }, []);
+  const categories = useDataFetch({
+    url: '/categories',
+    method: 'GET',
+  });
 
   if (categories?.length < 1) {
     return (
@@ -40,6 +41,7 @@ const Proizvodi = () => {
       <Helmet titleTemplate="%s | Fenjer.hr">
         <title>Proizvodi</title>
       </Helmet>
+
       <PageBreadcrumbs titles={['Proizvodi']} />
       <Container style={{ textAlign: !categories && 'center' }}>
         {categories ? (

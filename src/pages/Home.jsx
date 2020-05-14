@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
 
 const Home = () => {
   const classes = useStyles();
-  const CAROUSEL_IMAGES = [imageOne, imageTwo, imageThree, imageFour];
+  // const CAROUSEL_IMAGES = [imageOne, imageTwo, imageThree, imageFour];
 
   //TODO:: CAROUSEL COMPONENT
   return (

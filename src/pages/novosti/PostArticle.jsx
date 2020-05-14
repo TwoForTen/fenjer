@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import axios from '../../axiosInstance';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
@@ -16,6 +15,8 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
 
 import devImageSource from '../../helpers/devImageSource';
+
+import useDataFetch from '../../hooks/useDataFetch';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -43,17 +44,15 @@ const PostArticle = () => {
   const classes = useStyles();
   const params = useParams();
 
-  const [post, setPost] = useState({});
+  const post =
+    useDataFetch({
+      url: `/posts/${params.novostId}`,
+      method: 'get',
+    }) || {};
 
   const postedAt = moment(post.created_at, 'DD.MM.YYYY')
     .locale('hr')
     .format('DD. MMMM YYYY.');
-
-  useEffect(() => {
-    window.scrollTo({ top: '0' });
-
-    axios.get(`/posts/${params.novostId}`).then((res) => setPost(res.data));
-  }, [params.novostId]);
 
   return (
     <>

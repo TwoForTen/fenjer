@@ -1,12 +1,18 @@
 import React from 'react';
+import axios from '../axiosInstance';
 import { Formik, Form, Field } from 'formik';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 
+import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+
+import { userLogout } from '../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
 
 const UserDetails = ({ user }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const {
     email,
     company,
@@ -48,13 +57,12 @@ const UserDetails = ({ user }) => {
           className={classes.textInput}
         />
         <Formik>
-          {({}) => {
+          {() => {
             return (
               <Form>
-                <Grid container spacing={2}>
-                  <Grid item xs={6}>
+                <Grid container spacing={3}>
+                  <Grid item md={6} xs={12}>
                     <Field
-                      className={classes.textInput}
                       fullWidth
                       label="Nova Zaporka"
                       type="password"
@@ -62,7 +70,7 @@ const UserDetails = ({ user }) => {
                       component={TextField}
                     />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item md={6} xs={12}>
                     <Field
                       className={classes.textInput}
                       fullWidth
@@ -99,8 +107,8 @@ const UserDetails = ({ user }) => {
           disabled
           className={classes.textInput}
         />
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
+        <Grid container spacing={3}>
+          <Grid item md={6} xs={12}>
             <TextField
               fullWidth
               label="Grad"
@@ -108,10 +116,9 @@ const UserDetails = ({ user }) => {
               variant="outlined"
               defaultValue={city}
               disabled
-              className={classes.textInput}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item md={6} xs={12}>
             <TextField
               fullWidth
               label="Poštanski broj"
@@ -132,6 +139,17 @@ const UserDetails = ({ user }) => {
           disabled
           className={classes.textInput}
         />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            axios.post('/auth/logout').then(() => {
+              dispatch(userLogout(history));
+            });
+          }}
+        >
+          Odjava
+        </Button>
       </div>
     </>
   );

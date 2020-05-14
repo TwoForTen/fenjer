@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from '../axiosInstance';
 import { Helmet } from 'react-helmet-async';
 import SwipeableViews from 'react-swipeable-views';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
-import { userLogout } from '../actions/auth';
-
-import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -16,6 +12,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Orders from '../components/Orders';
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
 import UserDetails from '../components/UserDetails';
+
+import useDataFetch from '../hooks/useDataFetch';
 
 const useStyles = makeStyles((theme) => ({
   fullWidthBorder: {
@@ -35,8 +33,6 @@ const useStyles = makeStyles((theme) => ({
 
 const UserAccount = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const history = useHistory();
 
   const [value, setValue] = useState(0);
   const handleChange = (_, newValue) => {
@@ -47,18 +43,19 @@ const UserAccount = () => {
     setValue(index);
   };
 
-  const [user, setUser] = useState();
   const [userOrders, setUserOrders] = useState();
 
-  useEffect(() => {
-    axios.get('/auth/user').then((res) => setUser(res.data));
-  }, []);
+  const user = useDataFetch({
+    url: '/auth/user',
+    method: 'GET',
+  });
 
   return (
     <>
       <Helmet titleTemplate="%s | Fenjer.hr">
         <title>Korisnički Račun</title>
       </Helmet>
+
       <PageBreadcrumbs titles={['Korisnički račun']} showBorder={false} />
       <div className={classes.fullWidthBorder}>
         <Container className={classes.tabs} maxWidth="xs">
@@ -92,19 +89,12 @@ const UserAccount = () => {
             index={value}
             onChangeIndex={handleChangeIndex}
           >
-            <Container maxWidth="md">
-              {user && <UserDetails user={user} />}
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  axios.post('/auth/logout').then(() => {
-                    dispatch(userLogout(history));
-                  });
-                }}
-              >
-                Odjava
-              </Button>
+            <Container maxWidth="md" style={{ textAlign: !user && 'center' }}>
+              {user ? (
+                <UserDetails user={user} />
+              ) : (
+                <CircularProgress className="mt-4" />
+              )}
             </Container>
             <Container>
               <Orders userOrders={userOrders} />

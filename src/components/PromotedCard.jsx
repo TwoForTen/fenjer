@@ -63,6 +63,7 @@ const PromotedCard = ({ promotedProduct }) => {
               style={{ display: imageLoaded ? 'block' : 'none' }}
               onLoad={() => setImageLoaded(true)}
               className={classes.cardImage}
+              alt="Promoted Product"
               src="http://localhost:8000/images/flower.png"
             />
             {!imageLoaded && <CircularProgress />}

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import axios from '../axiosInstance';
-
-import PromotedCard from './PromotedCard';
+import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+
+import PromotedCard from './PromotedCard';
+
+import useDataFetch from '../hooks/useDataFetch';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -17,16 +18,13 @@ const useStyles = makeStyles((theme) => ({
 const Showroom = () => {
   const classes = useStyles();
 
-  const [promotedProducts, setPromotedProducts] = useState([]);
-  useEffect(() => {
-    axios.get('/product-types').then((res) => {
-      setPromotedProducts(
-        res.data.filter((promotedProduct) => promotedProduct.promoted)
-      );
-    });
-  }, []);
+  const promotedProducts =
+    useDataFetch({
+      url: '/product-types',
+      method: 'GET',
+    })?.filter((promotedProduct) => promotedProduct.promoted) || [];
 
-  if (promotedProducts?.length > 0) {
+  if (promotedProducts.length > 0) {
     return (
       <>
         <Typography

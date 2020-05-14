@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import axios from '../../axiosInstance';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import Container from '@material-ui/core/Container';
@@ -10,6 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import PostCard from '../../components/PostCard';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 
+import useDataFetch from '../../hooks/useDataFetch';
+
 const useStyles = makeStyles((theme) => ({
   centeredContainer: {
     textAlign: 'center',
@@ -19,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
 
 const PostsList = () => {
   const classes = useStyles();
-  const [posts, setPosts] = useState();
 
-  useEffect(() => {
-    axios.get('/posts').then((res) => setPosts(res.data));
-  }, []);
+  const posts = useDataFetch({
+    url: '/posts',
+    method: 'get',
+  });
 
   if (posts?.length < 1) {
     return (
@@ -39,6 +40,7 @@ const PostsList = () => {
       <Helmet titleTemplate="%s | Fenjer.hr">
         <title>Novosti</title>
       </Helmet>
+
       <PageBreadcrumbs titles={['Novosti']} />
       <Container style={{ textAlign: !posts && 'center' }}>
         {posts ? (
