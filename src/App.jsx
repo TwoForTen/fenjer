@@ -6,13 +6,14 @@ import { userLogout } from './actions/auth';
 import ProtectedRoute from './components/ProtectedRoute';
 import SnackbarComponent from './components/SnackbarComponent';
 
-import Home from './pages/Home';
 import Contact from './pages/Contact';
+import Home from './pages/Home';
 import Layout from './components/Layout';
+import Login from './pages/Login';
 import LegalDocs from './pages/LegalDocs';
+import NotFound from './pages/NotFound';
 import PostArticle from './pages/novosti/PostArticle';
 import PostsList from './pages/novosti/PostsList';
-import Login from './pages/Login';
 import Products from './pages/Products';
 import Registration from './pages/Registration';
 import Terms from './pages/Terms';
@@ -52,7 +53,7 @@ function App() {
               exact
               component={UserAccount}
             />
-            <Route path="*" render={() => <div>404</div>} />
+            <Route path="*" component={NotFound} />
           </Switch>
         </ScrollToTop>
       </Layout>

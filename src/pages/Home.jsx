@@ -14,7 +14,8 @@ import imageFour from '../assets/home_carousel4.png';
 const useStyles = makeStyles(() => ({
   container: {
     width: '100%',
-    height: '60vh',
+    height: '0',
+    paddingTop: '35%',
     marginBottom: '50px',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
