@@ -1,7 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import axios from '../axiosInstance';
 import { Formik, FastField } from 'formik';
+import { Helmet } from 'react-helmet-async';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 
@@ -60,6 +61,9 @@ const Registration = () => {
 
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>Registracija</title>
+      </Helmet>
       <PageBreadcrumbs titles={['Registracija']} />
       <Container maxWidth="md">
         <div className={classes.root}>

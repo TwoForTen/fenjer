@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../axiosInstance';
+import { Helmet } from 'react-helmet-async';
 
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -22,8 +23,6 @@ const Proizvodi = () => {
 
   useEffect(() => {
     axios.get('/categories').then((res) => setCategories(res.data));
-
-    window.scrollTo({ top: '0' });
   }, []);
 
   if (categories?.length < 1) {
@@ -38,6 +37,9 @@ const Proizvodi = () => {
 
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>Proizvodi</title>
+      </Helmet>
       <PageBreadcrumbs titles={['Proizvodi']} />
       <Container style={{ textAlign: !categories && 'center' }}>
         {categories ? (

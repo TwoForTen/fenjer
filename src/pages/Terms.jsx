@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -19,12 +20,11 @@ const useStyles = makeStyles((theme) => ({
 const Terms = () => {
   const classes = useStyles();
 
-  useEffect(() => {
-    window.scrollTo({ top: '0' });
-  }, []);
-
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>Uvjeti Prodaje</title>
+      </Helmet>
       <PageBreadcrumbs titles={['Uvjeti prodaje']} />
       <Container>
         <div className={classes.paragraphContainer}>

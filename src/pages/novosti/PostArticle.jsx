@@ -16,7 +16,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
 
 import devImageSource from '../../helpers/devImageSource';
-import pageTitle from '../../helpers/pageTitle';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -58,8 +57,8 @@ const PostArticle = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{pageTitle(post.title)}</title>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>{post.title}</title>
       </Helmet>
 
       <PageBreadcrumbs titles={['Novosti', post.title]} />

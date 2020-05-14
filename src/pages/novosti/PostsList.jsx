@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../axiosInstance';
+import { Helmet } from 'react-helmet-async';
 
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -35,6 +36,9 @@ const PostsList = () => {
   }
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>Novosti</title>
+      </Helmet>
       <PageBreadcrumbs titles={['Novosti']} />
       <Container style={{ textAlign: !posts && 'center' }}>
         {posts ? (

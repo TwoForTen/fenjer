@@ -11,11 +11,9 @@ const withAuthErrorHandler = (BaseComponent) => (props) => {
 
   const resInterceptor = axios.interceptors.response.use(
     (response) => {
-      console.log('response');
       return response;
     },
     (error) => {
-      console.log(error);
       if (error?.response?.status === 401) {
         dispatch(userLogout(history));
       }

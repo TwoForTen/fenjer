@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import PromotedProducts from '../components/PromotedProducts';
 
@@ -28,6 +29,9 @@ const Home = () => {
   //TODO:: CAROUSEL COMPONENT
   return (
     <>
+      <Helmet>
+        <title>Fenjer</title>
+      </Helmet>
       <div
         className={classes.container}
         style={{ backgroundImage: `url(${imageFour})` }}

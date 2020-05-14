@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../axiosInstance';
+import { Helmet } from 'react-helmet-async';
 import SwipeableViews from 'react-swipeable-views';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -55,6 +56,9 @@ const UserAccount = () => {
 
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>Korisnički Račun</title>
+      </Helmet>
       <PageBreadcrumbs titles={['Korisnički račun']} showBorder={false} />
       <div className={classes.fullWidthBorder}>
         <Container className={classes.tabs} maxWidth="xs">

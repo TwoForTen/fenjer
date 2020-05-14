@@ -24,7 +24,6 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         token: '',
         name: '',
-        userDetails: {},
       };
     default:
       return state;
