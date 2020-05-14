@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import withAuthErrorHandler from '../hoc/withAuthErrorHandler';
+
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const token = useSelector((state) => state.user.token);
 
@@ -19,4 +21,4 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default ProtectedRoute;
+export default withAuthErrorHandler(ProtectedRoute);

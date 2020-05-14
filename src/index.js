@@ -9,7 +9,6 @@ import { createStore } from 'redux';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import reducers from './reducers/index';
-
 const theme = createMuiTheme({
   palette: {
     type: 'dark',

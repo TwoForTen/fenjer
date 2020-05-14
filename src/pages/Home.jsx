@@ -25,7 +25,7 @@ const Home = () => {
   const classes = useStyles();
   const CAROUSEL_IMAGES = [imageOne, imageTwo, imageThree, imageFour];
 
-  //TODO:: CAREOUSEL COMPONENT
+  //TODO:: CAROUSEL COMPONENT
   return (
     <>
       <div

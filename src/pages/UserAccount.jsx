@@ -73,7 +73,10 @@ const UserAccount = () => {
                 if (!userOrders) {
                   axios
                     .get('/auth/orders')
-                    .then((res) => setUserOrders(res.data));
+                    .then((res) => setUserOrders(res.data))
+                    .catch((err) => {
+                      throw err;
+                    });
                 }
               }}
             />
@@ -92,8 +95,7 @@ const UserAccount = () => {
                 color="primary"
                 onClick={() => {
                   axios.post('/auth/logout').then(() => {
-                    dispatch(userLogout());
-                    history.replace('/');
+                    dispatch(userLogout(history));
                   });
                 }}
               >

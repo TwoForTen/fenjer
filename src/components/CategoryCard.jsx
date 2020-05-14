@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 
 const CategoryCard = ({ category }) => {
   const location = useLocation();
-  console.log(location);
   const classes = useStyles();
 
   const { name, img } = category;

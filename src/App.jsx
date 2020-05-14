@@ -18,6 +18,8 @@ import Registration from './pages/Registration';
 import Terms from './pages/Terms';
 import UserAccount from './pages/UserAccount';
 
+import ScrollToTop from './hoc/ScrollToTop';
+
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -34,23 +36,25 @@ function App() {
     <>
       <SnackbarComponent />
       <Layout>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/kontakt" exact component={Contact} />
-          <Route path="/maticni-podaci" exact component={LegalDocs} />
-          <Route path="/novosti/:novostId" exact component={PostArticle} />
-          <Route path="/novosti" exact component={PostsList} />
-          <Route path="/prijava" exact component={Login} />
-          <Route path="/proizvodi" exact component={Products} />
-          <Route path="/registracija" exact component={Registration} />
-          <Route path="/uvjeti-prodaje" exact component={Terms} />
-          <ProtectedRoute
-            path="/korisnicki-racun"
-            exact
-            component={UserAccount}
-          />
-          <Route path="*" render={() => <div>404</div>} />
-        </Switch>
+        <ScrollToTop>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/kontakt" exact component={Contact} />
+            <Route path="/maticni-podaci" exact component={LegalDocs} />
+            <Route path="/novosti/:novostId" exact component={PostArticle} />
+            <Route path="/novosti" exact component={PostsList} />
+            <Route path="/prijava" exact component={Login} />
+            <Route path="/proizvodi" exact component={Products} />
+            <Route path="/registracija" exact component={Registration} />
+            <Route path="/uvjeti-prodaje" exact component={Terms} />
+            <ProtectedRoute
+              path="/korisnicki-racun"
+              exact
+              component={UserAccount}
+            />
+            <Route path="*" render={() => <div>404</div>} />
+          </Switch>
+        </ScrollToTop>
       </Layout>
     </>
   );

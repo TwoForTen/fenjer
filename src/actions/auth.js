@@ -12,7 +12,8 @@ export const userLogin = (payload) => {
     payload,
   };
 };
-export const userLogout = () => {
+export const userLogout = (history) => {
+  history && history.replace('/');
   localStorage.clear();
   return {
     type: USER_LOGOUT,
