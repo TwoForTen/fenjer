@@ -6,10 +6,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import CategoryCard from '../components/CategoryCard';
-import PageBreadcrumbs from '../components/PageBreadcrumbs';
+import CategoryCard from '../../components/CategoryCard';
+import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 
-import useDataFetch from '../hooks/useDataFetch';
+import useDataFetch from '../../hooks/useDataFetch';
 
 const useStyles = makeStyles((theme) => ({
   centeredContainer: {

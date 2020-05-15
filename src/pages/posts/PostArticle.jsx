@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/hr';
 
@@ -54,6 +54,10 @@ const PostArticle = () => {
     .locale('hr')
     .format('DD. MMMM YYYY.');
 
+  if (!post) {
+    return <Redirect to="/404" />;
+  }
+
   return (
     <>
       <Helmet titleTemplate="%s | Fenjer.hr">
@@ -81,10 +85,11 @@ const PostArticle = () => {
               <Grid container spacing={4}>
                 <Grid item md={6} xs={12}>
                   <div className={classes.imageContainer}>
-                    {post.img ? (
+                    {/* add .img back */}
+                    {post ? (
                       <img
                         className={classes.image}
-                        src={devImageSource(post.img)}
+                        src={'http://localhost:8000/images/LoginBackground.png'}
                         alt="Article img"
                       />
                     ) : (

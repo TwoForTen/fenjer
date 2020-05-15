@@ -12,9 +12,10 @@ import Layout from './components/Layout';
 import Login from './pages/Login';
 import LegalDocs from './pages/LegalDocs';
 import NotFound from './pages/NotFound';
-import PostArticle from './pages/novosti/PostArticle';
-import PostsList from './pages/novosti/PostsList';
-import Products from './pages/Products';
+import PostArticle from './pages/posts/PostArticle';
+import PostsList from './pages/posts/PostsList';
+import Categories from './pages/shop/Categories';
+import Products from './pages/shop/Products';
 import Registration from './pages/Registration';
 import Terms from './pages/Terms';
 import UserAccount from './pages/UserAccount';
@@ -45,7 +46,8 @@ function App() {
             <Route path="/novosti/:novostId" exact component={PostArticle} />
             <Route path="/novosti" exact component={PostsList} />
             <Route path="/prijava" exact component={Login} />
-            <Route path="/proizvodi" exact component={Products} />
+            <Route path="/proizvodi" exact component={Categories} />
+            <Route path="/proizvodi/:categorySlug" exact component={Products} />
             <Route path="/registracija" exact component={Registration} />
             <Route path="/uvjeti-prodaje" exact component={Terms} />
             <ProtectedRoute
