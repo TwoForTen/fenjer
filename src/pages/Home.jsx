@@ -6,9 +6,9 @@ import PromotedProducts from '../components/PromotedProducts';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
-import imageOne from '../assets/home_carousel1.jpg';
-import imageTwo from '../assets/home_carousel2.jpg';
-import imageThree from '../assets/home_carousel3.jpg';
+// import imageOne from '../assets/home_carousel1.jpg';
+// import imageTwo from '../assets/home_carousel2.jpg';
+// import imageThree from '../assets/home_carousel3.jpg';
 import imageFour from '../assets/home_carousel4.png';
 
 const useStyles = makeStyles(() => ({

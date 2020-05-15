@@ -33,6 +33,14 @@ const UserDetails = ({ user }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const validationSchema = yup.object().shape({
+    password: yup.string().required().min(6),
+    password_repeat: yup
+      .string()
+      .oneOf([yup.ref('password'), null])
+      .required(),
+  });
+
   const {
     email,
     company,
@@ -42,6 +50,7 @@ const UserDetails = ({ user }) => {
     postal_code,
     mobile_phone,
   } = user;
+
   return (
     <>
       <div className={classes.root}>
@@ -57,28 +66,40 @@ const UserDetails = ({ user }) => {
           disabled
           className={classes.textInput}
         />
-        <Formik>
-          {() => {
+        <Formik
+          validationSchema={validationSchema}
+          initialValues={{ password: '', password_repeat: '' }}
+        >
+          {({ errors, touched }) => {
             return (
               <Form>
                 <Grid container spacing={3}>
                   <Grid item md={6} xs={12}>
                     <Field
+                      component={TextField}
+                      name="password"
                       fullWidth
-                      label="Nova Zaporka"
+                      label="Nova zaporka"
                       type="password"
                       variant="outlined"
-                      component={TextField}
+                      helperText={
+                        errors.password && touched.password && errors.password
+                      }
                     />
                   </Grid>
                   <Grid item md={6} xs={12}>
                     <Field
-                      className={classes.textInput}
+                      component={TextField}
+                      name="password_repeat"
                       fullWidth
                       label="Ponovljena zaporka"
                       type="password"
                       variant="outlined"
-                      component={TextField}
+                      helperText={
+                        errors.password_repeat &&
+                        touched.password_repeat &&
+                        errors.password_repeat
+                      }
                     />
                   </Grid>
                 </Grid>

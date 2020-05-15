@@ -24,7 +24,8 @@ import { showSnackbar } from '../actions/snackbar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(6),
+    padding: '0',
+    marginTop: theme.spacing(6),
     marginBottom: theme.spacing(6),
   },
   divider: {
@@ -48,7 +49,6 @@ const Registration = () => {
     postal_code: yup.string().required(),
     country: yup.string().required(),
     mobile_phone: yup.string().required(),
-    telephone: yup.string().required(),
     company: yup.string().required(),
     oib: yup.string().required(),
     iban: yup.string().required(),
@@ -83,7 +83,6 @@ const Registration = () => {
               postal_code: '',
               country: '',
               mobile_phone: '',
-              telephone: '',
               company: '',
               oib: '',
               iban: '',
@@ -100,14 +99,13 @@ const Registration = () => {
                 postal_code,
                 country,
                 mobile_phone,
-                telephone,
                 company,
                 oib,
                 iban,
                 password,
               } = values;
               axios
-                .post('/register', {
+                .post('/auth/register', {
                   name,
                   surname,
                   email,
@@ -116,7 +114,6 @@ const Registration = () => {
                   postal_code,
                   country,
                   mobile_phone,
-                  telephone,
                   company,
                   oib,
                   iban,
@@ -278,7 +275,7 @@ const Registration = () => {
                         }
                       />
                     </Grid>
-                    <Grid item sm={6} xs={12}>
+                    <Grid item xs={12}>
                       <FastField
                         component={TextField}
                         name="mobile_phone"
@@ -289,20 +286,6 @@ const Registration = () => {
                           errors.mobile_phone &&
                           touched.mobile_phone &&
                           errors.mobile_phone
-                        }
-                      />
-                    </Grid>
-                    <Grid item sm={6} xs={12}>
-                      <FastField
-                        component={TextField}
-                        name="telephone"
-                        fullWidth
-                        label="Telefon"
-                        variant="outlined"
-                        helperText={
-                          errors.telephone &&
-                          touched.telephone &&
-                          errors.telephone
                         }
                       />
                     </Grid>
