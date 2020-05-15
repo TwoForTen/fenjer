@@ -16,7 +16,8 @@ import { userLogout } from '../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(6),
+    padding: '0',
+    marginTop: theme.spacing(6),
     marginBottom: theme.spacing(6),
   },
   textInput: {

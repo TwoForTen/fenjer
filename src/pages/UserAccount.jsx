@@ -22,10 +22,6 @@ const useStyles = makeStyles((theme) => ({
   tabs: {
     marginTop: `-${theme.spacing(6)}px`,
   },
-  root: {
-    padding: theme.spacing(6),
-    marginBottom: theme.spacing(6),
-  },
   divider: {
     margin: `${theme.spacing(4)}px ${theme.spacing(10)}px`,
   },

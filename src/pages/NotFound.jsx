@@ -50,7 +50,7 @@ const NotFound = () => {
             Početna
           </Button>
         </Link>
-        <Link to="/" className={classes.buttonLink}>
+        <Link to="/kontakt" className={classes.buttonLink}>
           <Button fullWidth variant="contained" color="secondary">
             Kontakt
           </Button>

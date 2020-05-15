@@ -15,8 +15,7 @@ const useStyles = makeStyles(() => ({
   container: {
     width: '100%',
     height: '0',
-    paddingTop: '35%',
-    marginBottom: '50px',
+    paddingTop: '60%',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
     backgroundPosition: 'center',
@@ -33,11 +32,12 @@ const Home = () => {
       <Helmet>
         <title>Fenjer</title>
       </Helmet>
-      <div
-        className={classes.container}
-        style={{ backgroundImage: `url(${imageFour})` }}
-      />
       <Container>
+        <div
+          className={classes.container}
+          style={{ backgroundImage: `url(${imageFour})` }}
+        />
+
         <PromotedProducts />
       </Container>
     </>

@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 
-import { useCheckAuth } from '../hooks/useAuth';
-import logo from '../assets/fenjer_logo.svg';
-
 import AppBar from '@material-ui/core/AppBar';
 import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
@@ -16,11 +13,16 @@ import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import ShoppingCart from '@material-ui/icons/ShoppingCart';
+
 import Menu from '@material-ui/icons/Menu';
 import Person from '@material-ui/icons/Person';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import { useCheckAuth } from '../hooks/useAuth';
+
+import logo from '../assets/fenjer_logo.svg';
 
 const useStyles = makeStyles((theme) => ({
   appBarRoot: {
