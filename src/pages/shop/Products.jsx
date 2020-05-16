@@ -4,6 +4,7 @@ import { useParams, Redirect } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 
+import Filters from '../../components/Filters';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 import ProductCard from '../../components/ProductCard';
 
@@ -28,6 +29,7 @@ const Products = () => {
     <>
       <PageBreadcrumbs titles={['proizvodi', categoryData.name]} />
       <Container style={{ textAlign: !products && 'center' }}>
+        <Filters />
         {products ? (
           products.map((product) =>
             product.types.map((type) => {

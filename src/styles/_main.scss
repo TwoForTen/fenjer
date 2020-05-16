@@ -35,6 +35,13 @@ ul {
 }
 
 //Hacks
+.MuiOutlinedInput-input {
+  padding-right: 14px !important;
+}
+.MuiOutlinedInput-adornedEnd {
+  padding-right: 0px !important;
+}
+
 .MuiCardContent-root:last-child {
   padding: 0 !important;
 }
