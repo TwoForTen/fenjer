@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import notFoundLogo from '../assets/404_logo.png';
+import valovi from '../assets/valovi.svg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,30 +34,41 @@ const useStyles = makeStyles((theme) => ({
     margin: `0 ${theme.spacing(2)}px`,
     minWidth: '160px',
   },
+  waves: {
+    width: '100vw',
+    paddingTop: '30%',
+    backgroundImage: `url(${valovi})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'top',
+  },
 }));
 
 const NotFound = () => {
   const classes = useStyles();
 
   return (
-    <Container className={classes.root} maxWidth="md">
-      <div className={classes.container}></div>
-      <Typography variant="h6" color="textPrimary">
-        Uuups, nažalost ne možemo naći stranicu koju tražite!
-      </Typography>
-      <div className={classes.buttonsContainer}>
-        <Link to="/" className={classes.buttonLink}>
-          <Button fullWidth variant="contained" color="primary">
-            Početna
-          </Button>
-        </Link>
-        <Link to="/kontakt" className={classes.buttonLink}>
-          <Button fullWidth variant="contained" color="secondary">
-            Kontakt
-          </Button>
-        </Link>
-      </div>
-    </Container>
+    <>
+      <Container className={classes.root} maxWidth="md">
+        <div className={classes.container}></div>
+        <Typography variant="h6" color="textPrimary">
+          Uuups, nažalost ne možemo naći stranicu koju tražite!
+        </Typography>
+        <div className={classes.buttonsContainer}>
+          <Link to="/" className={classes.buttonLink}>
+            <Button fullWidth variant="contained" color="primary">
+              Početna
+            </Button>
+          </Link>
+          <Link to="/kontakt" className={classes.buttonLink}>
+            <Button fullWidth variant="contained" color="secondary">
+              Kontakt
+            </Button>
+          </Link>
+        </div>
+      </Container>
+      <div className={classes.waves} />
+    </>
   );
 };
 

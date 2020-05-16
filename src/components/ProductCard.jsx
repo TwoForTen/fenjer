@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     objectFit: 'contain',
     overflow: 'hidden',
   },
+  smallText: {
+    fontSize: '10px',
+  },
   categoryImage: {
     height: 'auto',
     width: '100%',
@@ -45,14 +48,44 @@ const ProductCard = ({ type, productName }) => {
             alt="category_image"
           />
         </div>
-        <Typography variant="subtitle1">{name}</Typography>
-        <Typography variant="subtitle1">{code}</Typography>
-        <Typography variant="subtitle1">
-          {new Intl.NumberFormat('hr-HR', {
-            style: 'currency',
-            currency: 'HRK',
-          }).format(price)}
-        </Typography>
+        <div>
+          <Typography
+            className={classes.smallText}
+            color="textSecondary"
+            variant="caption"
+            component="small"
+          >
+            NAZIV PROIZVODA
+          </Typography>
+          <Typography variant="subtitle1">{name}</Typography>
+        </div>
+        <div>
+          <Typography
+            className={classes.smallText}
+            color="textSecondary"
+            variant="caption"
+            component="small"
+          >
+            ŠIFRA
+          </Typography>
+          <Typography variant="subtitle1">{code}</Typography>
+        </div>
+        <div>
+          <Typography
+            className={classes.smallText}
+            color="textSecondary"
+            variant="caption"
+            component="small"
+          >
+            CIJENA
+          </Typography>
+          <Typography variant="subtitle1">
+            {new Intl.NumberFormat('hr-HR', {
+              style: 'currency',
+              currency: 'HRK',
+            }).format(price)}
+          </Typography>
+        </div>
         {Boolean(in_stock) ? (
           <CheckCircle style={{ color: '#3CBC51' }} />
         ) : (

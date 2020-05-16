@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
 const Orders = ({ userOrders }) => {
   const classes = useStyles();
 
+  console.log(userOrders);
+
   if (!userOrders) {
     return (
       <div className={classes.centeredContainer}>
@@ -67,9 +69,14 @@ const Orders = ({ userOrders }) => {
               <TableCell>
                 {('0000' + order.id).substring(order.id.length)}
               </TableCell>
-              <TableCell>{order.price}</TableCell>
-              <TableCell>Datum</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell>
+                {new Intl.NumberFormat('hr-HR', {
+                  style: 'currency',
+                  currency: 'HRK',
+                }).format(order.gross)}
+              </TableCell>
+              <TableCell>{order.created_at.replace(' ', ', ')}</TableCell>
+              <TableCell>{order.status}</TableCell>
               <TableCell>
                 <Button variant="contained" color="primary">
                   Pregledaj
