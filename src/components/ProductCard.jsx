@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   imageContainer: {
-    height: '120px',
+    height: '140px',
     width: '200px',
     objectFit: 'contain',
     overflow: 'hidden',
@@ -44,8 +44,8 @@ const ProductCard = ({ type, productName }) => {
         <div className={classes.imageContainer}>
           <img
             className={classes.categoryImage}
-            src="http://localhost:8000/images/flower.png"
-            alt="category_image"
+            src="http://localhost:8000/images/product_flower.png"
+            alt="product_image"
           />
         </div>
         <div>

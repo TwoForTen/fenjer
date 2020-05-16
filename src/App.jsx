@@ -15,6 +15,7 @@ import NotFound from './pages/NotFound';
 import PostArticle from './pages/posts/PostArticle';
 import PostsList from './pages/posts/PostsList';
 import Categories from './pages/shop/Categories';
+import Product from './pages/shop/Product';
 import Products from './pages/shop/Products';
 import Registration from './pages/Registration';
 import Terms from './pages/Terms';
@@ -48,6 +49,11 @@ function App() {
             <Route path="/prijava" exact component={Login} />
             <Route path="/proizvodi" exact component={Categories} />
             <Route path="/proizvodi/:categorySlug" exact component={Products} />
+            <Route
+              path="/proizvodi/:categorySlug/:productSlug"
+              exact
+              component={Product}
+            />
             <Route path="/registracija" exact component={Registration} />
             <Route path="/uvjeti-prodaje" exact component={Terms} />
             <ProtectedRoute

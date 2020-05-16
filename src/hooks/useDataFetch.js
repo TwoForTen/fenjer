@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from '../axiosInstance';
 import axiosCancel from 'axios';
 
 const useDataFetch = ({ url, method, data, headers }) => {
+  const history = useHistory();
   const [fetchedData, setFetchedData] = useState();
   const source = axiosCancel.CancelToken.source();
 
@@ -15,7 +17,11 @@ const useDataFetch = ({ url, method, data, headers }) => {
       cancelToken: source.token,
     })
       .then((res) => setFetchedData(res.data))
-      .catch(() => {});
+      .catch((err) => {
+        if (err?.response?.status === 404) {
+          history.push('/404');
+        }
+      });
 
     return () => source.cancel();
   }, [url, method, data, headers]);
