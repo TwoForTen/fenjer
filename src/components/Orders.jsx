@@ -29,8 +29,6 @@ const useStyles = makeStyles((theme) => ({
 const Orders = ({ userOrders }) => {
   const classes = useStyles();
 
-  console.log(userOrders);
-
   if (!userOrders) {
     return (
       <div className={classes.centeredContainer}>

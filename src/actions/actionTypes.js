@@ -5,3 +5,5 @@ export const USER_LOGOUT = 'USER_LOGOUT';
 export const SHOW_SNACKBAR = 'SHOW_SNACKBAR';
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR';
 export const EXIT_SNACKBAR = 'EXIT_SNACKBAR';
+
+export const SET_PRODUCT = 'SET_PRODUCT';

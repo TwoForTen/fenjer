@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams, Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
@@ -10,8 +11,11 @@ import ProductCard from '../../components/ProductCard';
 
 import useDataFetch from '../../hooks/useDataFetch';
 
+import { setProduct } from '../../actions/products';
+
 const Products = () => {
   const params = useParams();
+  const dispatch = useDispatch();
 
   const categoryData =
     useDataFetch({
@@ -38,6 +42,7 @@ const Products = () => {
                   type={type}
                   key={type.id}
                   productName={product.name}
+                  onClick={() => dispatch(setProduct(type))}
                 />
               );
             })

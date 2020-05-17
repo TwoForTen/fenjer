@@ -32,14 +32,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductCard = ({ type, productName }) => {
+const ProductCard = ({ type, productName, onClick }) => {
   const location = useLocation();
   const classes = useStyles();
 
   const { name, img, code, price, in_stock } = type;
 
   return (
-    <Link to={`${location.pathname}/${sanitiseName(productName)}`}>
+    <Link
+      onClick={onClick}
+      to={`${location.pathname}/${sanitiseName(productName)}`}
+    >
       <Card className={classes.card}>
         <div className={classes.imageContainer}>
           <img
