@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +10,8 @@ import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 import ProductView from '../../components/ProductView';
 
 import useDataFetch from '../../hooks/useDataFetch';
+
+import { setProduct } from '../../actions/products';
 
 const useStyles = makeStyles((theme) => ({
   otherProductTypesContainer: {
@@ -21,9 +23,10 @@ const useStyles = makeStyles((theme) => ({
 const Product = () => {
   const classes = useStyles();
   const params = useParams();
+  const dispatch = useDispatch();
   const clickedProduct = useSelector((state) => state.product);
 
-  const [highlightedProduct, setHighlightedProduct] = useState({});
+  // const [highlightedProduct, setHighlightedProduct] = useState({});
   const categoryData =
     useDataFetch({
       url: `/categories/${params.categorySlug}`,
@@ -39,11 +42,14 @@ const Product = () => {
   // console.log(products);
 
   useEffect(() => {
-    setHighlightedProduct(
-      Object.entries(clickedProduct)?.length > 1
-        ? clickedProduct
-        : products?.types[0]
-    );
+    products &&
+      dispatch(
+        setProduct(
+          Object.entries(clickedProduct)?.length > 1
+            ? clickedProduct
+            : products?.types[0]
+        )
+      );
   }, [products]);
 
   return (
@@ -52,17 +58,15 @@ const Product = () => {
         titles={['proizvodi', categoryData.name, products?.name]}
       />
       <Container>
-        <ProductView product={highlightedProduct} />
+        <ProductView product={clickedProduct} />
         <div className={classes.otherProductTypesContainer}>
           {products?.types.map((type, index) => {
             return (
               <OtherProductTypes
                 type={type}
-                selectedProduct={
-                  highlightedProduct?.id || products?.types[0]?.id
-                }
+                selectedProduct={clickedProduct?.id || products?.types[0]?.id}
                 onClick={() => {
-                  setHighlightedProduct(products?.types[index]);
+                  dispatch(setProduct(products?.types[index]));
                 }}
                 key={type.id}
               />
