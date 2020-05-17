@@ -33,6 +33,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const isInStock = (in_stock) => {
+  switch (Boolean(in_stock)) {
+    case true:
+      return 'Proizvod raspoloživ';
+    case false:
+      return 'Proizvod nije raspoloživ';
+    default:
+      break;
+  }
+};
+
 const Product = ({ product = {} }) => {
   const classes = useStyles();
 
@@ -54,18 +65,11 @@ const Product = ({ product = {} }) => {
             <Typography variant="caption">Stanje</Typography>
             <div style={{ display: 'flex', marginTop: '5px' }}>
               {Boolean(in_stock) ? (
-                <>
-                  <CheckCircle style={{ color: '#3CBC51' }} className="mr-1" />
-                  <Typography variant="body1">Proizvod raspoloživ</Typography>
-                </>
+                <CheckCircle style={{ color: '#3CBC51' }} className="mr-1" />
               ) : (
-                <>
-                  <Cancel style={{ color: 'red' }} className="mr-1" />
-                  <Typography variant="body1">
-                    Proizvod nije raspoloživ
-                  </Typography>
-                </>
+                <Cancel style={{ color: 'red' }} className="mr-1" />
               )}
+              <Typography variant="body1">{isInStock(in_stock)}</Typography>
             </div>
           </div>
 

@@ -26,7 +26,6 @@ const Product = () => {
   const dispatch = useDispatch();
   const clickedProduct = useSelector((state) => state.product);
 
-  // const [highlightedProduct, setHighlightedProduct] = useState({});
   const categoryData =
     useDataFetch({
       url: `/categories/${params.categorySlug}`,
@@ -55,7 +54,7 @@ const Product = () => {
   return (
     <>
       <PageBreadcrumbs
-        titles={['proizvodi', categoryData.name, products?.name]}
+        titles={['proizvodi', categoryData?.name, products?.name]}
       />
       <Container>
         <ProductView product={clickedProduct} />

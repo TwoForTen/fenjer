@@ -1,3 +1,9 @@
+// @mixin phone {
+//   @media (max-width: 1000px) {
+//     @content;
+//   }
+// }
+
 $APPBAR_HEIGHT: 80px;
 $DARK_THEME_BG_COLOR: #292a2c;
 
@@ -35,6 +41,13 @@ ul {
 }
 
 //Hacks
+// .MuiContainer-root {
+//   max-width: 1260px;
+//   @include phone {
+//     max-width: 900px;
+//   }
+// }
+
 .MuiOutlinedInput-input {
   padding-right: 14px !important;
 }
