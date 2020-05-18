@@ -27,10 +27,10 @@ import logo from '../assets/fenjer_logo.svg';
 const useStyles = makeStyles((theme) => ({
   appBarRoot: {
     zIndex: theme.zIndex.drawer + 1,
-    maxHeight: '80px',
+    maxHeight: '66px',
   },
   logoContainer: {
-    width: '120px',
+    width: '100px',
     height: 'auto',
     padding: '5px',
   },
@@ -53,6 +53,7 @@ const Appbar = () => {
   const location = useLocation();
   const theme = useTheme();
   const user = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart);
   const { token, name } = user;
   const checkAuth = useCheckAuth();
   const desktopAppbar = useMediaQuery((theme) => theme.breakpoints.up('md'));
@@ -194,9 +195,7 @@ const Appbar = () => {
               <IconButton className="ml-3 mr-3">
                 <Badge
                   className={classes.badge}
-                  // TODO When implementing global state set badgeContent to integer
-                  // Sad je string jer ako je int 0 badge se nece pojavit
-                  badgeContent={'0'}
+                  badgeContent={cart?.length}
                   color="primary"
                 >
                   <ShoppingCart />
