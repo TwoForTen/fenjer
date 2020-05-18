@@ -39,7 +39,7 @@ const PageBreadcrumbs = ({ titles, showBorder }) => {
             animation="wave"
             variant="rect"
             width={300}
-            height={40}
+            height={56}
             className="mb-3"
           />
         )}

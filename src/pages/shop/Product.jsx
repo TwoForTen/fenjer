@@ -26,22 +26,14 @@ const Product = () => {
   const dispatch = useDispatch();
   const clickedProduct = useSelector((state) => state.product);
 
-  const categoryData =
+  const products =
     useDataFetch({
-      url: `/categories/${params.categorySlug}`,
+      url: `/products/${params.productSlug}`,
       method: 'GET',
-    }) || {};
-
-  //   console.log(categoryData);
-
-  const products = categoryData?.products?.find(
-    (product) => product.name.toLowerCase() === params.productSlug
-  );
-
-  // console.log(products);
+    }) || [];
 
   useEffect(() => {
-    products &&
+    Object.entries(products)?.length > 1 &&
       dispatch(
         setProduct(
           Object.entries(clickedProduct)?.length > 1
@@ -54,12 +46,12 @@ const Product = () => {
   return (
     <>
       <PageBreadcrumbs
-        titles={['proizvodi', categoryData?.name, products?.name]}
+        titles={['proizvodi', products?.category?.name, products?.name]}
       />
       <Container>
         <ProductView product={clickedProduct} />
         <div className={classes.otherProductTypesContainer}>
-          {products?.types.map((type, index) => {
+          {products?.types?.map((type, index) => {
             return (
               <OtherProductTypes
                 type={type}
