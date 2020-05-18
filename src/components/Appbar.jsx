@@ -192,15 +192,17 @@ const Appbar = () => {
                   })}
                 </>
               )}
-              <IconButton className="ml-3 mr-3">
-                <Badge
-                  className={classes.badge}
-                  badgeContent={cart?.length}
-                  color="primary"
-                >
-                  <ShoppingCart />
-                </Badge>
-              </IconButton>
+              <NavLink to="/kosarica">
+                <IconButton className="ml-3 mr-3">
+                  <Badge
+                    className={classes.badge}
+                    badgeContent={cart?.length}
+                    color="primary"
+                  >
+                    <ShoppingCart />
+                  </Badge>
+                </IconButton>
+              </NavLink>
               {!desktopAppbar ? (
                 <IconButton
                   onClick={() => setShowDrawer((prevState) => !prevState)}
