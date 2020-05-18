@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
@@ -58,7 +58,10 @@ const Product = () => {
     selectedProduct: { name, color, quantity, code, description, in_stock, id },
   } = product;
 
-  // console.log(product);
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
   return (
     <Paper className={classes.root}>
       <Grid container spacing={6}>
