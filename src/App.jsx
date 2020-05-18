@@ -62,7 +62,7 @@ function App() {
               exact
               component={UserAccount}
             />
-            <ProtectedRoute path="/kosarica" exact component={Cart} />
+            <Route path="/kosarica" exact component={Cart} />
             <Route path="*" component={NotFound} />
           </Switch>
         </ScrollToTop>

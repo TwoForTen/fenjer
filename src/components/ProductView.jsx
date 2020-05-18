@@ -117,6 +117,7 @@ const Product = () => {
             <Button
               style={{ minWidth: '100px' }}
               color="primary"
+              disabled={!in_stock}
               onClick={() => {
                 const duplicateProduct = cart.find(
                   (prod) => prod.selectedProduct.id === id
