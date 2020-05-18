@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
@@ -9,6 +10,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import Cancel from '@material-ui/icons/Cancel';
+
+import { decrementProduct, incrementProduct } from '../actions/products';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,10 +47,14 @@ const isInStock = (in_stock) => {
   }
 };
 
-const Product = ({ product = {} }) => {
+const Product = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const product = useSelector((state) => state.product);
 
-  const { name, color, quantity, code, description, in_stock } = product;
+  const {
+    selectedProduct: { name, color, quantity, code, description, in_stock },
+  } = product;
 
   // console.log(product);
   return (
@@ -85,11 +92,22 @@ const Product = ({ product = {} }) => {
               disableElevation
               variant="contained"
             >
-              <Button className={classes.buttonGroup}>-</Button>
-              <Button disabled className={classes.buttonGroup}>
-                1
+              <Button
+                disabled={product.quantity <= 1}
+                onClick={() => dispatch(decrementProduct())}
+                className={classes.buttonGroup}
+              >
+                -
               </Button>
-              <Button className={classes.buttonGroup}>+</Button>
+              <Button disabled className={classes.buttonGroup}>
+                {product.quantity}
+              </Button>
+              <Button
+                onClick={() => dispatch(incrementProduct())}
+                className={classes.buttonGroup}
+              >
+                +
+              </Button>
             </ButtonGroup>
             <Button
               style={{ minWidth: '100px' }}

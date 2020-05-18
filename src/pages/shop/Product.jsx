@@ -26,6 +26,8 @@ const Product = () => {
   const dispatch = useDispatch();
   const clickedProduct = useSelector((state) => state.product);
 
+  const { selectedProduct } = clickedProduct;
+
   const products =
     useDataFetch({
       url: `/products/${params.productSlug}`,
@@ -36,8 +38,8 @@ const Product = () => {
     Object.entries(products)?.length > 1 &&
       dispatch(
         setProduct(
-          Object.entries(clickedProduct)?.length > 1
-            ? clickedProduct
+          Object.entries(selectedProduct)?.length > 1
+            ? selectedProduct
             : products?.types[0]
         )
       );
@@ -49,13 +51,13 @@ const Product = () => {
         titles={['proizvodi', products?.category?.name, products?.name]}
       />
       <Container>
-        <ProductView product={clickedProduct} />
+        <ProductView />
         <div className={classes.otherProductTypesContainer}>
           {products?.types?.map((type, index) => {
             return (
               <OtherProductTypes
                 type={type}
-                selectedProduct={clickedProduct?.id || products?.types[0]?.id}
+                selectedProduct={selectedProduct?.id || products?.types[0]?.id}
                 onClick={() => {
                   dispatch(setProduct(products?.types[index]));
                 }}
