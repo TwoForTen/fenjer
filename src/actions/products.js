@@ -5,7 +5,6 @@ import {
 } from './actionTypes';
 
 export const setProduct = (payload) => {
-  console.log(payload);
   return {
     type: SET_PRODUCT,
     payload,

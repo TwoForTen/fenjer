@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import Cancel from '@material-ui/icons/Cancel';
 
+import { addToCart, addQuantity } from '../actions/cart';
 import { decrementProduct, incrementProduct } from '../actions/products';
 
 const useStyles = makeStyles((theme) => ({
@@ -51,9 +52,10 @@ const Product = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const product = useSelector((state) => state.product);
+  const cart = useSelector((state) => state.cart);
 
   const {
-    selectedProduct: { name, color, quantity, code, description, in_stock },
+    selectedProduct: { name, color, quantity, code, description, in_stock, id },
   } = product;
 
   // console.log(product);
@@ -112,6 +114,16 @@ const Product = () => {
             <Button
               style={{ minWidth: '100px' }}
               color="primary"
+              onClick={() => {
+                const duplicateProduct = cart.find(
+                  (prod) => prod.selectedProduct.id === id
+                );
+                if (!duplicateProduct) {
+                  dispatch(addToCart(product));
+                } else {
+                  dispatch(addQuantity(product));
+                }
+              }}
               variant="contained"
             >
               Kupi
