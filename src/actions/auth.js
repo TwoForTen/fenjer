@@ -14,7 +14,8 @@ export const userLogin = (payload) => {
 };
 export const userLogout = (history) => {
   history && history.replace('/');
-  localStorage.clear();
+  localStorage.removeItem('_jwt');
+  localStorage.removeItem('expiration_date');
   return {
     type: USER_LOGOUT,
   };

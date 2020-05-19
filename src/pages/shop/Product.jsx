@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -59,7 +59,7 @@ const Product = () => {
                 type={type}
                 selectedProduct={selectedProduct?.id || products?.types[0]?.id}
                 onClick={() => {
-                  dispatch(setProduct(products?.types[index]));
+                  dispatch(setProduct(type));
                 }}
                 key={type.id}
               />

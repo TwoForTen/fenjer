@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from '../axiosInstance';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import sanitiseName from '../helpers/sanitiseName';
@@ -10,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Close from '@material-ui/icons/Close';
+
+import { removeFromCart } from '../actions/cart';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -38,8 +42,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CartProductCard = ({ product, productName, onClick }) => {
+const CartProductCard = ({ product, productName, onClick, index }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const {
     selectedProduct: { name, img, code, price },
@@ -47,9 +52,17 @@ const CartProductCard = ({ product, productName, onClick }) => {
   } = product;
 
   return (
-    <Link onClick={onClick} to="/">
+    <Link
+      onClick={() => {
+        onClick();
+      }}
+      to="#"
+    >
       <Card className={classes.card}>
-        <IconButton onClick={(e) => e.preventDefault()} className="ml-2">
+        <IconButton
+          onClick={() => dispatch(removeFromCart(index))}
+          className="ml-2"
+        >
           <Close fontSize="small" color="disabled" />
         </IconButton>
         <Grid container spacing={2}>

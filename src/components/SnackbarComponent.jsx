@@ -29,7 +29,6 @@ const SnackbarComponent = () => {
       autoHideDuration={6000}
       onClose={handleClose}
       onExited={handleExit}
-      key={new Date().getTime()}
     >
       <Alert onClose={handleClose} severity={severity}>
         {message}

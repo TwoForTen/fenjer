@@ -346,6 +346,7 @@ const Registration = () => {
                     color="primary"
                     type="submit"
                     disabled={isSubmitting}
+                    className="mb-4"
                   >
                     Registriraj se
                   </Button>
