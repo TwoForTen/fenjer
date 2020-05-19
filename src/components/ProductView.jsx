@@ -12,6 +12,7 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 import Cancel from '@material-ui/icons/Cancel';
 
 import { addToCart, addQuantity } from '../actions/cart';
+import { showSnackbar } from '../actions/snackbar';
 import { decrementProduct, incrementProduct } from '../actions/products';
 
 const useStyles = makeStyles((theme) => ({
@@ -124,8 +125,20 @@ const Product = () => {
                 );
                 if (!duplicateProduct) {
                   dispatch(addToCart(product));
+                  dispatch(
+                    showSnackbar({
+                      message: 'Proizvod dodan u košaricu.',
+                      severity: 'success',
+                    })
+                  );
                 } else {
                   dispatch(addQuantity(product));
+                  dispatch(
+                    showSnackbar({
+                      message: 'Količina ažurirana.',
+                      severity: 'success',
+                    })
+                  );
                 }
               }}
               variant="contained"
