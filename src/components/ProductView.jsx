@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +12,8 @@ import Cancel from '@material-ui/icons/Cancel';
 
 import { addToCart, addQuantity } from '../actions/cart';
 import { showSnackbar } from '../actions/snackbar';
-import { decrementProduct, incrementProduct } from '../actions/products';
+
+import ProductQuantitySelector from './ProductQuantitySelector';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,11 +30,6 @@ const useStyles = makeStyles((theme) => ({
     borderTop: `1px solid ${theme.palette.primary.main}`,
     padding: `${theme.spacing(4)}px 0`,
     margin: `${theme.spacing(4)}px 0`,
-  },
-  buttonGroup: {
-    backgroundColor: theme.palette.background.default + '!important',
-    borderColor: '#000 !important',
-    color: theme.palette.text.primary + '!important',
   },
 }));
 
@@ -58,10 +53,6 @@ const Product = () => {
   const {
     selectedProduct: { name, color, quantity, code, description, in_stock, id },
   } = product;
-
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
 
   return (
     <Paper className={classes.root}>
@@ -93,50 +84,38 @@ const Product = () => {
               margin: '32px 0',
             }}
           >
-            <ButtonGroup
-              style={{ border: '1px solid #000', marginRight: '32px' }}
-              disableElevation
-              variant="contained"
-            >
-              <Button
-                disabled={product.quantity <= 1}
-                onClick={() => dispatch(decrementProduct())}
-                className={classes.buttonGroup}
-              >
-                -
-              </Button>
-              <Button disabled className={classes.buttonGroup}>
-                {product.quantity}
-              </Button>
-              <Button
-                onClick={() => dispatch(incrementProduct())}
-                className={classes.buttonGroup}
-              >
-                +
-              </Button>
-            </ButtonGroup>
+            <ProductQuantitySelector />
             <Button
               style={{ minWidth: '100px' }}
               color="primary"
               disabled={!in_stock}
               onClick={() => {
-                const duplicateProduct = cart.find(
-                  (prod) => prod.selectedProduct.id === id
-                );
-                if (!duplicateProduct) {
-                  dispatch(addToCart(product));
-                  dispatch(
-                    showSnackbar({
-                      message: 'Proizvod dodan u košaricu.',
-                      severity: 'success',
-                    })
+                if (product.quantity > 0) {
+                  const duplicateProduct = cart.find(
+                    (prod) => prod.selectedProduct.id === id
                   );
+                  if (!duplicateProduct) {
+                    dispatch(addToCart(product));
+                    dispatch(
+                      showSnackbar({
+                        message: 'Proizvod dodan u košaricu.',
+                        severity: 'success',
+                      })
+                    );
+                  } else {
+                    dispatch(addQuantity(product));
+                    dispatch(
+                      showSnackbar({
+                        message: 'Količina ažurirana.',
+                        severity: 'success',
+                      })
+                    );
+                  }
                 } else {
-                  dispatch(addQuantity(product));
                   dispatch(
                     showSnackbar({
-                      message: 'Količina ažurirana.',
-                      severity: 'success',
+                      message: 'Morate dodati barem 1 proizvod.',
+                      severity: 'error',
                     })
                   );
                 }

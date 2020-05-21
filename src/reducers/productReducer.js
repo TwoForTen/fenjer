@@ -2,6 +2,7 @@ import {
   DECREMENT_PRODUCT,
   INCREMENT_PRODUCT,
   SET_PRODUCT,
+  SET_PRODUCT_QUANTITY,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -16,6 +17,11 @@ export const productReducer = (state = initialState, action) => {
         ...state,
         selectedProduct: action.payload,
         quantity: 1,
+      };
+    case SET_PRODUCT_QUANTITY:
+      return {
+        ...state,
+        quantity: action.payload,
       };
     case INCREMENT_PRODUCT:
       return {

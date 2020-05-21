@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 import sanitiseName from '../helpers/sanitiseName';
 
+import ProductQuantitySelector from './ProductQuantitySelector';
+
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -116,15 +118,7 @@ const CartProductCard = ({ product, productName, onClick, index }) => {
             </div>
           </Grid>
           <Grid item xs={2} className={classes.gridItem}>
-            <Typography
-              className={classes.smallText}
-              color="textSecondary"
-              variant="caption"
-              component="small"
-            >
-              KOLIČINA
-            </Typography>
-            <Typography variant="subtitle1">{quantity}</Typography>
+            <ProductQuantitySelector cartItem={index} />
           </Grid>
           <Grid item xs={2} className={classes.gridItem}>
             <Typography

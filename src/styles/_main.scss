@@ -71,6 +71,22 @@ ul {
   min-height: $APPBAR_HEIGHT !important;
 }
 
+.MuiInput-underline:before {
+  display: none !important;
+}
+.MuiInput-underline:after {
+  display: none !important;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 //Helpers
 
 .mt-1 {
