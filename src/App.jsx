@@ -6,7 +6,8 @@ import { userLogout } from './actions/auth';
 import ProtectedRoute from './components/ProtectedRoute';
 import SnackbarComponent from './components/SnackbarComponent';
 
-import Cart from './pages/Cart';
+import Cart from './pages/cart/Cart';
+import Checkout from './pages/cart/Checkout';
 import Contact from './pages/Contact';
 import Home from './pages/Home';
 import Layout from './components/Layout';
@@ -63,6 +64,7 @@ function App() {
               component={UserAccount}
             />
             <Route path="/kosarica" exact component={Cart} />
+            <Route path="/zavrsetak-kupnje" exact component={Checkout} />
             <Route path="*" component={NotFound} />
           </Switch>
         </ScrollToTop>

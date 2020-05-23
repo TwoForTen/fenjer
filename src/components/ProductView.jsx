@@ -86,7 +86,7 @@ const Product = () => {
           >
             <ProductQuantitySelector />
             <Button
-              style={{ minWidth: '100px' }}
+              style={{ minWidth: '100px', marginLeft: '16px' }}
               color="primary"
               disabled={!in_stock}
               onClick={() => {

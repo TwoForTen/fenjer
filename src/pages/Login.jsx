@@ -3,7 +3,7 @@ import axios from '../axiosInstance';
 import { Formik } from 'formik';
 import { Helmet } from 'react-helmet-async';
 import { Link, useHistory, Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 
 import PromotedProducts from '../components/PromotedProducts';
@@ -42,7 +42,7 @@ const Login = () => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const token = JSON.parse(localStorage.getItem('_jwt'));
+  const token = useSelector((state) => state.user.token);
 
   if (token) {
     return <Redirect to="/korisnicki-racun" />;

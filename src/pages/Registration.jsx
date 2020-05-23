@@ -2,8 +2,8 @@ import React from 'react';
 import axios from '../axiosInstance';
 import { Formik, FastField } from 'formik';
 import { Helmet } from 'react-helmet-async';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, Redirect } from 'react-router-dom';
 import * as yup from 'yup';
 
 import Button from '@material-ui/core/Button';
@@ -39,6 +39,7 @@ const Registration = () => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
 
   const validationSchema = yup.object().shape({
     name: yup.string().required(),
@@ -58,6 +59,10 @@ const Registration = () => {
       .oneOf([yup.ref('password'), null])
       .required(),
   });
+
+  if (token) {
+    return <Redirect to="korisnicki-racun" />;
+  }
 
   return (
     <>
