@@ -58,7 +58,6 @@ const UserAccount = () => {
             indicatorColor="primary"
             textColor="primary"
             variant="fullWidth"
-            aria-label="full width tabs example"
           >
             <Tab label="Moji podaci" />
             <Tab

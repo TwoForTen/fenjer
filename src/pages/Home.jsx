@@ -32,14 +32,12 @@ const Home = () => {
       <Helmet>
         <title>Fenjer</title>
       </Helmet>
-      <Container>
-        <div
-          className={classes.container}
-          style={{ backgroundImage: `url(${imageFour})` }}
-        />
+      <div
+        className={classes.container}
+        style={{ backgroundImage: `url(${imageFour})` }}
+      />
 
-        <PromotedProducts />
-      </Container>
+      <PromotedProducts />
     </>
   );
 };

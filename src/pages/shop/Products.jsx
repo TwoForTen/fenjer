@@ -32,7 +32,7 @@ const Products = () => {
   return (
     <>
       <PageBreadcrumbs titles={['proizvodi', categoryData.name]} />
-      <Container style={{ textAlign: !products && 'center' }}>
+      <div style={{ textAlign: !products && 'center' }}>
         <Filters />
         {products ? (
           products.map((product) =>
@@ -50,7 +50,7 @@ const Products = () => {
         ) : (
           <CircularProgress className="mt-4" />
         )}
-      </Container>
+      </div>
     </>
   );
 };

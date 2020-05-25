@@ -56,7 +56,7 @@ const Checkout = () => {
   return (
     <>
       <PageBreadcrumbs titles={['Završetak kupnje']} />
-      <Container className={classes.containerRoot}>
+      <div className={classes.containerRoot}>
         <div>
           <div
             style={{
@@ -516,7 +516,7 @@ const Checkout = () => {
             Potvrdi
           </Button>
         </div>
-      </Container>
+      </div>
     </>
   );
 };

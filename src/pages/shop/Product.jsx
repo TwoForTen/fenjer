@@ -50,23 +50,21 @@ const Product = () => {
       <PageBreadcrumbs
         titles={['proizvodi', products?.category?.name, products?.name]}
       />
-      <Container>
-        <ProductView />
-        <div className={classes.otherProductTypesContainer}>
-          {products?.types?.map((type, index) => {
-            return (
-              <OtherProductTypes
-                type={type}
-                selectedProduct={selectedProduct?.id || products?.types[0]?.id}
-                onClick={() => {
-                  dispatch(setProduct(type));
-                }}
-                key={type.id}
-              />
-            );
-          })}
-        </div>
-      </Container>
+      <ProductView />
+      <div className={classes.otherProductTypesContainer}>
+        {products?.types?.map((type, index) => {
+          return (
+            <OtherProductTypes
+              type={type}
+              selectedProduct={selectedProduct?.id || products?.types[0]?.id}
+              onClick={() => {
+                dispatch(setProduct(type));
+              }}
+              key={type.id}
+            />
+          );
+        })}
+      </div>
     </>
   );
 };

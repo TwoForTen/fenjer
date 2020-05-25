@@ -26,38 +26,36 @@ const LegalDocs = () => {
         <title>Matični Podaci</title>
       </Helmet>
       <PageBreadcrumbs titles={['Matični podaci']} />
-      <Container>
-        <div className={classes.paragraphContainer}>
-          <Typography color="textPrimary" variant="h4" element="h2">
-            DEKORACIJE MAVRIN d.o.o.
-          </Typography>
-          <Typography color="textPrimary" variant="body1" paragraph>
-            Veleprodaja i maloprodaja cvijeća
-          </Typography>
-          <Typography color="textPrimary" variant="body1" paragraph>
-            Osnovano:
-            <br />
-            Adresa središnjice:
-            <br />
-            Sud upisa:
-            <br />
-            OIB:
-            <br />
-            <br />
-            Temeljni kapital je
-            <br />
-            Uprava:
-          </Typography>
-          <Typography color="textPrimary" variant="h6" element="h2">
-            Besplatna dostava:
-          </Typography>
-          <Typography color="textPrimary" variant="body1" paragraph>
-            Žiro račun:
-            <br />
-            IBAN:
-          </Typography>
-        </div>
-      </Container>
+      <div className={classes.paragraphContainer}>
+        <Typography color="textPrimary" variant="h4" element="h2">
+          DEKORACIJE MAVRIN d.o.o.
+        </Typography>
+        <Typography color="textPrimary" variant="body1" paragraph>
+          Veleprodaja i maloprodaja cvijeća
+        </Typography>
+        <Typography color="textPrimary" variant="body1" paragraph>
+          Osnovano:
+          <br />
+          Adresa središnjice:
+          <br />
+          Sud upisa:
+          <br />
+          OIB:
+          <br />
+          <br />
+          Temeljni kapital je
+          <br />
+          Uprava:
+        </Typography>
+        <Typography color="textPrimary" variant="h6" element="h2">
+          Besplatna dostava:
+        </Typography>
+        <Typography color="textPrimary" variant="body1" paragraph>
+          Žiro račun:
+          <br />
+          IBAN:
+        </Typography>
+      </div>
     </>
   );
 };

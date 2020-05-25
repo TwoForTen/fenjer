@@ -15,16 +15,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Showroom = () => {
+const PromotedProducts = () => {
   const classes = useStyles();
 
   const promotedProducts =
     useDataFetch({
-      url: '/product-types',
       method: 'GET',
-    })?.filter((promotedProduct) => promotedProduct.promoted) || [];
+      url: '/product-types',
+    })?.data?.filter((promotedProduct) => promotedProduct.promoted) || [];
 
-  if (promotedProducts.length > 0) {
+  if (promotedProducts?.data?.length > 0) {
     return (
       <>
         <Typography
@@ -51,4 +51,4 @@ const Showroom = () => {
   return null;
 };
 
-export default Showroom;
+export default PromotedProducts;

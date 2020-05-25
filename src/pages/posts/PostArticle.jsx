@@ -63,105 +63,103 @@ const PostArticle = () => {
       </Helmet>
 
       <PageBreadcrumbs titles={['Novosti', post.title]} />
-      <Container>
-        <div className={classes.paragraphContainer}>
-          <Card className={classes.card}>
-            <CardContent>
-              {post.title ? (
-                <Typography variant="h5" component="h2" className="mb-4">
-                  {post.title}
-                </Typography>
-              ) : (
-                <Skeleton
-                  animation="wave"
-                  variant="rect"
-                  height={16}
-                  width={100}
-                  className="mb-4"
-                />
-              )}
-              <Grid container spacing={4}>
-                <Grid item md={6} xs={12}>
-                  <div className={classes.imageContainer}>
-                    {/* add .img back */}
-                    {post ? (
-                      <img
-                        className={classes.image}
-                        src={'http://localhost:8000/images/LoginBackground.png'}
-                        alt="Article img"
-                      />
-                    ) : (
-                      <Skeleton animation="wave" variant="rect" height={300} />
-                    )}
-                  </div>
-                </Grid>
-                <Grid item md={6} xs={12}>
-                  {post.content ? (
-                    <Typography color="textSecondary" component="p">
-                      {post.content}
-                    </Typography>
-                  ) : (
-                    <>
-                      <Skeleton
-                        animation="wave"
-                        variant="rect"
-                        height={13}
-                        className="mb-2"
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="rect"
-                        height={13}
-                        className="mb-2"
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="rect"
-                        height={13}
-                        className="mb-2"
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="rect"
-                        height={13}
-                        className="mb-2"
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="rect"
-                        height={13}
-                        className="mb-2"
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="rect"
-                        height={13}
-                        className="mb-2"
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="rect"
-                        height={13}
-                        className="mb-2"
-                        style={{ width: '40%' }}
-                      />
-                    </>
-                  )}
-                </Grid>
-              </Grid>
-            </CardContent>
-            <CardActions disableSpacing>
-              <Typography
-                color="primary"
-                className={classes.date}
-                variant="subtitle2"
-              >
-                {post.created_at && postedAt}
+      <div className={classes.paragraphContainer}>
+        <Card className={classes.card}>
+          <CardContent>
+            {post.title ? (
+              <Typography variant="h5" component="h2" className="mb-4">
+                {post.title}
               </Typography>
-            </CardActions>
-          </Card>
-        </div>
-      </Container>
+            ) : (
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                height={16}
+                width={100}
+                className="mb-4"
+              />
+            )}
+            <Grid container spacing={4}>
+              <Grid item md={6} xs={12}>
+                <div className={classes.imageContainer}>
+                  {/* add .img back */}
+                  {post ? (
+                    <img
+                      className={classes.image}
+                      src={'http://localhost:8000/images/LoginBackground.png'}
+                      alt="Article img"
+                    />
+                  ) : (
+                    <Skeleton animation="wave" variant="rect" height={300} />
+                  )}
+                </div>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                {post.content ? (
+                  <Typography color="textSecondary" component="p">
+                    {post.content}
+                  </Typography>
+                ) : (
+                  <>
+                    <Skeleton
+                      animation="wave"
+                      variant="rect"
+                      height={13}
+                      className="mb-2"
+                    />
+                    <Skeleton
+                      animation="wave"
+                      variant="rect"
+                      height={13}
+                      className="mb-2"
+                    />
+                    <Skeleton
+                      animation="wave"
+                      variant="rect"
+                      height={13}
+                      className="mb-2"
+                    />
+                    <Skeleton
+                      animation="wave"
+                      variant="rect"
+                      height={13}
+                      className="mb-2"
+                    />
+                    <Skeleton
+                      animation="wave"
+                      variant="rect"
+                      height={13}
+                      className="mb-2"
+                    />
+                    <Skeleton
+                      animation="wave"
+                      variant="rect"
+                      height={13}
+                      className="mb-2"
+                    />
+                    <Skeleton
+                      animation="wave"
+                      variant="rect"
+                      height={13}
+                      className="mb-2"
+                      style={{ width: '40%' }}
+                    />
+                  </>
+                )}
+              </Grid>
+            </Grid>
+          </CardContent>
+          <CardActions disableSpacing>
+            <Typography
+              color="primary"
+              className={classes.date}
+              variant="subtitle2"
+            >
+              {post.created_at && postedAt}
+            </Typography>
+          </CardActions>
+        </Card>
+      </div>
     </>
   );
 };

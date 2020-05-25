@@ -62,7 +62,7 @@ const Orders = ({ userOrders }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {userOrders.map((order) => (
+          {userOrders?.data.map((order) => (
             <TableRow key={order.id}>
               <TableCell>
                 {('0000' + order.id).substring(order.id.length)}

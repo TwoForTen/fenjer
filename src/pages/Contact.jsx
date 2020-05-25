@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -11,6 +14,11 @@ import PageBreadcrumbs from '../components/PageBreadcrumbs';
 import useDataFetch from '../hooks/useDataFetch';
 
 const useStyles = makeStyles((theme) => ({
+  navList: {
+    color: theme.palette.text.secondary,
+    position: 'sticky',
+    top: '80px',
+  },
   sectionTitle: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
@@ -26,11 +34,8 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(1),
   },
   googleMaps: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(4) + theme.spacing(1.5),
-    },
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
   },
 }));
 
@@ -56,7 +61,11 @@ const Contact = () => {
     working_hours,
   } = contactData;
 
-  console.log(contactData);
+  const [value, setValue] = useState(0);
+
+  const handleChange = (_, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <>
@@ -66,8 +75,57 @@ const Contact = () => {
       <PageBreadcrumbs titles={['Kontakt']} />
       <Container>
         <Grid container spacing={3}>
-          <Grid item xs={4}></Grid>
-          <Grid item xs={8}>
+          <Grid item xs={3}>
+            <List className={classes.navList}>
+              <ListItem
+                button
+                selected={value === 0}
+                onClick={(event) => handleChange(event, 0)}
+              >
+                <Typography variant="h6" component="span" color="inherit">
+                  Kontakt
+                </Typography>
+              </ListItem>
+              <ListItem
+                button
+                selected={value === 1}
+                onClick={(event) => handleChange(event, 1)}
+              >
+                <Typography variant="h6" component="span" color="inherit">
+                  Sjedište tvrtke
+                </Typography>
+              </ListItem>
+              {field_sales &&
+                field_sales.map((field_sale, index) => {
+                  return (
+                    <ListItem
+                      button
+                      selected={value === 2 + index}
+                      onClick={(event) => handleChange(event, 2 + index)}
+                      key={field_sale.id}
+                    >
+                      <Typography
+                        variant="h6"
+                        component="span"
+                        color="inherit"
+                      >{`Terenska prodaja ${index + 1}`}</Typography>
+                    </ListItem>
+                  );
+                })}
+              <ListItem
+                button
+                selected={value === 2 + field_sales?.length}
+                onClick={(event) =>
+                  handleChange(event, 2 + field_sales?.length)
+                }
+              >
+                <Typography variant="h6" component="span" color="inherit">
+                  Lokacija
+                </Typography>
+              </ListItem>
+            </List>
+          </Grid>
+          <Grid item xs={9}>
             <div className={classes.sectionContainer}>
               <Typography
                 className={classes.sectionTitle}
@@ -155,14 +213,14 @@ const Contact = () => {
               >
                 Sjedište tvrtke
               </Typography>
-              {name && (
+              {headquarters && (
                 <div className={classes.sectionList}>
                   <Typography
                     className={classes.sectionSubtitle}
                     color="textPrimary"
                     variant="body1"
                   >
-                    {name}
+                    {headquarters}
                   </Typography>
                 </div>
               )}
@@ -194,44 +252,77 @@ const Contact = () => {
                       >
                         {`Terenska prodaja ${index + 1}`}
                       </Typography>
-                      <Typography
-                        className={classes.sectionSubtitle}
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        Područje:
-                      </Typography>
-                      <ul>
-                        {field_sale.areas.split(',').map((area) => {
-                          return (
-                            <li key={area}>
-                              <Typography
-                                variant="subtitle1"
-                                color="textSecondary"
-                              >
-                                {area}
-                              </Typography>
-                            </li>
-                          );
-                        })}
-                      </ul>
+                      <div className={classes.sectionList}>
+                        <Typography
+                          className={classes.sectionSubtitle}
+                          color="textPrimary"
+                          variant="body1"
+                        >
+                          Područje:
+                        </Typography>
+                        <ul>
+                          {field_sale.areas.split(',').map((area) => {
+                            return (
+                              <li key={area}>
+                                <Typography
+                                  variant="subtitle1"
+                                  color="textSecondary"
+                                >
+                                  {area}
+                                </Typography>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                        <Typography
+                          className={classes.sectionSubtitle}
+                          color="textPrimary"
+                          variant="body1"
+                        >
+                          Mobitel:
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                          {field_sale.phone}
+                        </Typography>
+                        <Typography
+                          className={classes.sectionSubtitle}
+                          color="textPrimary"
+                          variant="body1"
+                        >
+                          E-mail:
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                          {field_sale.email}
+                        </Typography>
+                        <Typography
+                          className={classes.sectionSubtitle}
+                          color="textPrimary"
+                          variant="body1"
+                        >
+                          Obilazak komercijaliste:
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                          {field_sale.tour}
+                        </Typography>
+                      </div>
                     </div>
                   );
                 })}
               </div>
             )}
+
+            <iframe
+              allowFullScreen
+              className={classes.googleMaps}
+              frameBorder="0"
+              height="450"
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxHcVuajrRGTFmp5bS6NHK8JHA6JlyXH8
+          &q=Slavonska%20Avenija%2052"
+              title="Maps"
+              width="100%"
+            ></iframe>
           </Grid>
         </Grid>
-        <iframe
-          allowFullScreen
-          className={classes.googleMaps}
-          frameBorder="0"
-          height="450"
-          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxHcVuajrRGTFmp5bS6NHK8JHA6JlyXH8
-          &q=Slavonska%20Avenija%2052"
-          title="Maps"
-          width="100%"
-        ></iframe>
       </Container>
     </>
   );

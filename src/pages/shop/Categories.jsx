@@ -43,7 +43,7 @@ const Proizvodi = () => {
       </Helmet>
 
       <PageBreadcrumbs titles={['Proizvodi']} />
-      <Container style={{ textAlign: !categories && 'center' }}>
+      <div style={{ textAlign: !categories && 'center' }}>
         {categories?.data ? (
           categories?.data.map((category) => {
             return <CategoryCard category={category} key={category.id} />;
@@ -51,7 +51,7 @@ const Proizvodi = () => {
         ) : (
           <CircularProgress className="mt-4" />
         )}
-      </Container>
+      </div>
     </>
   );
 };

@@ -1,11 +1,12 @@
-// @mixin phone {
-//   @media (max-width: 1000px) {
-//     @content;
-//   }
-// }
+@mixin phone {
+  @media (max-width: 1000px) {
+    @content;
+  }
+}
 
 $APPBAR_HEIGHT: 66px;
 $DARK_THEME_BG_COLOR: #292a2c;
+$PRIMARY_COLOR: #b57d62;
 
 *,
 *:after,
@@ -40,6 +41,15 @@ ul {
   list-style: none;
 }
 
+.content-container {
+  padding-left: 100px !important;
+  padding-right: 100px !important;
+
+  @include phone {
+    padding: 0 10px !important;
+  }
+}
+
 //Hacks
 // .MuiContainer-root {
 //   max-width: 1260px;
@@ -47,6 +57,11 @@ ul {
 //     max-width: 900px;
 //   }
 // }
+
+.Mui-selected {
+  color: $PRIMARY_COLOR !important;
+  background-color: transparent !important;
+}
 
 .MuiOutlinedInput-input {
   padding-right: 14px !important;

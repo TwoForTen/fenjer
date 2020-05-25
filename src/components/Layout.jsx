@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Container from '@material-ui/core/Container';
+
 import Appbar from './Appbar';
 import Footer from './Footer';
 
@@ -7,7 +9,9 @@ const Layout = ({ children }) => {
   return (
     <>
       <Appbar />
-      <main>{children}</main>
+      <main>
+        <Container className="content-container">{children}</Container>
+      </main>
       <Footer />
     </>
   );

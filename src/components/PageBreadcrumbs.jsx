@@ -23,43 +23,41 @@ const PageBreadcrumbs = ({ titles, showBorder }) => {
   let url = '';
 
   return (
-    <Container>
-      <div className={classes.breadcrumbsContainer}>
-        {titles[titles.length - 1] ? (
-          <Typography
-            className="mb-3"
-            color="textPrimary"
-            component="h1"
-            variant="h3"
-          >
-            {titles[titles.length - 1]}
+    <div className={classes.breadcrumbsContainer}>
+      {titles[titles.length - 1] ? (
+        <Typography
+          className="mb-3"
+          color="textPrimary"
+          component="h1"
+          variant="h3"
+        >
+          {titles[titles.length - 1]}
+        </Typography>
+      ) : (
+        <Skeleton
+          animation="wave"
+          variant="rect"
+          width={300}
+          height={56}
+          className="mb-3"
+        />
+      )}
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link to="/">
+          <Typography color="primary" variant="body1">
+            POČETNA
           </Typography>
-        ) : (
-          <Skeleton
-            animation="wave"
-            variant="rect"
-            width={300}
-            height={56}
-            className="mb-3"
-          />
-        )}
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link to="/">
-            <Typography color="primary" variant="body1">
-              POČETNA
-            </Typography>
-          </Link>
-          {crumbs.map((crumb, iterator) => {
-            url += `${crumb}/`;
-            return (
-              <Link to={`/${url.slice(0, -1)}`} key={crumb}>
-                <Typography>{titles[iterator]?.toUpperCase()}</Typography>
-              </Link>
-            );
-          })}
-        </Breadcrumbs>
-      </div>
-    </Container>
+        </Link>
+        {crumbs.map((crumb, iterator) => {
+          url += `${crumb}/`;
+          return (
+            <Link to={`/${url.slice(0, -1)}`} key={crumb}>
+              <Typography>{titles[iterator]?.toUpperCase()}</Typography>
+            </Link>
+          );
+        })}
+      </Breadcrumbs>
+    </div>
   );
 };
 

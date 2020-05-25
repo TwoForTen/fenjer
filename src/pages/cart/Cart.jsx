@@ -76,92 +76,84 @@ const Cart = () => {
   return (
     <>
       <PageBreadcrumbs titles={['Košarica']} />
-      <Container className="mb-4">
-        {productsInCart.map((product, index) => {
-          return (
-            <CartProductCard
-              key={product.selectedProduct.id}
-              onClick={() => dispatch(setProduct(product.selectedProduct))}
-              product={product}
-              index={index}
-            />
-          );
-        })}
-        <div className={classes.detailsRoot}>
-          <div>
-            <div className={classes.detailsContainer}>
-              <div className="mr-4">
-                <ul>
-                  <li>
-                    <Typography color="textSecondary">
-                      Ukupna cijena bez PDV-a
-                    </Typography>
-                  </li>
-                  <li className="mt-3 mb-3">
-                    <Typography color="textSecondary">PDV</Typography>
-                  </li>
-                  <li>
-                    <Typography color="textSecondary">
-                      Ukupna cijena sa PDV-om
-                    </Typography>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <ul>
-                  <li>
-                    <Typography color="textPrimary">
-                      {new Intl.NumberFormat('hr-HR', {
-                        style: 'currency',
-                        currency: 'HRK',
-                      }).format(priceBreakdown().net)}
-                    </Typography>
-                  </li>
-                  <li className="mt-3 mb-3">
-                    <Typography color="textPrimary">
-                      {new Intl.NumberFormat('hr-HR', {
-                        style: 'currency',
-                        currency: 'HRK',
-                      }).format(priceBreakdown().vat)}
-                    </Typography>
-                  </li>
-                  <li>
-                    <Typography color="textPrimary">
-                      {new Intl.NumberFormat('hr-HR', {
-                        style: 'currency',
-                        currency: 'HRK',
-                      }).format(priceBreakdown().gross)}
-                    </Typography>
-                  </li>
-                </ul>
-              </div>
+      {productsInCart.map((product, index) => {
+        return (
+          <CartProductCard
+            key={product.selectedProduct.id}
+            onClick={() => dispatch(setProduct(product.selectedProduct))}
+            product={product}
+            index={index}
+          />
+        );
+      })}
+      <div className={classes.detailsRoot}>
+        <div>
+          <div className={classes.detailsContainer}>
+            <div className="mr-4">
+              <ul>
+                <li>
+                  <Typography color="textSecondary">
+                    Ukupna cijena bez PDV-a
+                  </Typography>
+                </li>
+                <li className="mt-3 mb-3">
+                  <Typography color="textSecondary">PDV</Typography>
+                </li>
+                <li>
+                  <Typography color="textSecondary">
+                    Ukupna cijena sa PDV-om
+                  </Typography>
+                </li>
+              </ul>
             </div>
-            <div className={classes.deliveryContainer}>
-              <Typography color="textPrimary">
-                Način preuzimanja robe:
-              </Typography>
-              <div
-                style={{ display: 'flex', alignItems: 'center' }}
-                className="mt-2"
-              >
-                <LocalShipping
-                  fontSize="large"
-                  color="action"
-                  className="mr-2"
-                />
-                <Typography color="textPrimary">
-                  <strong>Dostava</strong>
-                </Typography>
-              </div>
+            <div>
+              <ul>
+                <li>
+                  <Typography color="textPrimary">
+                    {new Intl.NumberFormat('hr-HR', {
+                      style: 'currency',
+                      currency: 'HRK',
+                    }).format(priceBreakdown().net)}
+                  </Typography>
+                </li>
+                <li className="mt-3 mb-3">
+                  <Typography color="textPrimary">
+                    {new Intl.NumberFormat('hr-HR', {
+                      style: 'currency',
+                      currency: 'HRK',
+                    }).format(priceBreakdown().vat)}
+                  </Typography>
+                </li>
+                <li>
+                  <Typography color="textPrimary">
+                    {new Intl.NumberFormat('hr-HR', {
+                      style: 'currency',
+                      currency: 'HRK',
+                    }).format(priceBreakdown().gross)}
+                  </Typography>
+                </li>
+              </ul>
             </div>
           </div>
-          <Link to="/zavrsetak-kupnje">
-            <Button variant="contained" className="mb-4" color="primary">
-              Potvrdi narudžbu
-            </Button>
-          </Link>
+          <div className={classes.deliveryContainer}>
+            <Typography color="textPrimary">Način preuzimanja robe:</Typography>
+            <div
+              style={{ display: 'flex', alignItems: 'center' }}
+              className="mt-2"
+            >
+              <LocalShipping fontSize="large" color="action" className="mr-2" />
+              <Typography color="textPrimary">
+                <strong>Dostava</strong>
+              </Typography>
+            </div>
+          </div>
         </div>
-      </Container>
+        <Link to="/zavrsetak-kupnje">
+          <Button variant="contained" className="mb-4" color="primary">
+            Potvrdi narudžbu
+          </Button>
+        </Link>
+      </div>
     </>
   );
 };

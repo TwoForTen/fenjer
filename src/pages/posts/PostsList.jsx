@@ -42,15 +42,15 @@ const PostsList = () => {
       </Helmet>
 
       <PageBreadcrumbs titles={['Novosti']} />
-      <Container style={{ textAlign: !posts && 'center' }}>
+      <div style={{ textAlign: !posts && 'center' }}>
         {posts ? (
-          posts.map((post) => {
+          posts?.data.map((post) => {
             return <PostCard novost={post} key={post.id} />;
           })
         ) : (
           <CircularProgress className="mt-4" />
         )}
-      </Container>
+      </div>
     </>
   );
 };
