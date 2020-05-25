@@ -37,7 +37,7 @@ const Orders = ({ userOrders }) => {
     );
   }
 
-  if (userOrders?.length < 1) {
+  if (userOrders?.data?.length < 1) {
     return (
       <div className={classes.centeredContainer}>
         <Typography variant="h6" color="textPrimary">

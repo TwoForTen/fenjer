@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 import { Helmet } from 'react-helmet-async';
 
@@ -47,6 +47,21 @@ const useStyles = makeStyles((theme) => ({
 const Contact = () => {
   const classes = useStyles();
 
+  const [value, setValue] = useState(0);
+
+  const handleChange = (_, newValue) => {
+    setValue(newValue);
+  };
+
+  const options = {};
+
+  const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.map((entry) => {
+      if (entry.isIntersecting) {
+      }
+    });
+  }, options);
+
   const contactData =
     useDataFetch({
       method: 'GET',
@@ -64,11 +79,14 @@ const Contact = () => {
     working_hours,
   } = contactData;
 
-  const [value, setValue] = useState(0);
+  useEffect(() => {
+    const sections = document.querySelectorAll('.contact-section');
+    sections.forEach((section) => {
+      sectionObserver.observe(section);
+    });
 
-  const handleChange = (_, newValue) => {
-    setValue(newValue);
-  };
+    // return () => sectionObserver.unobserve(sections);
+  }, [contactData]);
 
   return (
     <>
@@ -134,7 +152,7 @@ const Contact = () => {
               </List>
             </Grid>
             <Grid item xs={9}>
-              <div className={classes.sectionContainer}>
+              <div className={`${classes.sectionContainer} contact-section`}>
                 <Typography
                   className={classes.sectionTitle}
                   color="textPrimary"
@@ -215,7 +233,7 @@ const Contact = () => {
                   </div>
                 )}
               </div>
-              <div className={classes.sectionContainer}>
+              <div className={`${classes.sectionContainer} contact-section`}>
                 <Typography
                   className={classes.sectionTitle}
                   color="textPrimary"
@@ -250,77 +268,77 @@ const Contact = () => {
                   </div>
                 )}
               </div>
-              {field_sales && (
-                <div className={classes.sectionContainer}>
-                  {field_sales.map((field_sale, index) => {
-                    return (
-                      <div key={field_sale.id}>
+              {field_sales &&
+                field_sales.map((field_sale, index) => {
+                  return (
+                    <div
+                      className={`${classes.sectionContainer} contact-section`}
+                      key={field_sale.id}
+                    >
+                      <Typography
+                        className={classes.sectionTitle}
+                        color="textPrimary"
+                        variant="h6"
+                        element="h2"
+                      >
+                        {`Terenska prodaja ${index + 1}`}
+                      </Typography>
+                      <div className={classes.sectionList}>
                         <Typography
-                          className={classes.sectionTitle}
+                          className={classes.sectionSubtitle}
                           color="textPrimary"
-                          variant="h6"
-                          element="h2"
+                          variant="body1"
                         >
-                          {`Terenska prodaja ${index + 1}`}
+                          Područje:
                         </Typography>
-                        <div className={classes.sectionList}>
-                          <Typography
-                            className={classes.sectionSubtitle}
-                            color="textPrimary"
-                            variant="body1"
-                          >
-                            Područje:
-                          </Typography>
-                          <ul>
-                            {field_sale.areas.split(',').map((area) => {
-                              return (
-                                <li key={area}>
-                                  <Typography
-                                    variant="subtitle1"
-                                    color="textSecondary"
-                                  >
-                                    {area}
-                                  </Typography>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                          <Typography
-                            className={classes.sectionSubtitle}
-                            color="textPrimary"
-                            variant="body1"
-                          >
-                            Mobitel:
-                          </Typography>
-                          <Typography variant="subtitle1" color="textSecondary">
-                            {field_sale.phone}
-                          </Typography>
-                          <Typography
-                            className={classes.sectionSubtitle}
-                            color="textPrimary"
-                            variant="body1"
-                          >
-                            E-mail:
-                          </Typography>
-                          <Typography variant="subtitle1" color="textSecondary">
-                            {field_sale.email}
-                          </Typography>
-                          <Typography
-                            className={classes.sectionSubtitle}
-                            color="textPrimary"
-                            variant="body1"
-                          >
-                            Obilazak komercijaliste:
-                          </Typography>
-                          <Typography variant="subtitle1" color="textSecondary">
-                            {field_sale.tour}
-                          </Typography>
-                        </div>
+                        <ul>
+                          {field_sale.areas.split(',').map((area) => {
+                            return (
+                              <li key={area}>
+                                <Typography
+                                  variant="subtitle1"
+                                  color="textSecondary"
+                                >
+                                  {area}
+                                </Typography>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                        <Typography
+                          className={classes.sectionSubtitle}
+                          color="textPrimary"
+                          variant="body1"
+                        >
+                          Mobitel:
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                          {field_sale.phone}
+                        </Typography>
+                        <Typography
+                          className={classes.sectionSubtitle}
+                          color="textPrimary"
+                          variant="body1"
+                        >
+                          E-mail:
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                          {field_sale.email}
+                        </Typography>
+                        <Typography
+                          className={classes.sectionSubtitle}
+                          color="textPrimary"
+                          variant="body1"
+                        >
+                          Obilazak komercijaliste:
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                          {field_sale.tour}
+                        </Typography>
                       </div>
-                    );
-                  })}
-                </div>
-              )}
+                    </div>
+                  );
+                })}
 
               <iframe
                 allowFullScreen

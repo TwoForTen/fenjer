@@ -22,9 +22,9 @@ const PromotedProducts = () => {
     useDataFetch({
       method: 'GET',
       url: '/product-types',
-    })?.data?.filter((promotedProduct) => promotedProduct.promoted) || [];
+    })?.data?.filter((promotedProduct) => promotedProduct?.promoted) || [];
 
-  if (promotedProducts?.data?.length > 0) {
+  if (promotedProducts?.length > 0) {
     return (
       <>
         <Typography
