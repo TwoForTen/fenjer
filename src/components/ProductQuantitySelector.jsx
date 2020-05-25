@@ -63,7 +63,7 @@ const ProductQuantitySelector = ({ cartItem }) => {
   }, [cart]);
 
   const cartQuantity = (
-    <>
+    <div onClick={(e) => e.stopPropagation()}>
       <Button
         className={`${classes.buttonGroup} ${classes.buttonLeft}`}
         onClick={() => dispatch(decrementCartQuantity({ index: cartItem }))}
@@ -89,7 +89,7 @@ const ProductQuantitySelector = ({ cartItem }) => {
       >
         +
       </Button>
-    </>
+    </div>
   );
 
   const productQuantity = (

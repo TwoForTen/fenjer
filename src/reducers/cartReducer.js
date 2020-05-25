@@ -26,9 +26,9 @@ export const cartReducer = (state = initialState, action) => {
       };
       return modifiedState;
     case REMOVE_FROM_CART:
-      state.splice(action.payload, 1);
-      localStorage.setItem('cart', JSON.stringify(state));
-      return state;
+      modifiedState.splice(action.payload, 1);
+      localStorage.setItem('cart', JSON.stringify(modifiedState));
+      return modifiedState;
     case SET_CART_QUANTITY:
       modifiedState[action.payload.index] = {
         selectedProduct: modifiedState[action.payload.index].selectedProduct,

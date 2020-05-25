@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from '../axiosInstance';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import sanitiseName from '../helpers/sanitiseName';
 
@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
+  gridLink: {
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
   imageContainer: {
     height: '140px',
     width: '200px',
@@ -44,101 +49,109 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CartProductCard = ({ product, productName, onClick, index }) => {
+const CartProductCard = ({ product, onClick, index }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const {
-    selectedProduct: { name, img, code, price },
+    selectedProduct: { name, img, code, price, product_id },
     quantity,
   } = product;
 
   return (
-    <Link
-      onClick={() => {
-        onClick();
-      }}
-      to="#"
-    >
-      <Card className={classes.card}>
-        <IconButton
-          onClick={() => dispatch(removeFromCart(index))}
-          className="ml-2"
-        >
-          <Close fontSize="small" color="disabled" />
-        </IconButton>
-        <Grid container spacing={2}>
-          <Grid item xs={2} className={classes.gridItem}>
-            <div className={classes.imageContainer}>
-              <img
-                className={classes.cartProductImage}
-                src="http://localhost:8000/images/product_flower.png"
-                alt="product_image"
-              />
-            </div>
-          </Grid>
-          <Grid item xs={2} className={classes.gridItem}>
+    <Card className={classes.card}>
+      <IconButton
+        onClick={() => dispatch(removeFromCart(index))}
+        className="ml-2"
+      >
+        <Close fontSize="small" color="disabled" />
+      </IconButton>
+      <Grid
+        container
+        className={classes.gridLink}
+        spacing={2}
+        onClick={() => {
+          onClick();
+          axios
+            .get(`/products/${product_id}`)
+            .then((res) =>
+              history.push(
+                `/proizvodi/${res.data.category.slug}/${res.data.slug}`
+              )
+            );
+        }}
+      >
+        <Grid item xs={2} className={classes.gridItem}>
+          <div className={classes.imageContainer}>
+            <img
+              className={classes.cartProductImage}
+              src="http://localhost:8000/images/product_flower.png"
+              alt="product_image"
+            />
+          </div>
+        </Grid>
+        <Grid item xs={2} className={classes.gridItem}>
+          <Typography
+            className={classes.smallText}
+            color="textSecondary"
+            variant="caption"
+            component="small"
+          >
+            NAZIV PROIZVODA
+          </Typography>
+          <Typography variant="subtitle1">{name}</Typography>
+        </Grid>
+        <Grid item xs={2} className={classes.gridItem}>
+          <Typography
+            className={classes.smallText}
+            color="textSecondary"
+            variant="caption"
+            component="small"
+          >
+            ŠIFRA
+          </Typography>
+          <Typography variant="subtitle1">{code}</Typography>
+        </Grid>
+        <Grid item xs={2} className={classes.gridItem}>
+          <div>
             <Typography
               className={classes.smallText}
               color="textSecondary"
               variant="caption"
               component="small"
             >
-              NAZIV PROIZVODA
-            </Typography>
-            <Typography variant="subtitle1">{name}</Typography>
-          </Grid>
-          <Grid item xs={2} className={classes.gridItem}>
-            <Typography
-              className={classes.smallText}
-              color="textSecondary"
-              variant="caption"
-              component="small"
-            >
-              ŠIFRA
-            </Typography>
-            <Typography variant="subtitle1">{code}</Typography>
-          </Grid>
-          <Grid item xs={2} className={classes.gridItem}>
-            <div>
-              <Typography
-                className={classes.smallText}
-                color="textSecondary"
-                variant="caption"
-                component="small"
-              >
-                CIJENA
-              </Typography>
-              <Typography variant="subtitle1">
-                {new Intl.NumberFormat('hr-HR', {
-                  style: 'currency',
-                  currency: 'HRK',
-                }).format(price)}
-              </Typography>
-            </div>
-          </Grid>
-          <Grid item xs={2} className={classes.gridItem}>
-            <ProductQuantitySelector cartItem={index} />
-          </Grid>
-          <Grid item xs={2} className={classes.gridItem}>
-            <Typography
-              className={classes.smallText}
-              color="textSecondary"
-              variant="caption"
-              component="small"
-            >
-              UKUPNA CIJENA
+              CIJENA
             </Typography>
             <Typography variant="subtitle1">
               {new Intl.NumberFormat('hr-HR', {
                 style: 'currency',
                 currency: 'HRK',
-              }).format(price * quantity)}
+              }).format(price)}
             </Typography>
-          </Grid>
+          </div>
         </Grid>
-      </Card>
-    </Link>
+        <Grid item xs={2} className={classes.gridItem}>
+          <ProductQuantitySelector cartItem={index} />
+        </Grid>
+        <Grid item xs={2} className={classes.gridItem}>
+          <Typography
+            className={classes.smallText}
+            color="textSecondary"
+            variant="caption"
+            component="small"
+          >
+            UKUPNA CIJENA
+          </Typography>
+          <Typography variant="subtitle1">
+            {new Intl.NumberFormat('hr-HR', {
+              style: 'currency',
+              currency: 'HRK',
+            }).format(price * quantity)}
+          </Typography>
+        </Grid>
+      </Grid>
+    </Card>
   );
 };
 
