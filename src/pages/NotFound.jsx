@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
   waves: {
     width: '100vw',
     paddingTop: '30%',
+    position: 'absolute',
+    left: '0',
+    bottom: '0',
     backgroundImage: `url(${valovi})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',

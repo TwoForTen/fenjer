@@ -75,24 +75,20 @@ const UserAccount = () => {
             />
           </Tabs>
         </Container>
-        <Container>
-          <SwipeableViews
-            axis="x"
-            index={value}
-            onChangeIndex={handleChangeIndex}
-          >
-            <Container maxWidth="md" style={{ textAlign: !user && 'center' }}>
-              {!_.isEmpty(user) ? (
-                <UserDetails user={user} />
-              ) : (
-                <CircularProgress className="mt-4" />
-              )}
-            </Container>
-            <Container>
-              <Orders userOrders={userOrders} />
-            </Container>
-          </SwipeableViews>
-        </Container>
+        <SwipeableViews
+          axis="x"
+          index={value}
+          onChangeIndex={handleChangeIndex}
+        >
+          <Container maxWidth="md" style={{ textAlign: !user && 'center' }}>
+            {!_.isEmpty(user) ? (
+              <UserDetails user={user} />
+            ) : (
+              <CircularProgress className="mt-4" />
+            )}
+          </Container>
+          <Orders userOrders={userOrders} />
+        </SwipeableViews>
       </div>
     </>
   );

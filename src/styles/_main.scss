@@ -1,5 +1,10 @@
 @mixin phone {
-  @media (max-width: 1000px) {
+  @media (max-width: 900px) {
+    @content;
+  }
+}
+@mixin containerMax {
+  @media (min-width: 1400px) {
     @content;
   }
 }
@@ -42,8 +47,14 @@ ul {
 }
 
 .content-container {
+  position: relative;
   padding-left: 100px !important;
   padding-right: 100px !important;
+
+  @include containerMax {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
 
   @include phone {
     padding: 0 10px !important;
@@ -51,12 +62,6 @@ ul {
 }
 
 //Hacks
-// .MuiContainer-root {
-//   max-width: 1260px;
-//   @include phone {
-//     max-width: 900px;
-//   }
-// }
 
 .Mui-selected {
   color: $PRIMARY_COLOR !important;
