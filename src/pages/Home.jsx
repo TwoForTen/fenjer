@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 
 import PromotedProducts from '../components/PromotedProducts';
 
-import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
 // import imageOne from '../assets/home_carousel1.jpg';

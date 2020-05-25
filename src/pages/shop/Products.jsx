@@ -3,7 +3,6 @@ import { useParams, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Container from '@material-ui/core/Container';
 
 import Filters from '../../components/Filters';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';

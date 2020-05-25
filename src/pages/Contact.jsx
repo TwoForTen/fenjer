@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import _ from 'lodash';
 import { Helmet } from 'react-helmet-async';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -37,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
   },
+  centeredContainer: {
+    textAlign: 'center',
+    margin: theme.spacing(3),
+  },
 }));
 
 const Contact = () => {
@@ -49,14 +54,12 @@ const Contact = () => {
     }) || {};
 
   const {
-    address,
     email,
     fax,
     field_sales,
     headquarters,
     headquarters_address,
     headquarters_oib,
-    name,
     phones,
     working_hours,
   } = contactData;
@@ -74,255 +77,264 @@ const Contact = () => {
       </Helmet>
       <PageBreadcrumbs titles={['Kontakt']} />
       <Container>
-        <Grid container spacing={3}>
-          <Grid item xs={3}>
-            <List className={classes.navList}>
-              <ListItem
-                button
-                selected={value === 0}
-                onClick={(event) => handleChange(event, 0)}
-              >
-                <Typography variant="h6" component="span" color="inherit">
+        {_.isEmpty(contactData) ? (
+          <div className={classes.centeredContainer}>
+            <CircularProgress className="mt-4" />
+          </div>
+        ) : (
+          <Grid container spacing={3}>
+            <Grid item xs={3}>
+              <List className={classes.navList}>
+                <ListItem
+                  button
+                  selected={value === 0}
+                  onClick={(event) => handleChange(event, 0)}
+                >
+                  <Typography variant="h6" component="span" color="inherit">
+                    Kontakt
+                  </Typography>
+                </ListItem>
+                <ListItem
+                  button
+                  selected={value === 1}
+                  onClick={(event) => handleChange(event, 1)}
+                >
+                  <Typography variant="h6" component="span" color="inherit">
+                    Sjedište tvrtke
+                  </Typography>
+                </ListItem>
+                {field_sales &&
+                  field_sales.map((field_sale, index) => {
+                    return (
+                      <ListItem
+                        button
+                        selected={value === 2 + index}
+                        onClick={(event) => handleChange(event, 2 + index)}
+                        key={field_sale.id}
+                      >
+                        <Typography
+                          variant="h6"
+                          component="span"
+                          color="inherit"
+                        >{`Terenska prodaja ${index + 1}`}</Typography>
+                      </ListItem>
+                    );
+                  })}
+                <ListItem
+                  button
+                  selected={value === 2 + field_sales?.length}
+                  onClick={(event) =>
+                    handleChange(event, 2 + field_sales?.length)
+                  }
+                >
+                  <Typography variant="h6" component="span" color="inherit">
+                    Lokacija
+                  </Typography>
+                </ListItem>
+              </List>
+            </Grid>
+            <Grid item xs={9}>
+              <div className={classes.sectionContainer}>
+                <Typography
+                  className={classes.sectionTitle}
+                  color="textPrimary"
+                  variant="h6"
+                  element="h2"
+                >
                   Kontakt
                 </Typography>
-              </ListItem>
-              <ListItem
-                button
-                selected={value === 1}
-                onClick={(event) => handleChange(event, 1)}
-              >
-                <Typography variant="h6" component="span" color="inherit">
+                {phones && (
+                  <div className={classes.sectionList}>
+                    <Typography
+                      className={classes.sectionSubtitle}
+                      color="textPrimary"
+                      variant="body1"
+                    >
+                      Telefon:
+                    </Typography>
+                    <ul>
+                      {phones.map((phone) => {
+                        return (
+                          <li key={phone.id}>
+                            <Typography
+                              variant="subtitle1"
+                              color="textSecondary"
+                            >
+                              {phone.number}
+                            </Typography>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                )}
+                {fax && (
+                  <div className={classes.sectionList}>
+                    <Typography
+                      className={classes.sectionSubtitle}
+                      color="textPrimary"
+                      variant="body1"
+                    >
+                      Fax:
+                    </Typography>
+                    <Typography variant="subtitle1" color="textSecondary">
+                      {fax}
+                    </Typography>
+                  </div>
+                )}
+                {email && (
+                  <div className={classes.sectionList}>
+                    <Typography
+                      className={classes.sectionSubtitle}
+                      color="textPrimary"
+                      variant="body1"
+                    >
+                      E-mail:
+                    </Typography>
+                    <Typography variant="subtitle1" color="textSecondary">
+                      {email}
+                    </Typography>
+                  </div>
+                )}
+                {working_hours && (
+                  <div className={classes.sectionList}>
+                    <Typography
+                      className={classes.sectionSubtitle}
+                      color="textPrimary"
+                      variant="body1"
+                    >
+                      Radno vrijeme:
+                    </Typography>
+                    <Typography
+                      dangerouslySetInnerHTML={{
+                        __html: working_hours,
+                      }}
+                      variant="subtitle1"
+                      color="textSecondary"
+                    ></Typography>
+                  </div>
+                )}
+              </div>
+              <div className={classes.sectionContainer}>
+                <Typography
+                  className={classes.sectionTitle}
+                  color="textPrimary"
+                  variant="h6"
+                  element="h2"
+                >
                   Sjedište tvrtke
                 </Typography>
-              </ListItem>
-              {field_sales &&
-                field_sales.map((field_sale, index) => {
-                  return (
-                    <ListItem
-                      button
-                      selected={value === 2 + index}
-                      onClick={(event) => handleChange(event, 2 + index)}
-                      key={field_sale.id}
+                {headquarters && (
+                  <div className={classes.sectionList}>
+                    <Typography
+                      className={classes.sectionSubtitle}
+                      color="textPrimary"
+                      variant="body1"
                     >
-                      <Typography
-                        variant="h6"
-                        component="span"
-                        color="inherit"
-                      >{`Terenska prodaja ${index + 1}`}</Typography>
-                    </ListItem>
-                  );
-                })}
-              <ListItem
-                button
-                selected={value === 2 + field_sales?.length}
-                onClick={(event) =>
-                  handleChange(event, 2 + field_sales?.length)
-                }
-              >
-                <Typography variant="h6" component="span" color="inherit">
-                  Lokacija
-                </Typography>
-              </ListItem>
-            </List>
-          </Grid>
-          <Grid item xs={9}>
-            <div className={classes.sectionContainer}>
-              <Typography
-                className={classes.sectionTitle}
-                color="textPrimary"
-                variant="h6"
-                element="h2"
-              >
-                Kontakt
-              </Typography>
-              {phones && (
-                <div className={classes.sectionList}>
-                  <Typography
-                    className={classes.sectionSubtitle}
-                    color="textPrimary"
-                    variant="body1"
-                  >
-                    Telefon:
-                  </Typography>
-                  <ul>
-                    {phones.map((phone) => {
-                      return (
-                        <li key={phone.id}>
-                          <Typography variant="subtitle1" color="textSecondary">
-                            {phone.number}
-                          </Typography>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              )}
-              {fax && (
-                <div className={classes.sectionList}>
-                  <Typography
-                    className={classes.sectionSubtitle}
-                    color="textPrimary"
-                    variant="body1"
-                  >
-                    Fax:
-                  </Typography>
-                  <Typography variant="subtitle1" color="textSecondary">
-                    {fax}
-                  </Typography>
-                </div>
-              )}
-              {email && (
-                <div className={classes.sectionList}>
-                  <Typography
-                    className={classes.sectionSubtitle}
-                    color="textPrimary"
-                    variant="body1"
-                  >
-                    E-mail:
-                  </Typography>
-                  <Typography variant="subtitle1" color="textSecondary">
-                    {email}
-                  </Typography>
-                </div>
-              )}
-              {working_hours && (
-                <div className={classes.sectionList}>
-                  <Typography
-                    className={classes.sectionSubtitle}
-                    color="textPrimary"
-                    variant="body1"
-                  >
-                    Radno vrijeme:
-                  </Typography>
-                  <Typography
-                    dangerouslySetInnerHTML={{
-                      __html: working_hours,
-                    }}
-                    variant="subtitle1"
-                    color="textSecondary"
-                  ></Typography>
-                </div>
-              )}
-            </div>
-            <div className={classes.sectionContainer}>
-              <Typography
-                className={classes.sectionTitle}
-                color="textPrimary"
-                variant="h6"
-                element="h2"
-              >
-                Sjedište tvrtke
-              </Typography>
-              {headquarters && (
-                <div className={classes.sectionList}>
-                  <Typography
-                    className={classes.sectionSubtitle}
-                    color="textPrimary"
-                    variant="body1"
-                  >
-                    {headquarters}
-                  </Typography>
-                </div>
-              )}
-              {headquarters_oib && (
-                <div className={classes.sectionList}>
-                  <Typography variant="subtitle1" color="textSecondary">
-                    {`OIB: ${headquarters_oib}`}
-                  </Typography>
-                </div>
-              )}
-              {headquarters_address && (
-                <div className={classes.sectionList}>
-                  <Typography variant="subtitle1" color="textSecondary">
-                    {headquarters_address}
-                  </Typography>
-                </div>
-              )}
-            </div>
-            {field_sales && (
-              <div className={classes.sectionContainer}>
-                {field_sales.map((field_sale, index) => {
-                  return (
-                    <div key={field_sale.id}>
-                      <Typography
-                        className={classes.sectionTitle}
-                        color="textPrimary"
-                        variant="h6"
-                        element="h2"
-                      >
-                        {`Terenska prodaja ${index + 1}`}
-                      </Typography>
-                      <div className={classes.sectionList}>
-                        <Typography
-                          className={classes.sectionSubtitle}
-                          color="textPrimary"
-                          variant="body1"
-                        >
-                          Područje:
-                        </Typography>
-                        <ul>
-                          {field_sale.areas.split(',').map((area) => {
-                            return (
-                              <li key={area}>
-                                <Typography
-                                  variant="subtitle1"
-                                  color="textSecondary"
-                                >
-                                  {area}
-                                </Typography>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                        <Typography
-                          className={classes.sectionSubtitle}
-                          color="textPrimary"
-                          variant="body1"
-                        >
-                          Mobitel:
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary">
-                          {field_sale.phone}
-                        </Typography>
-                        <Typography
-                          className={classes.sectionSubtitle}
-                          color="textPrimary"
-                          variant="body1"
-                        >
-                          E-mail:
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary">
-                          {field_sale.email}
-                        </Typography>
-                        <Typography
-                          className={classes.sectionSubtitle}
-                          color="textPrimary"
-                          variant="body1"
-                        >
-                          Obilazak komercijaliste:
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary">
-                          {field_sale.tour}
-                        </Typography>
-                      </div>
-                    </div>
-                  );
-                })}
+                      {headquarters}
+                    </Typography>
+                  </div>
+                )}
+                {headquarters_oib && (
+                  <div className={classes.sectionList}>
+                    <Typography variant="subtitle1" color="textSecondary">
+                      {`OIB: ${headquarters_oib}`}
+                    </Typography>
+                  </div>
+                )}
+                {headquarters_address && (
+                  <div className={classes.sectionList}>
+                    <Typography variant="subtitle1" color="textSecondary">
+                      {headquarters_address}
+                    </Typography>
+                  </div>
+                )}
               </div>
-            )}
+              {field_sales && (
+                <div className={classes.sectionContainer}>
+                  {field_sales.map((field_sale, index) => {
+                    return (
+                      <div key={field_sale.id}>
+                        <Typography
+                          className={classes.sectionTitle}
+                          color="textPrimary"
+                          variant="h6"
+                          element="h2"
+                        >
+                          {`Terenska prodaja ${index + 1}`}
+                        </Typography>
+                        <div className={classes.sectionList}>
+                          <Typography
+                            className={classes.sectionSubtitle}
+                            color="textPrimary"
+                            variant="body1"
+                          >
+                            Područje:
+                          </Typography>
+                          <ul>
+                            {field_sale.areas.split(',').map((area) => {
+                              return (
+                                <li key={area}>
+                                  <Typography
+                                    variant="subtitle1"
+                                    color="textSecondary"
+                                  >
+                                    {area}
+                                  </Typography>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                          <Typography
+                            className={classes.sectionSubtitle}
+                            color="textPrimary"
+                            variant="body1"
+                          >
+                            Mobitel:
+                          </Typography>
+                          <Typography variant="subtitle1" color="textSecondary">
+                            {field_sale.phone}
+                          </Typography>
+                          <Typography
+                            className={classes.sectionSubtitle}
+                            color="textPrimary"
+                            variant="body1"
+                          >
+                            E-mail:
+                          </Typography>
+                          <Typography variant="subtitle1" color="textSecondary">
+                            {field_sale.email}
+                          </Typography>
+                          <Typography
+                            className={classes.sectionSubtitle}
+                            color="textPrimary"
+                            variant="body1"
+                          >
+                            Obilazak komercijaliste:
+                          </Typography>
+                          <Typography variant="subtitle1" color="textSecondary">
+                            {field_sale.tour}
+                          </Typography>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
 
-            <iframe
-              allowFullScreen
-              className={classes.googleMaps}
-              frameBorder="0"
-              height="450"
-              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxHcVuajrRGTFmp5bS6NHK8JHA6JlyXH8
+              <iframe
+                allowFullScreen
+                className={classes.googleMaps}
+                frameBorder="0"
+                height="450"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxHcVuajrRGTFmp5bS6NHK8JHA6JlyXH8
           &q=Slavonska%20Avenija%2052"
-              title="Maps"
-              width="100%"
-            ></iframe>
+                title="Maps"
+                width="100%"
+              ></iframe>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </Container>
     </>
   );

@@ -21,15 +21,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PostCard = ({ novost }) => {
+const PostCard = ({ post }) => {
   const location = useLocation();
   const classes = useStyles();
 
-  const { title, excerpt, id, created_at: createdAt } = novost;
+  const { title, excerpt, id, created_at: createdAt } = post;
 
-  const postedAt = moment(createdAt, 'DD.MM.YYYY')
-    .locale('hr')
-    .format('DD. MMMM YYYY.');
+  const postedAt = moment(createdAt).locale('hr').format('DD. MMMM YYYY.');
 
   return (
     <Card className={classes.card}>
