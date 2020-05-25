@@ -2,19 +2,28 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
+import useDataFetch from '../hooks/useDataFetch';
+
 const useStyles = makeStyles((theme) => ({
-  paragraphContainer: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+  sectionTitle: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+  },
+  sectionContainer: {
+    paddingBottom: theme.spacing(3),
     borderBottom: `1px solid ${theme.palette.primary.main}`,
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(4) + theme.spacing(1.5),
-    },
+  },
+  sectionSubtitle: {
+    fontWeight: 'bold',
+  },
+  sectionList: {
+    paddingLeft: theme.spacing(1),
   },
   googleMaps: {
     paddingTop: theme.spacing(4),
@@ -28,6 +37,27 @@ const useStyles = makeStyles((theme) => ({
 const Contact = () => {
   const classes = useStyles();
 
+  const contactData =
+    useDataFetch({
+      method: 'GET',
+      url: '/owner',
+    }) || {};
+
+  const {
+    address,
+    email,
+    fax,
+    field_sales,
+    headquarters,
+    headquarters_address,
+    headquarters_oib,
+    name,
+    phones,
+    working_hours,
+  } = contactData;
+
+  console.log(contactData);
+
   return (
     <>
       <Helmet titleTemplate="%s | Fenjer.hr">
@@ -35,33 +65,163 @@ const Contact = () => {
       </Helmet>
       <PageBreadcrumbs titles={['Kontakt']} />
       <Container>
-        <div className={classes.paragraphContainer}>
-          <Typography color="textPrimary" variant="h6" element="h2">
-            Informacije
-          </Typography>
-          <Typography color="textPrimary" variant="body1" paragraph>
-            Ukoliko imate upit vezan uz našu ponudu i poslovanje, slobodno nam
-            se obratite putem email formulara ili na naše brojeve telefona.
-          </Typography>
-          <Typography color="textPrimary" variant="h6" element="h2">
-            Info:
-          </Typography>
-          <Typography color="textPrimary" variant="body1" paragraph>
-            Broj telefona mobitela
-          </Typography>
-          <Typography color="textPrimary" variant="h6" element="h2">
-            Fax:
-          </Typography>
-          <Typography color="textPrimary" variant="body1" paragraph>
-            Upisati fax
-          </Typography>
-          <Typography color="textPrimary" variant="h6" element="h2">
-            Email:
-          </Typography>
-          <Typography color="textPrimary" variant="body1" paragraph>
-            Upisati email..
-          </Typography>
-        </div>
+        <Grid container spacing={3}>
+          <Grid item xs={4}></Grid>
+          <Grid item xs={8}>
+            <div className={classes.sectionContainer}>
+              <Typography
+                className={classes.sectionTitle}
+                color="textPrimary"
+                variant="h6"
+                element="h2"
+              >
+                Kontakt
+              </Typography>
+              {phones && (
+                <div className={classes.sectionList}>
+                  <Typography
+                    className={classes.sectionSubtitle}
+                    color="textPrimary"
+                    variant="body1"
+                  >
+                    Telefon:
+                  </Typography>
+                  <ul>
+                    {phones.map((phone) => {
+                      return (
+                        <li key={phone.id}>
+                          <Typography variant="subtitle1" color="textSecondary">
+                            {phone.number}
+                          </Typography>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+              {fax && (
+                <div className={classes.sectionList}>
+                  <Typography
+                    className={classes.sectionSubtitle}
+                    color="textPrimary"
+                    variant="body1"
+                  >
+                    Fax:
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    {fax}
+                  </Typography>
+                </div>
+              )}
+              {email && (
+                <div className={classes.sectionList}>
+                  <Typography
+                    className={classes.sectionSubtitle}
+                    color="textPrimary"
+                    variant="body1"
+                  >
+                    E-mail:
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    {email}
+                  </Typography>
+                </div>
+              )}
+              {working_hours && (
+                <div className={classes.sectionList}>
+                  <Typography
+                    className={classes.sectionSubtitle}
+                    color="textPrimary"
+                    variant="body1"
+                  >
+                    Radno vrijeme:
+                  </Typography>
+                  <Typography
+                    dangerouslySetInnerHTML={{
+                      __html: working_hours,
+                    }}
+                    variant="subtitle1"
+                    color="textSecondary"
+                  ></Typography>
+                </div>
+              )}
+            </div>
+            <div className={classes.sectionContainer}>
+              <Typography
+                className={classes.sectionTitle}
+                color="textPrimary"
+                variant="h6"
+                element="h2"
+              >
+                Sjedište tvrtke
+              </Typography>
+              {name && (
+                <div className={classes.sectionList}>
+                  <Typography
+                    className={classes.sectionSubtitle}
+                    color="textPrimary"
+                    variant="body1"
+                  >
+                    {name}
+                  </Typography>
+                </div>
+              )}
+              {headquarters_oib && (
+                <div className={classes.sectionList}>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    {`OIB: ${headquarters_oib}`}
+                  </Typography>
+                </div>
+              )}
+              {headquarters_address && (
+                <div className={classes.sectionList}>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    {headquarters_address}
+                  </Typography>
+                </div>
+              )}
+            </div>
+            {field_sales && (
+              <div className={classes.sectionContainer}>
+                {field_sales.map((field_sale, index) => {
+                  return (
+                    <div key={field_sale.id}>
+                      <Typography
+                        className={classes.sectionTitle}
+                        color="textPrimary"
+                        variant="h6"
+                        element="h2"
+                      >
+                        {`Terenska prodaja ${index + 1}`}
+                      </Typography>
+                      <Typography
+                        className={classes.sectionSubtitle}
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        Područje:
+                      </Typography>
+                      <ul>
+                        {field_sale.areas.split(',').map((area) => {
+                          return (
+                            <li key={area}>
+                              <Typography
+                                variant="subtitle1"
+                                color="textSecondary"
+                              >
+                                {area}
+                              </Typography>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </Grid>
+        </Grid>
         <iframe
           allowFullScreen
           className={classes.googleMaps}

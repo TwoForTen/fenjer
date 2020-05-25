@@ -151,8 +151,6 @@ const Checkout = () => {
                 }}
               >
                 {({ errors, touched, values }) => {
-                  console.log(values);
-                  console.log(user.userDetails.company);
                   return (
                     <Form>
                       <Grid container spacing={3}>

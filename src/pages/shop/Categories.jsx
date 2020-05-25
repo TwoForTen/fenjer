@@ -26,7 +26,7 @@ const Proizvodi = () => {
     method: 'GET',
   });
 
-  if (categories?.length < 1) {
+  if (categories?.data?.length < 1) {
     return (
       <div className={classes.centeredContainer}>
         <Typography variant="body1" color="textPrimary">
@@ -44,8 +44,8 @@ const Proizvodi = () => {
 
       <PageBreadcrumbs titles={['Proizvodi']} />
       <Container style={{ textAlign: !categories && 'center' }}>
-        {categories ? (
-          categories.map((category) => {
+        {categories?.data ? (
+          categories?.data.map((category) => {
             return <CategoryCard category={category} key={category.id} />;
           })
         ) : (

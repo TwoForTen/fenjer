@@ -3,8 +3,6 @@ import axios from '../axiosInstance';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import sanitiseName from '../helpers/sanitiseName';
-
 import ProductQuantitySelector from './ProductQuantitySelector';
 
 import Card from '@material-ui/core/Card';
