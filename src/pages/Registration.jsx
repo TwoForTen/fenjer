@@ -3,7 +3,7 @@ import axios from '../axiosInstance';
 import { Formik, FastField } from 'formik';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory, useLocation, Redirect } from 'react-router-dom';
 import * as yup from 'yup';
 
 import Button from '@material-ui/core/Button';
@@ -38,8 +38,11 @@ const COUNTRIES = ['Hrvatska', 'Španjolska', 'Kina', 'Italija', 'Novi Zeland'];
 const Registration = () => {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
+
+  const { state: locationState } = location;
 
   const validationSchema = yup.object().shape({
     name: yup.string().required(),
@@ -125,7 +128,12 @@ const Registration = () => {
                   password,
                 })
                 .then(() => {
-                  history.push('/prijava');
+                  history.push({
+                    pathname: '/prijava',
+                    state: {
+                      fromCheckout: locationState?.fromCheckout && true,
+                    },
+                  });
                   dispatch(
                     showSnackbar({
                       message:

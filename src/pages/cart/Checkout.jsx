@@ -84,7 +84,12 @@ const Checkout = () => {
                     marginTop: '16px',
                   }}
                 >
-                  <Link to="/prijava">
+                  <Link
+                    to={{
+                      pathname: '/prijava',
+                      state: { fromCheckout: true },
+                    }}
+                  >
                     <Button
                       variant="contained"
                       color="primary"
@@ -93,7 +98,12 @@ const Checkout = () => {
                       Prijava
                     </Button>
                   </Link>
-                  <Link to="/registracija">
+                  <Link
+                    to={{
+                      pathname: '/registracija',
+                      state: { fromCheckout: true },
+                    }}
+                  >
                     <Button variant="contained" color="primary">
                       Registracija
                     </Button>

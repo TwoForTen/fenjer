@@ -2,7 +2,7 @@ import React from 'react';
 import axios from '../axiosInstance';
 import { Formik } from 'formik';
 import { Helmet } from 'react-helmet-async';
-import { Link, useHistory, Redirect } from 'react-router-dom';
+import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 
@@ -41,8 +41,11 @@ const validationSchema = yup.object().shape({
 const Login = () => {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
+
+  const { state: locationState } = location;
 
   if (token) {
     return <Redirect to="/korisnicki-racun" />;
@@ -78,7 +81,9 @@ const Login = () => {
                     );
                     localStorage.setItem('expiration_date', expiration);
                     dispatch(userLogin(res.data));
-                    history.push('/');
+                    history.push(
+                      locationState?.fromCheckout ? '/zavrsetak-kupnje' : '/'
+                    );
                   })
                   .catch((err) => {
                     actions.setSubmitting(false);
