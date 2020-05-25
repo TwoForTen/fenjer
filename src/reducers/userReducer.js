@@ -11,7 +11,8 @@ export const userReducer = (state = initialState, action) => {
     case STORE_USER:
       return {
         ...state,
-        name: action.payload,
+        name: action.payload.full_name,
+        userDetails: { ...action.payload },
       };
     case USER_LOGIN:
       return {

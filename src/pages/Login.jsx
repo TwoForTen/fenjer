@@ -79,7 +79,7 @@ const Login = () => {
                       );
                       localStorage.setItem('expiration_date', expiration);
                       dispatch(userLogin(res.data));
-                      history.replace('/korisnicki-racun');
+                      history.push('/');
                     })
                     .catch((err) => {
                       actions.setSubmitting(false);

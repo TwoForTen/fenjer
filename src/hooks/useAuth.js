@@ -9,7 +9,7 @@ export const useCheckAuth = () => {
     axios
       .get('/auth/user')
       .then((res) => {
-        dispatch(storeUser(`${res.data.full_name}`));
+        dispatch(storeUser(res.data));
       })
       .catch((err) => {
         if (err?.response?.status === 401) {

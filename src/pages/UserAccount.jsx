@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import _ from 'lodash';
 import axios from '../axiosInstance';
+import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -12,8 +14,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Orders from '../components/Orders';
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
 import UserDetails from '../components/UserDetails';
-
-import useDataFetch from '../hooks/useDataFetch';
 
 const useStyles = makeStyles((theme) => ({
   fullWidthBorder: {
@@ -41,10 +41,7 @@ const UserAccount = () => {
 
   const [userOrders, setUserOrders] = useState();
 
-  const user = useDataFetch({
-    url: '/auth/user',
-    method: 'GET',
-  });
+  const user = useSelector((state) => state.user.userDetails);
 
   return (
     <>
@@ -86,7 +83,7 @@ const UserAccount = () => {
             onChangeIndex={handleChangeIndex}
           >
             <Container maxWidth="md" style={{ textAlign: !user && 'center' }}>
-              {user ? (
+              {!_.isEmpty(user) ? (
                 <UserDetails user={user} />
               ) : (
                 <CircularProgress className="mt-4" />

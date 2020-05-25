@@ -75,7 +75,7 @@ const Appbar = () => {
     if (isLoggedIn) {
       checkAuth();
     }
-  }, []);
+  }, [token]);
 
   const NAV_LINKS = [
     <NavLink

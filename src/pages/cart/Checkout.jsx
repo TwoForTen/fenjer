@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
@@ -33,7 +33,21 @@ const useStyles = makeStyles((theme) => ({
 const Checkout = () => {
   const classes = useStyles();
   const cart = useSelector((state) => state.cart);
-  const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user);
+
+  const [billCheckbox, setBillcheckbox] = useState(true);
+
+  const {
+    userDetails: {
+      company,
+      name,
+      surname,
+      city,
+      postal_code,
+      mobile_phone,
+      address,
+    },
+  } = user;
 
   if (!cart || cart?.length < 1) {
     return <Redirect to="/kosarica" />;
@@ -59,7 +73,7 @@ const Checkout = () => {
             </Typography>
           </div>
           <Paper className={classes.paperRoot}>
-            {!token ? (
+            {!user.token ? (
               <>
                 <Typography variant="body1">
                   Niste se još registrirali / prijavili?
@@ -88,7 +102,7 @@ const Checkout = () => {
                 </div>
               </>
             ) : (
-              <Typography>Paula Mavrin</Typography>
+              <Typography>{user.name}</Typography>
             )}
           </Paper>
         </div>
@@ -108,10 +122,11 @@ const Checkout = () => {
             </Typography>
           </div>
           <FormControlLabel
+            className="mb-3"
             control={
               <Checkbox
-                // checked={state.checkedA}
-                // onChange={handleChange}
+                checked={billCheckbox}
+                onChange={() => setBillcheckbox((prevState) => !prevState)}
                 name="checkedA"
                 color="default"
               />
@@ -122,20 +137,22 @@ const Checkout = () => {
               </Typography>
             }
           />
-          <Grid container spacing={0}>
-            <Grid item sm={6} xs={12}>
+          <Grid container spacing={6}>
+            <Grid item md={6} xs={12}>
               <Formik
                 initialValues={{
-                  company: '',
-                  name: '',
-                  surname: '',
-                  address: '',
-                  city: '',
-                  postal_code: '',
-                  mobile_phone: '',
+                  company,
+                  name,
+                  surname,
+                  address,
+                  city,
+                  postal_code,
+                  mobile_phone,
                 }}
               >
-                {(errors, touched) => {
+                {({ errors, touched, values }) => {
+                  console.log(values);
+                  console.log(user.userDetails.company);
                   return (
                     <Form>
                       <Grid container spacing={3}>
@@ -147,6 +164,7 @@ const Checkout = () => {
                             label="Tvrtka"
                             variant="outlined"
                             component={TextField}
+                            value={values.company}
                             helperText={
                               errors.company &&
                               touched.company &&
@@ -162,6 +180,7 @@ const Checkout = () => {
                             label="Ime"
                             variant="outlined"
                             component={TextField}
+                            value={values.name}
                             helperText={
                               errors.name && touched.name && errors.name
                             }
@@ -175,6 +194,7 @@ const Checkout = () => {
                             label="Prezime"
                             variant="outlined"
                             component={TextField}
+                            value={values.surname}
                             helperText={
                               errors.surname &&
                               touched.surname &&
@@ -190,6 +210,7 @@ const Checkout = () => {
                             label="Adressa"
                             variant="outlined"
                             component={TextField}
+                            value={values.address}
                             helperText={
                               errors.address &&
                               touched.address &&
@@ -205,6 +226,7 @@ const Checkout = () => {
                             label="Mjesto"
                             variant="outlined"
                             component={TextField}
+                            value={values.city}
                             helperText={
                               errors.city && touched.city && errors.city
                             }
@@ -218,6 +240,7 @@ const Checkout = () => {
                             label="Prezime"
                             variant="outlined"
                             component={TextField}
+                            value={values.postal_code}
                             helperText={
                               errors.postal_code &&
                               touched.postal_code &&
@@ -233,6 +256,7 @@ const Checkout = () => {
                             label="Mobitel"
                             variant="outlined"
                             component={TextField}
+                            value={values.mobile_phone}
                             helperText={
                               errors.mobile_phone &&
                               touched.mobile_phone &&
@@ -255,6 +279,149 @@ const Checkout = () => {
                 }}
               </Formik>
             </Grid>
+            {!billCheckbox && (
+              <Grid item md={6} xs={12}>
+                <Formik
+                  initialValues={{
+                    company: '',
+                    name: '',
+                    surname: '',
+                    address: '',
+                    city: '',
+                    postal_code: '',
+                    mobile_phone: '',
+                  }}
+                >
+                  {({ errors, touched, values }) => {
+                    console.log(values);
+                    console.log(user.userDetails.company);
+                    return (
+                      <Form>
+                        <Grid container spacing={3}>
+                          <Grid item xs={12}>
+                            <Field
+                              fullWidth
+                              name="company"
+                              id="company"
+                              label="Tvrtka"
+                              variant="outlined"
+                              component={TextField}
+                              value={values.company}
+                              helperText={
+                                errors.company &&
+                                touched.company &&
+                                errors.company
+                              }
+                            />
+                          </Grid>
+                          <Grid item sm={6} xs={12}>
+                            <Field
+                              fullWidth
+                              name="name"
+                              id="name"
+                              label="Ime"
+                              variant="outlined"
+                              component={TextField}
+                              value={values.name}
+                              helperText={
+                                errors.name && touched.name && errors.name
+                              }
+                            />
+                          </Grid>
+                          <Grid item sm={6} xs={12}>
+                            <Field
+                              fullWidth
+                              name="surname"
+                              id="surname"
+                              label="Prezime"
+                              variant="outlined"
+                              component={TextField}
+                              value={values.surname}
+                              helperText={
+                                errors.surname &&
+                                touched.surname &&
+                                errors.surname
+                              }
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Field
+                              fullWidth
+                              name="address"
+                              id="address"
+                              label="Adressa"
+                              variant="outlined"
+                              component={TextField}
+                              value={values.address}
+                              helperText={
+                                errors.address &&
+                                touched.address &&
+                                errors.address
+                              }
+                            />
+                          </Grid>
+                          <Grid item sm={6} xs={12}>
+                            <Field
+                              fullWidth
+                              name="city"
+                              id="city"
+                              label="Mjesto"
+                              variant="outlined"
+                              component={TextField}
+                              value={values.city}
+                              helperText={
+                                errors.city && touched.city && errors.city
+                              }
+                            />
+                          </Grid>
+                          <Grid item sm={6} xs={12}>
+                            <Field
+                              fullWidth
+                              name="postal_code"
+                              id="postal_code"
+                              label="Prezime"
+                              variant="outlined"
+                              component={TextField}
+                              value={values.postal_code}
+                              helperText={
+                                errors.postal_code &&
+                                touched.postal_code &&
+                                errors.postal_code
+                              }
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Field
+                              fullWidth
+                              name="mobile_phone"
+                              id="mobile_phone"
+                              label="Mobitel"
+                              variant="outlined"
+                              component={TextField}
+                              value={values.mobile_phone}
+                              helperText={
+                                errors.mobile_phone &&
+                                touched.mobile_phone &&
+                                errors.mobile_phone
+                              }
+                            />
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              type="submit"
+                              variant="contained"
+                              color="primary"
+                            >
+                              Potvrdi
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Form>
+                    );
+                  }}
+                </Formik>
+              </Grid>
+            )}
           </Grid>
         </div>
         <div className="mb-4">
