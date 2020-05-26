@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 
 import Button from '@material-ui/core/Button';
@@ -14,9 +14,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Payment from '@material-ui/icons/Payment';
 
+import posta from '../../assets/posta.png';
+
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 
-import posta from '../../assets/posta.png';
+import { storePurchase } from '../../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   containerRoot: {
@@ -31,13 +33,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Checkout = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
+
+  const deliverRef = useRef();
+  const billRef = useRef();
 
   const [billCheckbox, setBillcheckbox] = useState(true);
 
   const {
-    userDetails: {
+    details: {
       company,
       name,
       surname,
@@ -47,6 +53,17 @@ const Checkout = () => {
       address,
     },
   } = user;
+
+  const handleDeliverSubmit = () => {
+    if (deliverRef.current) {
+      deliverRef.current.handleSubmit();
+    }
+  };
+  const handleBillSubmit = () => {
+    if (billRef.current) {
+      billRef.current.handleSubmit();
+    }
+  };
 
   if (!cart || cart?.length < 1) {
     return <Redirect to="/kosarica" />;
@@ -127,7 +144,7 @@ const Checkout = () => {
               2
             </Typography>
             <Typography color="textPrimary" variant="body1">
-              Adresa dostave
+              Korisnički podaci
             </Typography>
           </div>
           <FormControlLabel
@@ -148,30 +165,46 @@ const Checkout = () => {
           />
           <Grid container spacing={6}>
             <Grid item md={6} xs={12}>
+              <Typography
+                variant="subtitle2"
+                color="textPrimary"
+                className="mb-3"
+              >
+                Podaci za dostavu
+              </Typography>
               <Formik
                 initialValues={{
-                  company,
-                  name,
-                  surname,
-                  address,
-                  city,
-                  postal_code,
-                  mobile_phone,
+                  company: company || '',
+                  name: name || '',
+                  surname: surname || '',
+                  address: address || '',
+                  city: city || '',
+                  postal_code: postal_code || '',
+                  mobile_phone: mobile_phone || '',
                 }}
+                onSubmit={(values, actions) => {
+                  console.log(values);
+                  dispatch(
+                    storePurchase({
+                      deliver_to: values,
+                      bill_to: billCheckbox ? values : {},
+                    })
+                  );
+                }}
+                innerRef={deliverRef}
               >
-                {({ errors, touched, values }) => {
+                {({ errors, touched, values, handleChange }) => {
                   return (
-                    <Form>
+                    <Form key="deliver">
                       <Grid container spacing={3}>
                         <Grid item xs={12}>
-                          <Field
+                          <TextField
                             fullWidth
                             name="company"
-                            id="company"
                             label="Tvrtka"
                             variant="outlined"
-                            component={TextField}
                             value={values.company}
+                            onChange={handleChange}
                             helperText={
                               errors.company &&
                               touched.company &&
@@ -180,28 +213,26 @@ const Checkout = () => {
                           />
                         </Grid>
                         <Grid item sm={6} xs={12}>
-                          <Field
+                          <TextField
                             fullWidth
                             name="name"
-                            id="name"
                             label="Ime"
                             variant="outlined"
-                            component={TextField}
                             value={values.name}
+                            onChange={handleChange}
                             helperText={
                               errors.name && touched.name && errors.name
                             }
                           />
                         </Grid>
                         <Grid item sm={6} xs={12}>
-                          <Field
+                          <TextField
                             fullWidth
                             name="surname"
-                            id="surname"
                             label="Prezime"
                             variant="outlined"
-                            component={TextField}
                             value={values.surname}
+                            onChange={handleChange}
                             helperText={
                               errors.surname &&
                               touched.surname &&
@@ -210,14 +241,13 @@ const Checkout = () => {
                           />
                         </Grid>
                         <Grid item xs={12}>
-                          <Field
+                          <TextField
                             fullWidth
                             name="address"
-                            id="address"
                             label="Adressa"
                             variant="outlined"
-                            component={TextField}
                             value={values.address}
+                            onChange={handleChange}
                             helperText={
                               errors.address &&
                               touched.address &&
@@ -226,28 +256,26 @@ const Checkout = () => {
                           />
                         </Grid>
                         <Grid item sm={6} xs={12}>
-                          <Field
+                          <TextField
                             fullWidth
                             name="city"
-                            id="city"
                             label="Mjesto"
                             variant="outlined"
-                            component={TextField}
                             value={values.city}
+                            onChange={handleChange}
                             helperText={
                               errors.city && touched.city && errors.city
                             }
                           />
                         </Grid>
                         <Grid item sm={6} xs={12}>
-                          <Field
+                          <TextField
                             fullWidth
                             name="postal_code"
-                            id="postal_code"
-                            label="Prezime"
+                            label="Poštanski broj"
                             variant="outlined"
-                            component={TextField}
                             value={values.postal_code}
+                            onChange={handleChange}
                             helperText={
                               errors.postal_code &&
                               touched.postal_code &&
@@ -256,29 +284,19 @@ const Checkout = () => {
                           />
                         </Grid>
                         <Grid item xs={12}>
-                          <Field
+                          <TextField
                             fullWidth
                             name="mobile_phone"
-                            id="mobile_phone"
                             label="Mobitel"
                             variant="outlined"
-                            component={TextField}
                             value={values.mobile_phone}
+                            onChange={handleChange}
                             helperText={
                               errors.mobile_phone &&
                               touched.mobile_phone &&
                               errors.mobile_phone
                             }
                           />
-                        </Grid>
-                        <Grid item>
-                          <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                          >
-                            Potvrdi
-                          </Button>
                         </Grid>
                       </Grid>
                     </Form>
@@ -288,6 +306,13 @@ const Checkout = () => {
             </Grid>
             {!billCheckbox && (
               <Grid item md={6} xs={12}>
+                <Typography
+                  variant="subtitle2"
+                  color="textPrimary"
+                  className="mb-3"
+                >
+                  Podaci za račun
+                </Typography>
                 <Formik
                   initialValues={{
                     company: '',
@@ -298,22 +323,28 @@ const Checkout = () => {
                     postal_code: '',
                     mobile_phone: '',
                   }}
+                  innerRef={billRef}
+                  onSubmit={(values, actions) => {
+                    dispatch(
+                      storePurchase({
+                        deliver_to: user.purchase.deliver_to,
+                        bill_to: values,
+                      })
+                    );
+                  }}
                 >
-                  {({ errors, touched, values }) => {
-                    console.log(values);
-                    console.log(user.userDetails.company);
+                  {({ errors, touched, values, handleChange }) => {
                     return (
-                      <Form>
+                      <Form key="bill">
                         <Grid container spacing={3}>
                           <Grid item xs={12}>
-                            <Field
+                            <TextField
                               fullWidth
                               name="company"
-                              id="company"
                               label="Tvrtka"
                               variant="outlined"
-                              component={TextField}
                               value={values.company}
+                              onChange={handleChange}
                               helperText={
                                 errors.company &&
                                 touched.company &&
@@ -322,28 +353,26 @@ const Checkout = () => {
                             />
                           </Grid>
                           <Grid item sm={6} xs={12}>
-                            <Field
+                            <TextField
                               fullWidth
                               name="name"
-                              id="name"
                               label="Ime"
                               variant="outlined"
-                              component={TextField}
                               value={values.name}
+                              onChange={handleChange}
                               helperText={
                                 errors.name && touched.name && errors.name
                               }
                             />
                           </Grid>
                           <Grid item sm={6} xs={12}>
-                            <Field
+                            <TextField
                               fullWidth
                               name="surname"
-                              id="surname"
                               label="Prezime"
                               variant="outlined"
-                              component={TextField}
                               value={values.surname}
+                              onChange={handleChange}
                               helperText={
                                 errors.surname &&
                                 touched.surname &&
@@ -352,14 +381,13 @@ const Checkout = () => {
                             />
                           </Grid>
                           <Grid item xs={12}>
-                            <Field
+                            <TextField
                               fullWidth
                               name="address"
-                              id="address"
                               label="Adressa"
                               variant="outlined"
-                              component={TextField}
                               value={values.address}
+                              onChange={handleChange}
                               helperText={
                                 errors.address &&
                                 touched.address &&
@@ -376,20 +404,20 @@ const Checkout = () => {
                               variant="outlined"
                               component={TextField}
                               value={values.city}
+                              onChange={handleChange}
                               helperText={
                                 errors.city && touched.city && errors.city
                               }
                             />
                           </Grid>
                           <Grid item sm={6} xs={12}>
-                            <Field
+                            <TextField
                               fullWidth
                               name="postal_code"
-                              id="postal_code"
-                              label="Prezime"
+                              label="Poštanski broj"
                               variant="outlined"
-                              component={TextField}
                               value={values.postal_code}
+                              onChange={handleChange}
                               helperText={
                                 errors.postal_code &&
                                 touched.postal_code &&
@@ -398,29 +426,19 @@ const Checkout = () => {
                             />
                           </Grid>
                           <Grid item xs={12}>
-                            <Field
+                            <TextField
                               fullWidth
                               name="mobile_phone"
-                              id="mobile_phone"
                               label="Mobitel"
                               variant="outlined"
-                              component={TextField}
                               value={values.mobile_phone}
+                              onChange={handleChange}
                               helperText={
                                 errors.mobile_phone &&
                                 touched.mobile_phone &&
                                 errors.mobile_phone
                               }
                             />
-                          </Grid>
-                          <Grid item>
-                            <Button
-                              type="submit"
-                              variant="contained"
-                              color="primary"
-                            >
-                              Potvrdi
-                            </Button>
                           </Grid>
                         </Grid>
                       </Form>
@@ -521,7 +539,14 @@ const Checkout = () => {
           </Paper>
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button style={{}} variant="contained" color="primary">
+          <Button
+            onClick={() => {
+              handleDeliverSubmit();
+              handleBillSubmit();
+            }}
+            variant="contained"
+            color="primary"
+          >
             Potvrdi
           </Button>
         </div>

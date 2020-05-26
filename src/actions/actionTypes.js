@@ -1,6 +1,8 @@
 export const STORE_USER = 'STORE_USER';
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGOUT = 'USER_LOGOUT';
+export const STORE_PURCHASE = 'STORE_PURCHASE';
+export const CLEAR_PURCHASE = 'CLEAR_PURCHASE';
 
 export const SHOW_SNACKBAR = 'SHOW_SNACKBAR';
 export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR';

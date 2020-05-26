@@ -1,7 +1,14 @@
-import { USER_LOGIN, USER_LOGOUT, STORE_USER } from '../actions/actionTypes';
+import {
+  USER_LOGIN,
+  USER_LOGOUT,
+  STORE_USER,
+  STORE_PURCHASE,
+  CLEAR_PURCHASE,
+} from '../actions/actionTypes';
 
 const initialState = {
-  userDetails: {},
+  purchase: {},
+  details: {},
   name: '',
   token: JSON.parse(localStorage.getItem('_jwt')) || '',
 };
@@ -12,7 +19,20 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         name: action.payload.full_name,
-        userDetails: { ...action.payload },
+        details: { ...action.payload },
+      };
+    case STORE_PURCHASE:
+      return {
+        ...state,
+        purchase: {
+          deliver_to: { ...action.payload.deliver_to },
+          bill_to: { ...action.payload.bill_to },
+        },
+      };
+    case CLEAR_PURCHASE:
+      return {
+        ...state,
+        purchase: {},
       };
     case USER_LOGIN:
       return {
@@ -25,7 +45,8 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         token: '',
         name: '',
-        userDetails: {},
+        details: {},
+        purchase: {},
       };
     default:
       return state;

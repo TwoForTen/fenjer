@@ -41,7 +41,7 @@ const UserAccount = () => {
 
   const [userOrders, setUserOrders] = useState();
 
-  const user = useSelector((state) => state.user.userDetails);
+  const user = useSelector((state) => state.user.details);
 
   return (
     <>
