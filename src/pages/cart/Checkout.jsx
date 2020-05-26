@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Payment from '@material-ui/icons/Payment';
+import Update from '@material-ui/icons/Update';
 
 import posta from '../../assets/posta.png';
 
@@ -51,6 +52,7 @@ const Checkout = () => {
       postal_code,
       mobile_phone,
       address,
+      payment_deadline,
     },
   } = user;
 
@@ -183,11 +185,10 @@ const Checkout = () => {
                   mobile_phone: mobile_phone || '',
                 }}
                 onSubmit={(values, actions) => {
-                  console.log(values);
                   dispatch(
                     storePurchase({
-                      deliver_to: values,
-                      bill_to: billCheckbox ? values : {},
+                      delivery_info: values,
+                      bill_info: billCheckbox ? values : {},
                     })
                   );
                 }}
@@ -327,8 +328,8 @@ const Checkout = () => {
                   onSubmit={(values, actions) => {
                     dispatch(
                       storePurchase({
-                        deliver_to: user.purchase.deliver_to,
-                        bill_to: values,
+                        delivery_info: user.purchase.delivery_info,
+                        bill_info: values,
                       })
                     );
                   }}
@@ -530,11 +531,39 @@ const Checkout = () => {
                 alignItems: 'center',
               }}
             >
-              <Checkbox defaultChecked color="default" disabled />
-              <Payment className="ml-3 mr-4" fontSize="large" />
+              {/* <Checkbox defaultChecked color="default" disabled /> */}
+              <Payment className="mr-4" fontSize="large" />
               <Typography variant="body1">
                 Plaćanje transakcijskim računom
               </Typography>
+            </div>
+          </Paper>
+        </div>
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '10px',
+            }}
+          >
+            <Typography className="mr-2" color="textPrimary" variant="h5">
+              5
+            </Typography>
+            <Typography color="textPrimary" variant="body1">
+              Odgoda plaćanja
+            </Typography>
+          </div>
+          <Paper className={classes.paperRoot}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              {/* <Checkbox defaultChecked color="default" disabled /> */}
+              <Update className="mr-4" fontSize="large" />
+              <Typography variant="body1">{payment_deadline}</Typography>
             </div>
           </Paper>
         </div>

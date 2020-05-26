@@ -9,6 +9,7 @@ export const useCheckAuth = () => {
     axios
       .get('/auth/user')
       .then((res) => {
+        console.log(res.data);
         dispatch(storeUser(res.data));
       })
       .catch((err) => {
