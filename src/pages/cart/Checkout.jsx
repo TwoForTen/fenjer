@@ -42,6 +42,7 @@ const Checkout = () => {
   const billRef = useRef();
 
   const [billCheckbox, setBillcheckbox] = useState(true);
+  const [note, setNote] = useState('');
 
   const {
     details: {
@@ -56,14 +57,15 @@ const Checkout = () => {
     },
   } = user;
 
-  const handleDeliverSubmit = () => {
+  const handleSubmit = () => {
     if (deliverRef.current) {
       deliverRef.current.handleSubmit();
     }
-  };
-  const handleBillSubmit = () => {
     if (billRef.current) {
       billRef.current.handleSubmit();
+    }
+    if (note?.length > 0) {
+      dispatch(storePurchase({ note }));
     }
   };
 
@@ -175,6 +177,7 @@ const Checkout = () => {
                 Podaci za dostavu
               </Typography>
               <Formik
+                enableReinitialize
                 initialValues={{
                   company: company || '',
                   name: name || '',
@@ -188,7 +191,9 @@ const Checkout = () => {
                   dispatch(
                     storePurchase({
                       delivery_info: values,
-                      bill_info: billCheckbox ? values : {},
+                      bill_info: billCheckbox
+                        ? values
+                        : user.purchase.bill_info,
                     })
                   );
                 }}
@@ -328,7 +333,6 @@ const Checkout = () => {
                   onSubmit={(values, actions) => {
                     dispatch(
                       storePurchase({
-                        delivery_info: user.purchase.delivery_info,
                         bill_info: values,
                       })
                     );
@@ -505,6 +509,7 @@ const Checkout = () => {
             label="Komentar"
             variant="outlined"
             multiline
+            onBlur={(e) => setNote(e.target.value)}
             rows={4}
             fullWidth
           />
@@ -569,10 +574,7 @@ const Checkout = () => {
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
-            onClick={() => {
-              handleDeliverSubmit();
-              handleBillSubmit();
-            }}
+            onClick={() => handleSubmit()}
             variant="contained"
             color="primary"
           >
