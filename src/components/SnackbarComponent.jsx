@@ -15,7 +15,11 @@ const SnackbarComponent = () => {
   const snackbarState = useSelector((state) => state.snackbar);
   const { open, message, severity } = snackbarState;
 
-  const handleClose = () => {
+  const handleClose = (_, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
     dispatch(closeSnackbar());
   };
 

@@ -74,7 +74,9 @@ const Orders = ({ userOrders }) => {
                   currency: 'HRK',
                 }).format(order.gross)}
               </TableCell>
-              <TableCell>{order.created_at.replace(' ', ', ')}</TableCell>
+              <TableCell>
+                {moment(order.created_at).format('DD.MM.YYYY, HH:mm:ss')}
+              </TableCell>
               <TableCell>{order.status}</TableCell>
               <TableCell>
                 <Button variant="contained" color="primary">
