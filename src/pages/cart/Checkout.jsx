@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const Checkout = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
 
@@ -47,6 +48,7 @@ const Checkout = () => {
   const {
     details: {
       company,
+      email,
       name,
       surname,
       city,
@@ -67,6 +69,11 @@ const Checkout = () => {
     if (note?.length > 0) {
       dispatch(storePurchase({ note }));
     }
+
+    history.push({
+      pathname: '/zavrsetak-kupnje/pregled-narudzbe',
+      state: { fromCheckout: true },
+    });
   };
 
   if (!cart || cart?.length < 1) {
@@ -180,6 +187,7 @@ const Checkout = () => {
                 enableReinitialize
                 initialValues={{
                   company: company || '',
+                  email: email || '',
                   name: name || '',
                   surname: surname || '',
                   address: address || '',
@@ -215,6 +223,19 @@ const Checkout = () => {
                               errors.company &&
                               touched.company &&
                               errors.company
+                            }
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField
+                            fullWidth
+                            name="email"
+                            label="E-mail"
+                            variant="outlined"
+                            value={values.email}
+                            onChange={handleChange}
+                            helperText={
+                              errors.email && touched.email && errors.email
                             }
                           />
                         </Grid>
@@ -322,6 +343,7 @@ const Checkout = () => {
                 <Formik
                   initialValues={{
                     company: '',
+                    email: '',
                     name: '',
                     surname: '',
                     address: '',
@@ -354,6 +376,19 @@ const Checkout = () => {
                                 errors.company &&
                                 touched.company &&
                                 errors.company
+                              }
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <TextField
+                              fullWidth
+                              name="email"
+                              label="E-mail"
+                              variant="outlined"
+                              value={values.email}
+                              onChange={handleChange}
+                              helperText={
+                                errors.email && touched.email && errors.email
                               }
                             />
                           </Grid>
@@ -568,7 +603,7 @@ const Checkout = () => {
             >
               {/* <Checkbox defaultChecked color="default" disabled /> */}
               <Update className="mr-4" fontSize="large" />
-              <Typography variant="body1">{payment_deadline}</Typography>
+              <Typography variant="body1">{`Odgoda plaćanja na ${payment_deadline} dana`}</Typography>
             </div>
           </Paper>
         </div>

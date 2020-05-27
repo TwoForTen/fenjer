@@ -17,6 +17,7 @@ import NotFound from './pages/NotFound';
 import PostArticle from './pages/posts/PostArticle';
 import PostsList from './pages/posts/PostsList';
 import Categories from './pages/shop/Categories';
+import Overview from './pages/cart/Overview';
 import Product from './pages/shop/Product';
 import Products from './pages/shop/Products';
 import Registration from './pages/Registration';
@@ -65,6 +66,11 @@ function App() {
             />
             <Route path="/kosarica" exact component={Cart} />
             <Route path="/zavrsetak-kupnje" exact component={Checkout} />
+            <Route
+              path="/zavrsetak-kupnje/pregled-narudzbe"
+              exact
+              component={Overview}
+            />
             <Route path="*" component={NotFound} />
           </Switch>
         </ScrollToTop>

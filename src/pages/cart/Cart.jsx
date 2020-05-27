@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import React from 'react';
+import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -10,8 +11,11 @@ import LocalShipping from '@material-ui/icons/LocalShipping';
 
 import CartProductCard from '../../components/CartProductCard';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
+import PriceBreakdown from '../../components/PriceBreakdown';
 
 import { setProduct } from '../../actions/products';
+
+import useDataFetch from '../../hooks/useDataFetch';
 
 const useStyles = makeStyles((theme) => ({
   detailsRoot: {
@@ -20,43 +24,23 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
-  detailsContainer: {
-    display: 'inline-flex',
-    textAlign: 'right',
-    paddingRight: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    borderRight: `1px solid ${theme.palette.primary.main}`,
-  },
   deliveryContainer: { display: 'inline-flex', flexDirection: 'column' },
 }));
-
-const calculateSum = (product) => {
-  const productPrices = product.map((prod) => {
-    return prod.selectedProduct.price * prod.quantity;
-  });
-
-  const gross = productPrices.reduce((sum, num) => sum + num);
-  const net = gross / 1.25;
-  const vat = gross - net;
-
-  return {
-    gross,
-    net,
-    vat,
-  };
-};
 
 const Cart = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const productsInCart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
 
-  const priceBreakdown = useCallback(() => {
-    return calculateSum(productsInCart);
-  }, [productsInCart]);
+  const deliveryFee =
+    useDataFetch({
+      method: 'GET',
+      url: '/owner',
+    }) || {};
 
-  if (!productsInCart || productsInCart?.length < 1) {
+  const { delivery, delivery_free_above } = deliveryFee;
+
+  if (!cart || cart?.length < 1) {
     return (
       <>
         <PageBreadcrumbs titles={['Košarica']} />
@@ -75,7 +59,7 @@ const Cart = () => {
   return (
     <>
       <PageBreadcrumbs titles={['Košarica']} />
-      {productsInCart.map((product, index) => {
+      {cart.map((product, index) => {
         return (
           <CartProductCard
             key={product.selectedProduct.id}
@@ -85,68 +69,40 @@ const Cart = () => {
           />
         );
       })}
+      {/* ADD SKELETON LOADING */}
       <div className={classes.detailsRoot}>
-        <div>
-          <div className={classes.detailsContainer}>
-            <div className="mr-4">
-              <ul>
-                <li>
-                  <Typography color="textSecondary">
-                    Ukupna cijena bez PDV-a
-                  </Typography>
-                </li>
-                <li className="mt-3 mb-3">
-                  <Typography color="textSecondary">PDV</Typography>
-                </li>
-                <li>
-                  <Typography color="textSecondary">
-                    Ukupna cijena sa PDV-om
-                  </Typography>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul>
-                <li>
-                  <Typography color="textPrimary">
-                    {new Intl.NumberFormat('hr-HR', {
-                      style: 'currency',
-                      currency: 'HRK',
-                    }).format(priceBreakdown().net)}
-                  </Typography>
-                </li>
-                <li className="mt-3 mb-3">
-                  <Typography color="textPrimary">
-                    {new Intl.NumberFormat('hr-HR', {
-                      style: 'currency',
-                      currency: 'HRK',
-                    }).format(priceBreakdown().vat)}
-                  </Typography>
-                </li>
-                <li>
-                  <Typography color="textPrimary">
-                    {new Intl.NumberFormat('hr-HR', {
-                      style: 'currency',
-                      currency: 'HRK',
-                    }).format(priceBreakdown().gross)}
-                  </Typography>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className={classes.deliveryContainer}>
-            <Typography color="textPrimary">Način preuzimanja robe:</Typography>
-            <div
-              style={{ display: 'flex', alignItems: 'center' }}
-              className="mt-2"
-            >
-              <LocalShipping fontSize="large" color="action" className="mr-2" />
+        {!_.isEmpty(deliveryFee) && (
+          <div>
+            <PriceBreakdown cart={cart} delivery={delivery} />
+            <div className={classes.deliveryContainer}>
               <Typography color="textPrimary">
-                <strong>Dostava</strong>
+                Način preuzimanja robe:
+              </Typography>
+              <div
+                style={{ display: 'flex', alignItems: 'center' }}
+                className="mt-2"
+              >
+                <LocalShipping
+                  fontSize="large"
+                  color="action"
+                  className="mr-2"
+                />
+                <Typography color="textPrimary">
+                  <strong>Dostava</strong>
+                </Typography>
+              </div>
+              <Typography variant="caption" color="textSecondary">
+                Dostava besplatna iznad{' '}
+                <strong>
+                  {new Intl.NumberFormat('hr-HR', {
+                    style: 'currency',
+                    currency: 'HRK',
+                  }).format(delivery_free_above)}
+                </strong>
               </Typography>
             </div>
           </div>
-        </div>
+        )}
         <Link to="/zavrsetak-kupnje">
           <Button variant="contained" className="mb-4" color="primary">
             Potvrdi narudžbu
