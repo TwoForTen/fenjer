@@ -37,7 +37,7 @@ const PriceBreakdown = ({ cart, delivery }) => {
 
   const priceBreakdown = useCallback(() => {
     return calculateSum(cart, delivery);
-  }, [cart]);
+  }, [cart, delivery]);
 
   return (
     <div className={classes.detailsContainer}>

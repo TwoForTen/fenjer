@@ -1,6 +1,7 @@
 import {
   ADD_TO_CART,
   ADD_QUANTITY,
+  CLEAR_CART,
   REMOVE_FROM_CART,
   SET_CART_QUANTITY,
   INCREMENT_CART_QUANTITY,
@@ -18,6 +19,12 @@ export const addQuantity = (payload) => {
   return {
     type: ADD_QUANTITY,
     payload,
+  };
+};
+
+export const clearCart = () => {
+  return {
+    type: CLEAR_CART,
   };
 };
 

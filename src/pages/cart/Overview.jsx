@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo } from 'react';
-import _ from 'lodash';
+import React, { useEffect, useMemo, useState } from 'react';
 import axios from '../../axiosInstance';
 import { useLocation, Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -17,9 +17,12 @@ import posta from '../../assets/posta.png';
 
 import useDataFetch from '../../hooks/useDataFetch';
 
+import OrderFinished from './OrderFinished';
 import OverviewProductCard from '../../components/OverviewProductCard';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 import PriceBreakdown from '../../components/PriceBreakdown';
+
+import { clearCart } from '../../actions/cart';
 
 const useStyles = makeStyles((theme) => ({
   containerRoot: {
@@ -46,6 +49,11 @@ const Overview = () => {
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
 
+  const [orderFinished, setOrderFinished] = useState(false);
+  const [orderError, setOrderError] = useState(false);
+  const [paymentInfo, setPaymentInfo] = useState({});
+  const [loading, setLoading] = useState(false);
+
   const delivery = useDataFetch({
     method: 'GET',
     url: '/owner',
@@ -65,6 +73,10 @@ const Overview = () => {
 
   if (!memoizedLocationState) {
     return <Redirect to="/zavrsetak-kupnje" />;
+  }
+
+  if (orderFinished) {
+    return <OrderFinished orderError={orderError} paymentInfo={paymentInfo} />;
   }
 
   return (
@@ -224,7 +236,9 @@ const Overview = () => {
         >
           {delivery && <PriceBreakdown cart={cart} delivery={delivery} />}
           <Button
+            //Maybe Refactor To useReducer (?)
             onClick={() => {
+              setLoading(true);
               const cartProducts = cart.map((product) => {
                 return {
                   ...product.selectedProduct,
@@ -239,10 +253,24 @@ const Overview = () => {
                   bill_info: user.purchase.bill_info,
                   note: user.purchase?.note,
                 })
-                .then((res) => console.log(res));
+                .then(() =>
+                  axios.get('/owner').then((res) => {
+                    setOrderFinished(true);
+                    setPaymentInfo(res.data);
+                    dispatch(clearCart());
+                    setLoading(false);
+                  })
+                )
+                .catch(() => {
+                  setOrderError(true);
+                  setOrderFinished(true);
+                  setLoading(false);
+                });
             }}
             color="primary"
             variant="contained"
+            disabled={loading}
+            endIcon={loading && <CircularProgress size={20} />}
           >
             Potvrdi
           </Button>

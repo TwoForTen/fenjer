@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+
+import NavButtons from '../components/NavButtons';
 
 import notFoundLogo from '../assets/404_logo.png';
 import valovi from '../assets/valovi.svg';
@@ -25,14 +25,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
     backgroundPosition: 'center',
-  },
-  buttonsContainer: {
-    display: 'flex',
-    margin: `${theme.spacing(6)}px 0`,
-  },
-  buttonLink: {
-    margin: `0 ${theme.spacing(2)}px`,
-    minWidth: '160px',
   },
   waves: {
     width: '100vw',
@@ -57,18 +49,7 @@ const NotFound = () => {
         <Typography variant="h6" color="textPrimary">
           Uuups, nažalost ne možemo naći stranicu koju tražite!
         </Typography>
-        <div className={classes.buttonsContainer}>
-          <Link to="/" className={classes.buttonLink}>
-            <Button fullWidth variant="contained" color="primary">
-              Početna
-            </Button>
-          </Link>
-          <Link to="/kontakt" className={classes.buttonLink}>
-            <Button fullWidth variant="contained" color="secondary">
-              Kontakt
-            </Button>
-          </Link>
-        </div>
+        <NavButtons />
       </Container>
       <div className={classes.waves} />
     </>

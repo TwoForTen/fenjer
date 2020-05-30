@@ -1,6 +1,7 @@
 import {
   ADD_TO_CART,
   ADD_QUANTITY,
+  CLEAR_CART,
   REMOVE_FROM_CART,
   SET_CART_QUANTITY,
   INCREMENT_CART_QUANTITY,
@@ -47,6 +48,8 @@ export const cartReducer = (state = initialState, action) => {
         quantity: modifiedState[action.payload.index].quantity - 1,
       };
       return modifiedState;
+    case CLEAR_CART:
+      return [];
     default:
       return state;
   }
