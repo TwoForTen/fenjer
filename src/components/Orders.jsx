@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import moment from 'moment';
 
 import Button from '@material-ui/core/Button';
@@ -11,7 +12,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   tableContainer: {
@@ -27,8 +28,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const useTranslateStatus = () => {
+  const theme = useTheme();
+  const translateStatus = (status) => {
+    switch (status) {
+      case 'pending':
+        return (
+          <Typography
+            component="span"
+            style={{ color: theme.palette.error.main, fontSize: '14px' }}
+          >
+            Narudžba nije obrađena
+          </Typography>
+        );
+      case 'dispatched':
+        return (
+          <Typography
+            component="span"
+            style={{ color: theme.palette.success.main, fontSize: '14px' }}
+          >
+            Narudžba isporučena
+          </Typography>
+        );
+      default:
+        break;
+    }
+  };
+  return (status) => translateStatus(status);
+};
+
 const Orders = ({ userOrders }) => {
   const classes = useStyles();
+  const translateStatus = useTranslateStatus();
 
   if (!userOrders) {
     return (
@@ -65,9 +96,7 @@ const Orders = ({ userOrders }) => {
         <TableBody>
           {userOrders?.data.map((order) => (
             <TableRow key={order.id}>
-              <TableCell>
-                {('0000' + order.id).substring(order.id.length)}
-              </TableCell>
+              <TableCell>{_.padStart(order.id, '6', '000000')}</TableCell>
               <TableCell>
                 {new Intl.NumberFormat('hr-HR', {
                   style: 'currency',
@@ -77,7 +106,7 @@ const Orders = ({ userOrders }) => {
               <TableCell>
                 {moment(order.created_at).format('DD.MM.YYYY, HH:mm:ss')}
               </TableCell>
-              <TableCell>{order.status}</TableCell>
+              <TableCell>{translateStatus(order.status)}</TableCell>
               <TableCell>
                 <Button variant="contained" color="primary">
                   Pregledaj
