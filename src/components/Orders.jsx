@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -10,6 +10,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -61,6 +62,13 @@ const Orders = ({ userOrders }) => {
   const classes = useStyles();
   const translateStatus = useTranslateStatus();
 
+  const ROWS_PER_PAGE = 10;
+  const [page, setPage] = useState(0);
+
+  const handleChangePage = (_, newPage) => {
+    setPage(newPage);
+  };
+
   if (!userOrders) {
     return (
       <div className={classes.centeredContainer}>
@@ -94,28 +102,38 @@ const Orders = ({ userOrders }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {userOrders?.data.map((order) => (
-            <TableRow key={order.id}>
-              <TableCell>{_.padStart(order.id, '6', '000000')}</TableCell>
-              <TableCell>
-                {new Intl.NumberFormat('hr-HR', {
-                  style: 'currency',
-                  currency: 'HRK',
-                }).format(order.gross)}
-              </TableCell>
-              <TableCell>
-                {moment(order.created_at).format('DD.MM.YYYY, HH:mm:ss')}
-              </TableCell>
-              <TableCell>{translateStatus(order.status)}</TableCell>
-              <TableCell>
-                <Button variant="contained" color="primary">
-                  Pregledaj
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
+          {userOrders?.data
+            ?.slice(page * ROWS_PER_PAGE, page * ROWS_PER_PAGE + ROWS_PER_PAGE)
+            .map((order) => (
+              <TableRow key={order.id}>
+                <TableCell>{_.padStart(order.id, '6', '000000')}</TableCell>
+                <TableCell>
+                  {new Intl.NumberFormat('hr-HR', {
+                    style: 'currency',
+                    currency: 'HRK',
+                  }).format(order.gross)}
+                </TableCell>
+                <TableCell>
+                  {moment(order.created_at).format('DD.MM.YYYY, HH:mm:ss')}
+                </TableCell>
+                <TableCell>{translateStatus(order.status)}</TableCell>
+                <TableCell>
+                  <Button variant="contained" color="primary">
+                    Pregledaj
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
+      <TablePagination
+        component="div"
+        rowsPerPageOptions={[]}
+        count={userOrders?.data?.length}
+        rowsPerPage={ROWS_PER_PAGE}
+        page={page}
+        onChangePage={handleChangePage}
+      />
     </TableContainer>
   );
 };
