@@ -42,7 +42,6 @@ const Checkout = () => {
   const user = useSelector((state) => state.user);
 
   const deliverRef = useRef();
-  const billRef = useRef();
 
   const [billCheckbox, setBillcheckbox] = useState(true);
   const [note, setNote] = useState('');
@@ -59,49 +58,51 @@ const Checkout = () => {
       address,
       payment_deadline,
     },
+    token,
   } = user;
 
   const validationSchema = yup.object().shape({
-    company: yup.string().required('Ime tvrtke je obavezno'),
-    email: yup
-      .string()
-      .required('E-mail je obavezan')
-      .email('Mora biti valjani e-mail'),
-    name: yup.string().required('Ime je obavezno'),
-    surname: yup.string().required('Prezime je obavezno'),
-    city: yup.string().required('Grad je obavezan'),
-    postal_code: yup.string().required('Poštanski broj je obavezan'),
-    mobile_phone: yup
-      .string()
-      .required('Broj mobitela je obavezan')
-      .matches(
-        /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
-        'Mora biti valjani broj mobitela'
-      ),
-    address: yup.string().required('Adresa je obavezna'),
+    delivery_info: yup.object().shape({
+      company: yup.string().required('Ime tvrtke je obavezno'),
+      email: yup
+        .string()
+        .required('E-mail je obavezan')
+        .email('Mora biti valjani e-mail'),
+      name: yup.string().required('Ime je obavezno'),
+      surname: yup.string().required('Prezime je obavezno'),
+      city: yup.string().required('Grad je obavezan'),
+      postal_code: yup.string().required('Poštanski broj je obavezan'),
+      mobile_phone: yup
+        .string()
+        .required('Broj mobitela je obavezan')
+        .matches(
+          /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
+          'Mora biti valjani broj mobitela'
+        ),
+      address: yup.string().required('Adresa je obavezna'),
+    }),
+    bill_info:
+      !billCheckbox &&
+      yup.object().shape({
+        company: yup.string().required('Ime tvrtke je obavezno'),
+        email: yup
+          .string()
+          .required('E-mail je obavezan')
+          .email('Mora biti valjani e-mail'),
+        name: yup.string().required('Ime je obavezno'),
+        surname: yup.string().required('Prezime je obavezno'),
+        city: yup.string().required('Grad je obavezan'),
+        postal_code: yup.string().required('Poštanski broj je obavezan'),
+        mobile_phone: yup
+          .string()
+          .required('Broj mobitela je obavezan')
+          .matches(
+            /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
+            'Mora biti valjani broj mobitela'
+          ),
+        address: yup.string().required('Adresa je obavezna'),
+      }),
   });
-
-  const handleSubmit = () => {
-    if (deliverRef.current) {
-      deliverRef.current.handleSubmit();
-    }
-    if (billRef.current) {
-      billRef.current.handleSubmit();
-    }
-    if (note?.length > 0) {
-      dispatch(storePurchase({ note }));
-    }
-
-    // if (
-    //   _.isEmpty(formErrors.delivery_errors) &&
-    //   _.isEmpty(formErrors.bill_errors)
-    // ) {
-    //   history.push({
-    //     pathname: '/zavrsetak-kupnje/pregled-narudzbe',
-    //     state: { fromCheckout: true },
-    //   });
-    // }
-  };
 
   if (!cart || cart?.length < 1) {
     return <Redirect to="/kosarica" />;
@@ -201,370 +202,410 @@ const Checkout = () => {
               </Typography>
             }
           />
-          <Grid container spacing={6}>
-            <Grid item md={6} xs={12}>
-              <Typography
-                variant="subtitle2"
-                color="textPrimary"
-                className="mb-3"
-              >
-                Podaci za dostavu
-              </Typography>
-              <Formik
-                enableReinitialize
-                initialValues={{
-                  company: company || '',
-                  email: email || '',
-                  name: name || '',
-                  surname: surname || '',
-                  address: address || '',
-                  city: city || '',
-                  postal_code: postal_code || '',
-                  mobile_phone: mobile_phone || '',
-                }}
-                validateOnMount
-                onSubmit={(values, actions) => {
-                  dispatch(
-                    storePurchase({
-                      delivery_info: values,
-                      bill_info: billCheckbox
-                        ? values
-                        : user.purchase.bill_info,
-                    })
-                  );
-                }}
-                validationSchema={validationSchema}
-                innerRef={deliverRef}
-              >
-                {({ errors, touched, values, handleChange, handleBlur }) => {
-                  return (
-                    <Form key="deliver">
-                      <Grid container spacing={3}>
+          <Formik
+            enableReinitialize
+            initialValues={{
+              delivery_info: {
+                company: company || '',
+                email: email || '',
+                name: name || '',
+                surname: surname || '',
+                address: address || '',
+                city: city || '',
+                postal_code: postal_code || '',
+                mobile_phone: mobile_phone || '',
+              },
+              bill_info: {
+                company: '',
+                email: '',
+                name: '',
+                surname: '',
+                address: '',
+                city: '',
+                postal_code: '',
+                mobile_phone: '',
+              },
+            }}
+            validateOnChange={false}
+            validateOnMount
+            onSubmit={(values) => {
+              if (token) {
+                dispatch(
+                  storePurchase({
+                    delivery_info: values.delivery_info,
+                    bill_info: billCheckbox
+                      ? values.delivery_info
+                      : values.bill_info,
+                    note: note?.length > 0 && note,
+                  })
+                );
+                history.push('/zavrsetak-kupnje/pregled-narudzbe');
+              }
+            }}
+            validationSchema={validationSchema}
+            innerRef={deliverRef}
+          >
+            {({ errors, touched, values, handleChange, handleBlur }) => {
+              return (
+                <Form key="deliver">
+                  <Grid container spacing={6}>
+                    <Grid item container md={6} xs={12} spacing={2}>
+                      <Grid item xs={12} md={6}>
+                        <Typography variant="subtitle2" color="textPrimary">
+                          Podaci za dostavu
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          fullWidth
+                          name="delivery_info.company"
+                          label="Tvrtka"
+                          variant="outlined"
+                          value={values?.delivery_info?.company}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={
+                            errors?.delivery_info?.company &&
+                            touched?.delivery_info?.company &&
+                            true
+                          }
+                          helperText={
+                            errors?.delivery_info?.company &&
+                            touched?.delivery_info?.company &&
+                            errors?.delivery_info?.company
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          fullWidth
+                          name="delivery_info.email"
+                          label="E-mail"
+                          variant="outlined"
+                          value={values?.delivery_info?.email}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={
+                            errors?.delivery_info?.email &&
+                            touched?.delivery_info?.email &&
+                            true
+                          }
+                          helperText={
+                            errors?.delivery_info?.email &&
+                            touched?.delivery_info?.email &&
+                            errors?.delivery_info?.email
+                          }
+                        />
+                      </Grid>
+                      <Grid item sm={6} xs={12}>
+                        <TextField
+                          fullWidth
+                          name="delivery_info.name"
+                          label="Ime"
+                          variant="outlined"
+                          value={values?.delivery_info?.name}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={
+                            errors?.delivery_info?.name &&
+                            touched?.delivery_info?.name &&
+                            true
+                          }
+                          helperText={
+                            errors?.delivery_info?.name &&
+                            touched?.delivery_info?.name &&
+                            errors?.delivery_info?.name
+                          }
+                        />
+                      </Grid>
+                      <Grid item sm={6} xs={12}>
+                        <TextField
+                          fullWidth
+                          name="delivery_info.surname"
+                          label="Prezime"
+                          variant="outlined"
+                          value={values?.delivery_info?.surname}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={
+                            errors?.delivery_info?.surname &&
+                            touched?.delivery_info?.surname &&
+                            true
+                          }
+                          helperText={
+                            errors?.delivery_info?.surname &&
+                            touched?.delivery_info?.surname &&
+                            errors?.delivery_info?.surname
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          fullWidth
+                          name="delivery_info.address"
+                          label="Adresa"
+                          variant="outlined"
+                          value={values?.delivery_info?.address}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={
+                            errors?.delivery_info?.address &&
+                            touched?.delivery_info?.address &&
+                            true
+                          }
+                          helperText={
+                            errors?.delivery_info?.address &&
+                            touched?.delivery_info?.address &&
+                            errors?.delivery_info?.address
+                          }
+                        />
+                      </Grid>
+                      <Grid item sm={6} xs={12}>
+                        <TextField
+                          fullWidth
+                          name="delivery_info.city"
+                          label="Mjesto"
+                          variant="outlined"
+                          value={values?.delivery_info?.city}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={
+                            errors?.delivery_info?.city &&
+                            touched?.delivery_info?.city &&
+                            true
+                          }
+                          helperText={
+                            errors?.delivery_info?.city &&
+                            touched?.delivery_info?.city &&
+                            errors?.delivery_info?.city
+                          }
+                        />
+                      </Grid>
+                      <Grid item sm={6} xs={12}>
+                        <TextField
+                          fullWidth
+                          name="delivery_info.postal_code"
+                          label="Poštanski broj"
+                          variant="outlined"
+                          value={values?.delivery_info?.postal_code}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={
+                            errors?.delivery_info?.postal_code &&
+                            touched?.delivery_info?.postal_code &&
+                            true
+                          }
+                          helperText={
+                            errors?.delivery_info?.postal_code &&
+                            touched?.delivery_info?.postal_code &&
+                            errors?.delivery_info?.postal_code
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          fullWidth
+                          name="delivery_info.mobile_phone"
+                          label="Mobitel"
+                          variant="outlined"
+                          value={values?.delivery_info?.mobile_phone}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={
+                            errors?.delivery_info?.mobile_phone &&
+                            touched?.delivery_info?.mobile_phone &&
+                            true
+                          }
+                          helperText={
+                            errors?.delivery_info?.mobile_phone &&
+                            touched?.delivery_info?.mobile_phone &&
+                            errors?.delivery_info?.mobile_phone
+                          }
+                        />
+                      </Grid>
+                    </Grid>
+                    {!billCheckbox && (
+                      <Grid item container md={6} xs={12} spacing={2}>
+                        <Grid item xs={12} md={6}>
+                          <Typography variant="subtitle2" color="textPrimary">
+                            Podaci za račun
+                          </Typography>
+                        </Grid>
                         <Grid item xs={12}>
                           <TextField
                             fullWidth
-                            name="company"
+                            name="bill_info.company"
                             label="Tvrtka"
                             variant="outlined"
-                            value={values.company}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            error={errors.company && touched.company && true}
-                            helperText={
-                              errors.company &&
-                              touched.company &&
-                              errors.company
-                            }
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <TextField
-                            fullWidth
-                            name="email"
-                            label="E-mail"
-                            variant="outlined"
-                            value={values.email}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            error={errors.email && touched.email && true}
-                            helperText={
-                              errors.email && touched.email && errors.email
-                            }
-                          />
-                        </Grid>
-                        <Grid item sm={6} xs={12}>
-                          <TextField
-                            fullWidth
-                            name="name"
-                            label="Ime"
-                            variant="outlined"
-                            value={values.name}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            error={errors.name && touched.name && true}
-                            helperText={
-                              errors.name && touched.name && errors.name
-                            }
-                          />
-                        </Grid>
-                        <Grid item sm={6} xs={12}>
-                          <TextField
-                            fullWidth
-                            name="surname"
-                            label="Prezime"
-                            variant="outlined"
-                            value={values.surname}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            error={errors.surname && touched.surname && true}
-                            helperText={
-                              errors.surname &&
-                              touched.surname &&
-                              errors.surname
-                            }
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <TextField
-                            fullWidth
-                            name="address"
-                            label="Adresa"
-                            variant="outlined"
-                            value={values.address}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            error={errors.address && touched.address && true}
-                            helperText={
-                              errors.address &&
-                              touched.address &&
-                              errors.address
-                            }
-                          />
-                        </Grid>
-                        <Grid item sm={6} xs={12}>
-                          <TextField
-                            fullWidth
-                            name="city"
-                            label="Mjesto"
-                            variant="outlined"
-                            value={values.city}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            error={errors.city && touched.city && true}
-                            helperText={
-                              errors.city && touched.city && errors.city
-                            }
-                          />
-                        </Grid>
-                        <Grid item sm={6} xs={12}>
-                          <TextField
-                            fullWidth
-                            name="postal_code"
-                            label="Poštanski broj"
-                            variant="outlined"
-                            value={values.postal_code}
+                            value={values?.bill_info?.company}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                              errors.postal_code && touched.postal_code && true
-                            }
-                            helperText={
-                              errors.postal_code &&
-                              touched.postal_code &&
-                              errors.postal_code
-                            }
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <TextField
-                            fullWidth
-                            name="mobile_phone"
-                            label="Mobitel"
-                            variant="outlined"
-                            value={values.mobile_phone}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            error={
-                              errors.mobile_phone &&
-                              touched.mobile_phone &&
+                              errors?.bill_info?.company &&
+                              touched?.bill_info?.company &&
                               true
                             }
                             helperText={
-                              errors.mobile_phone &&
-                              touched.mobile_phone &&
-                              errors.mobile_phone
+                              errors?.bill_info?.company &&
+                              touched?.bill_info?.company &&
+                              errors?.bill_info?.company
+                            }
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField
+                            fullWidth
+                            name="bill_info.email"
+                            label="E-mail"
+                            variant="outlined"
+                            value={values?.bill_info?.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={
+                              errors?.bill_info?.email &&
+                              touched?.bill_info?.email &&
+                              true
+                            }
+                            helperText={
+                              errors?.bill_info?.email &&
+                              touched?.bill_info?.email &&
+                              errors?.bill_info?.email
+                            }
+                          />
+                        </Grid>
+                        <Grid item sm={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            name="bill_info.name"
+                            label="Ime"
+                            variant="outlined"
+                            value={values?.bill_info?.name}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={
+                              errors?.bill_info?.name &&
+                              touched?.bill_info?.name &&
+                              true
+                            }
+                            helperText={
+                              errors?.bill_info?.name &&
+                              touched?.bill_info?.name &&
+                              errors?.bill_info?.name
+                            }
+                          />
+                        </Grid>
+                        <Grid item sm={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            name="bill_info.surname"
+                            label="Prezime"
+                            variant="outlined"
+                            value={values?.bill_info?.surname}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={
+                              errors?.bill_info?.surname &&
+                              touched?.bill_info?.surname &&
+                              true
+                            }
+                            helperText={
+                              errors?.bill_info?.surname &&
+                              touched?.bill_info?.surname &&
+                              errors?.bill_info?.surname
+                            }
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField
+                            fullWidth
+                            name="bill_info.address"
+                            label="Adresa"
+                            variant="outlined"
+                            value={values?.bill_info?.address}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={
+                              errors?.bill_info?.address &&
+                              touched?.bill_info?.address &&
+                              true
+                            }
+                            helperText={
+                              errors?.bill_info?.address &&
+                              touched?.bill_info?.address &&
+                              errors?.bill_info?.address
+                            }
+                          />
+                        </Grid>
+                        <Grid item sm={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            name="bill_info.city"
+                            label="Mjesto"
+                            variant="outlined"
+                            value={values?.bill_info?.city}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={
+                              errors?.bill_info?.city &&
+                              touched?.bill_info?.city &&
+                              true
+                            }
+                            helperText={
+                              errors?.bill_info?.city &&
+                              touched?.bill_info?.city &&
+                              errors?.bill_info?.city
+                            }
+                          />
+                        </Grid>
+                        <Grid item sm={6} xs={12}>
+                          <TextField
+                            fullWidth
+                            name="bill_info.postal_code"
+                            label="Poštanski broj"
+                            variant="outlined"
+                            value={values?.bill_info?.postal_code}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={
+                              errors?.bill_info?.postal_code &&
+                              touched?.bill_info?.postal_code &&
+                              true
+                            }
+                            helperText={
+                              errors?.bill_info?.postal_code &&
+                              touched?.bill_info?.postal_code &&
+                              errors?.bill_info?.postal_code
+                            }
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField
+                            fullWidth
+                            name="bill_info.mobile_phone"
+                            label="Mobitel"
+                            variant="outlined"
+                            value={values?.bill_info?.mobile_phone}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={
+                              errors?.bill_info?.mobile_phone &&
+                              touched?.bill_info?.mobile_phone &&
+                              true
+                            }
+                            helperText={
+                              errors?.bill_info?.mobile_phone &&
+                              touched?.bill_info?.mobile_phone &&
+                              errors?.bill_info?.mobile_phone
                             }
                           />
                         </Grid>
                       </Grid>
-                    </Form>
-                  );
-                }}
-              </Formik>
-            </Grid>
-            {!billCheckbox && (
-              <Grid item md={6} xs={12}>
-                <Typography
-                  variant="subtitle2"
-                  color="textPrimary"
-                  className="mb-3"
-                >
-                  Podaci za račun
-                </Typography>
-                <Formik
-                  initialValues={{
-                    company: '',
-                    email: '',
-                    name: '',
-                    surname: '',
-                    address: '',
-                    city: '',
-                    postal_code: '',
-                    mobile_phone: '',
-                  }}
-                  validateOnMount
-                  innerRef={billRef}
-                  validationSchema={validationSchema}
-                  onSubmit={(values, actions) => {
-                    dispatch(
-                      storePurchase({
-                        bill_info: values,
-                      })
-                    );
-                  }}
-                >
-                  {({ errors, touched, values, handleChange, handleBlur }) => {
-                    return (
-                      <Form key="bill">
-                        <Grid container spacing={3}>
-                          <Grid item xs={12}>
-                            <TextField
-                              fullWidth
-                              name="company"
-                              label="Tvrtka"
-                              variant="outlined"
-                              value={values.company}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              error={errors.company && touched.company && true}
-                              helperText={
-                                errors.company &&
-                                touched.company &&
-                                errors.company
-                              }
-                            />
-                          </Grid>
-                          <Grid item xs={12}>
-                            <TextField
-                              fullWidth
-                              name="email"
-                              label="E-mail"
-                              variant="outlined"
-                              value={values.email}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              error={errors.email && touched.email && true}
-                              helperText={
-                                errors.email && touched.email && errors.email
-                              }
-                            />
-                          </Grid>
-                          <Grid item sm={6} xs={12}>
-                            <TextField
-                              fullWidth
-                              name="name"
-                              label="Ime"
-                              variant="outlined"
-                              value={values.name}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              error={errors.name && touched.name && true}
-                              helperText={
-                                errors.name && touched.name && errors.name
-                              }
-                            />
-                          </Grid>
-                          <Grid item sm={6} xs={12}>
-                            <TextField
-                              fullWidth
-                              name="surname"
-                              label="Prezime"
-                              variant="outlined"
-                              value={values.surname}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              error={errors.surname && touched.surname && true}
-                              helperText={
-                                errors.surname &&
-                                touched.surname &&
-                                errors.surname
-                              }
-                            />
-                          </Grid>
-                          <Grid item xs={12}>
-                            <TextField
-                              fullWidth
-                              name="address"
-                              label="Adresa"
-                              variant="outlined"
-                              value={values.address}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              error={errors.address && touched.address && true}
-                              helperText={
-                                errors.address &&
-                                touched.address &&
-                                errors.address
-                              }
-                            />
-                          </Grid>
-                          <Grid item sm={6} xs={12}>
-                            <Field
-                              fullWidth
-                              name="city"
-                              id="city"
-                              label="Mjesto"
-                              variant="outlined"
-                              component={TextField}
-                              value={values.city}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              error={errors.city && touched.city && true}
-                              helperText={
-                                errors.city && touched.city && errors.city
-                              }
-                            />
-                          </Grid>
-                          <Grid item sm={6} xs={12}>
-                            <TextField
-                              fullWidth
-                              name="postal_code"
-                              label="Poštanski broj"
-                              variant="outlined"
-                              value={values.postal_code}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              error={
-                                errors.postal_code &&
-                                touched.postal_code &&
-                                true
-                              }
-                              helperText={
-                                errors.postal_code &&
-                                touched.postal_code &&
-                                errors.postal_code
-                              }
-                            />
-                          </Grid>
-                          <Grid item xs={12}>
-                            <TextField
-                              fullWidth
-                              name="mobile_phone"
-                              label="Mobitel"
-                              variant="outlined"
-                              value={values.mobile_phone}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              error={
-                                errors.mobile_phone &&
-                                touched.mobile_phone &&
-                                true
-                              }
-                              helperText={
-                                errors.mobile_phone &&
-                                touched.mobile_phone &&
-                                errors.mobile_phone
-                              }
-                            />
-                          </Grid>
-                        </Grid>
-                      </Form>
-                    );
-                  }}
-                </Formik>
-              </Grid>
-            )}
-          </Grid>
+                    )}
+                  </Grid>
+                </Form>
+              );
+            }}
+          </Formik>
         </div>
         <div className="mb-4">
           <div
@@ -686,7 +727,11 @@ const Checkout = () => {
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
-            onClick={() => handleSubmit()}
+            onClick={() => {
+              if (deliverRef.current) {
+                deliverRef.current.handleSubmit();
+              }
+            }}
             variant="contained"
             color="primary"
           >
