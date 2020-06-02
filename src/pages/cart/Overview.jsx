@@ -117,32 +117,32 @@ const Overview = () => {
                 <Grid item xs={12}>
                   <Paper className={classes.paperRoot}>
                     <Typography variant="button">
-                      <strong>Vaša adresa</strong>
+                      <strong>Adresa dostave</strong>
                     </Typography>
                     <ul className={classes.paperContent}>
                       <li>
                         <Typography color="textSecondary">
-                          {user?.purchase?.delivery_info?.company}
+                          {user.purchase?.delivery_info?.company}
                         </Typography>
                       </li>
                       <li>
                         <Typography color="textSecondary">
-                          {`${user?.purchase?.delivery_info?.name} ${user?.purchase?.delivery_info?.surname}`}
+                          {`${user.purchase?.delivery_info?.name} ${user.purchase?.delivery_info?.surname}`}
                         </Typography>
                       </li>
                       <li>
                         <Typography color="textSecondary">
-                          {user?.purchase?.delivery_info?.address}
+                          {user.purchase?.delivery_info?.address}
                         </Typography>
                       </li>
                       <li>
                         <Typography color="textSecondary">
-                          {`${user?.purchase?.delivery_info?.postal_code} ${user?.purchase?.delivery_info?.address}`}
+                          {`${user.purchase?.delivery_info?.postal_code} ${user.purchase?.delivery_info?.address}`}
                         </Typography>
                       </li>
                       <li>
                         <Typography color="textSecondary">
-                          {user?.purchase?.delivery_info?.mobile_phone}
+                          {user.purchase?.delivery_info?.mobile_phone}
                         </Typography>
                       </li>
                     </ul>
@@ -151,11 +151,35 @@ const Overview = () => {
                 <Grid item xs={12}>
                   <Paper className={classes.paperRoot}>
                     <Typography variant="button">
-                      <strong>Način isporuke</strong>
+                      <strong>Adresa računa</strong>
                     </Typography>
-                    <div className="mt-3">
-                      <img src={posta} alt="" />
-                    </div>
+                    <ul className={classes.paperContent}>
+                      <li>
+                        <Typography color="textSecondary">
+                          {user.purchase?.bill_info?.company}
+                        </Typography>
+                      </li>
+                      <li>
+                        <Typography color="textSecondary">
+                          {`${user.purchase?.bill_info?.name} ${user.purchase?.bill_info?.surname}`}
+                        </Typography>
+                      </li>
+                      <li>
+                        <Typography color="textSecondary">
+                          {user.purchase?.bill_info?.address}
+                        </Typography>
+                      </li>
+                      <li>
+                        <Typography color="textSecondary">
+                          {`${user.purchase?.bill_info?.postal_code} ${user.purchase?.bill_info?.address}`}
+                        </Typography>
+                      </li>
+                      <li>
+                        <Typography color="textSecondary">
+                          {user.purchase?.bill_info?.mobile_phone}
+                        </Typography>
+                      </li>
+                    </ul>
                   </Paper>
                 </Grid>
               </Grid>
@@ -198,6 +222,31 @@ const Overview = () => {
                     </div>
                   </Paper>
                 </Grid>
+                <Grid item xs={12}>
+                  <Paper className={classes.paperRoot}>
+                    <Typography variant="button">
+                      <strong>Način isporuke</strong>
+                    </Typography>
+                    <div className="mt-3">
+                      <img src={posta} alt="" />
+                    </div>
+                  </Paper>
+                </Grid>
+                {user.purchase?.note && (
+                  <Grid item xs={12}>
+                    <Paper className={classes.paperRoot}>
+                      <Typography variant="button">
+                        <strong>Komentar</strong>
+                      </Typography>
+                      <Typography
+                        className={classes.paperContent}
+                        color="textSecondary"
+                      >
+                        {user.purchase?.note}
+                      </Typography>
+                    </Paper>
+                  </Grid>
+                )}
               </Grid>
             </Grid>
           </Grid>
