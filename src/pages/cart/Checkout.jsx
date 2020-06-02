@@ -239,7 +239,10 @@ const Checkout = () => {
                     note: note?.length > 0 && note,
                   })
                 );
-                history.push('/zavrsetak-kupnje/pregled-narudzbe');
+                history.push({
+                  pathname: '/zavrsetak-kupnje/pregled-narudzbe',
+                  state: { fromCheckout: true },
+                });
               }
             }}
             validationSchema={validationSchema}
