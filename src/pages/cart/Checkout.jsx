@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react';
+import _ from 'lodash';
+import { Formik, Form, Field } from 'formik';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Formik, Form, Field } from 'formik';
+import * as yup from 'yup';
 
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -59,6 +61,26 @@ const Checkout = () => {
     },
   } = user;
 
+  const validationSchema = yup.object().shape({
+    company: yup.string().required('Ime tvrtke je obavezno'),
+    email: yup
+      .string()
+      .required('E-mail je obavezan')
+      .email('Mora biti valjani e-mail'),
+    name: yup.string().required('Ime je obavezno'),
+    surname: yup.string().required('Prezime je obavezno'),
+    city: yup.string().required('Grad je obavezan'),
+    postal_code: yup.string().required('Poštanski broj je obavezan'),
+    mobile_phone: yup
+      .string()
+      .required('Broj mobitela je obavezan')
+      .matches(
+        /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
+        'Mora biti valjani broj mobitela'
+      ),
+    address: yup.string().required('Adresa je obavezna'),
+  });
+
   const handleSubmit = () => {
     if (deliverRef.current) {
       deliverRef.current.handleSubmit();
@@ -70,10 +92,15 @@ const Checkout = () => {
       dispatch(storePurchase({ note }));
     }
 
-    history.push({
-      pathname: '/zavrsetak-kupnje/pregled-narudzbe',
-      state: { fromCheckout: true },
-    });
+    // if (
+    //   _.isEmpty(formErrors.delivery_errors) &&
+    //   _.isEmpty(formErrors.bill_errors)
+    // ) {
+    //   history.push({
+    //     pathname: '/zavrsetak-kupnje/pregled-narudzbe',
+    //     state: { fromCheckout: true },
+    //   });
+    // }
   };
 
   if (!cart || cart?.length < 1) {
@@ -195,6 +222,7 @@ const Checkout = () => {
                   postal_code: postal_code || '',
                   mobile_phone: mobile_phone || '',
                 }}
+                validateOnMount
                 onSubmit={(values, actions) => {
                   dispatch(
                     storePurchase({
@@ -205,9 +233,10 @@ const Checkout = () => {
                     })
                   );
                 }}
+                validationSchema={validationSchema}
                 innerRef={deliverRef}
               >
-                {({ errors, touched, values, handleChange }) => {
+                {({ errors, touched, values, handleChange, handleBlur }) => {
                   return (
                     <Form key="deliver">
                       <Grid container spacing={3}>
@@ -219,6 +248,8 @@ const Checkout = () => {
                             variant="outlined"
                             value={values.company}
                             onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={errors.company && touched.company && true}
                             helperText={
                               errors.company &&
                               touched.company &&
@@ -234,6 +265,8 @@ const Checkout = () => {
                             variant="outlined"
                             value={values.email}
                             onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={errors.email && touched.email && true}
                             helperText={
                               errors.email && touched.email && errors.email
                             }
@@ -247,6 +280,8 @@ const Checkout = () => {
                             variant="outlined"
                             value={values.name}
                             onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={errors.name && touched.name && true}
                             helperText={
                               errors.name && touched.name && errors.name
                             }
@@ -260,6 +295,8 @@ const Checkout = () => {
                             variant="outlined"
                             value={values.surname}
                             onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={errors.surname && touched.surname && true}
                             helperText={
                               errors.surname &&
                               touched.surname &&
@@ -271,10 +308,12 @@ const Checkout = () => {
                           <TextField
                             fullWidth
                             name="address"
-                            label="Adressa"
+                            label="Adresa"
                             variant="outlined"
                             value={values.address}
                             onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={errors.address && touched.address && true}
                             helperText={
                               errors.address &&
                               touched.address &&
@@ -290,6 +329,8 @@ const Checkout = () => {
                             variant="outlined"
                             value={values.city}
                             onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={errors.city && touched.city && true}
                             helperText={
                               errors.city && touched.city && errors.city
                             }
@@ -303,6 +344,10 @@ const Checkout = () => {
                             variant="outlined"
                             value={values.postal_code}
                             onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={
+                              errors.postal_code && touched.postal_code && true
+                            }
                             helperText={
                               errors.postal_code &&
                               touched.postal_code &&
@@ -318,6 +363,12 @@ const Checkout = () => {
                             variant="outlined"
                             value={values.mobile_phone}
                             onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={
+                              errors.mobile_phone &&
+                              touched.mobile_phone &&
+                              true
+                            }
                             helperText={
                               errors.mobile_phone &&
                               touched.mobile_phone &&
@@ -351,7 +402,9 @@ const Checkout = () => {
                     postal_code: '',
                     mobile_phone: '',
                   }}
+                  validateOnMount
                   innerRef={billRef}
+                  validationSchema={validationSchema}
                   onSubmit={(values, actions) => {
                     dispatch(
                       storePurchase({
@@ -360,7 +413,7 @@ const Checkout = () => {
                     );
                   }}
                 >
-                  {({ errors, touched, values, handleChange }) => {
+                  {({ errors, touched, values, handleChange, handleBlur }) => {
                     return (
                       <Form key="bill">
                         <Grid container spacing={3}>
@@ -372,6 +425,8 @@ const Checkout = () => {
                               variant="outlined"
                               value={values.company}
                               onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={errors.company && touched.company && true}
                               helperText={
                                 errors.company &&
                                 touched.company &&
@@ -387,6 +442,8 @@ const Checkout = () => {
                               variant="outlined"
                               value={values.email}
                               onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={errors.email && touched.email && true}
                               helperText={
                                 errors.email && touched.email && errors.email
                               }
@@ -400,6 +457,8 @@ const Checkout = () => {
                               variant="outlined"
                               value={values.name}
                               onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={errors.name && touched.name && true}
                               helperText={
                                 errors.name && touched.name && errors.name
                               }
@@ -413,6 +472,8 @@ const Checkout = () => {
                               variant="outlined"
                               value={values.surname}
                               onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={errors.surname && touched.surname && true}
                               helperText={
                                 errors.surname &&
                                 touched.surname &&
@@ -424,10 +485,12 @@ const Checkout = () => {
                             <TextField
                               fullWidth
                               name="address"
-                              label="Adressa"
+                              label="Adresa"
                               variant="outlined"
                               value={values.address}
                               onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={errors.address && touched.address && true}
                               helperText={
                                 errors.address &&
                                 touched.address &&
@@ -445,6 +508,8 @@ const Checkout = () => {
                               component={TextField}
                               value={values.city}
                               onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={errors.city && touched.city && true}
                               helperText={
                                 errors.city && touched.city && errors.city
                               }
@@ -458,6 +523,12 @@ const Checkout = () => {
                               variant="outlined"
                               value={values.postal_code}
                               onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={
+                                errors.postal_code &&
+                                touched.postal_code &&
+                                true
+                              }
                               helperText={
                                 errors.postal_code &&
                                 touched.postal_code &&
@@ -473,6 +544,12 @@ const Checkout = () => {
                               variant="outlined"
                               value={values.mobile_phone}
                               onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={
+                                errors.mobile_phone &&
+                                touched.mobile_phone &&
+                                true
+                              }
                               helperText={
                                 errors.mobile_phone &&
                                 touched.mobile_phone &&
