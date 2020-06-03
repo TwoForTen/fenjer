@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import _ from 'lodash';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form } from 'formik';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
@@ -22,6 +22,7 @@ import posta from '../../assets/posta.png';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 
 import { storePurchase } from '../../actions/auth';
+import { showSnackbar } from '../../actions/snackbar';
 
 const useStyles = makeStyles((theme) => ({
   containerRoot: {
@@ -249,6 +250,13 @@ const Checkout = () => {
                   pathname: '/zavrsetak-kupnje/pregled-narudzbe',
                   state: { fromCheckout: true },
                 });
+              } else {
+                dispatch(
+                  showSnackbar({
+                    message: 'Niste prijavljeni.',
+                    severity: 'error',
+                  })
+                );
               }
             }}
             validationSchema={validationSchema}
@@ -738,8 +746,18 @@ const Checkout = () => {
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             onClick={() => {
+              console.log(deliverRef.current);
               if (deliverRef.current) {
-                deliverRef.current.handleSubmit();
+                if (_.isEmpty(deliverRef.current.errors)) {
+                  deliverRef.current.handleSubmit();
+                } else {
+                  dispatch(
+                    showSnackbar({
+                      message: 'Provjerite jesu li sva polja ispravna.',
+                      severity: 'error',
+                    })
+                  );
+                }
               }
             }}
             variant="contained"

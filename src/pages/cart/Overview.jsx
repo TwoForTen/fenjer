@@ -300,7 +300,7 @@ const Overview = () => {
                   cart: cartProducts,
                   delivery_info: user.purchase.delivery_info,
                   bill_info: user.purchase.bill_info,
-                  note: user.purchase?.note,
+                  note: user.purchase?.note || '',
                 })
                 .then(() =>
                   axios.get('/owner').then((res) => {

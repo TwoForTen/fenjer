@@ -30,7 +30,7 @@ const SnackbarComponent = () => {
   return (
     <Snackbar
       open={open}
-      autoHideDuration={3000}
+      autoHideDuration={5000}
       onClose={handleClose}
       onExited={handleExit}
     >
