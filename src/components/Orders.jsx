@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from '../axiosInstance';
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -62,14 +63,26 @@ const Orders = ({ userOrders }) => {
   const classes = useStyles();
   const translateStatus = useTranslateStatus();
 
-  const ROWS_PER_PAGE = 10;
+  const [orders, setOrders] = useState({ data: [], links: {}, meta: {} });
   const [page, setPage] = useState(0);
 
+  useEffect(() => {
+    setOrders(userOrders);
+  }, [userOrders]);
+
   const handleChangePage = (_, newPage) => {
-    setPage(newPage);
+    axios.get(`/auth/orders?page=${newPage + 1}`).then((res) => {
+      setOrders((prevState) => {
+        return {
+          ...prevState,
+          data: res.data.data,
+        };
+      });
+      setPage(newPage);
+    });
   };
 
-  if (!userOrders) {
+  if (!orders) {
     return (
       <div className={classes.centeredContainer}>
         <CircularProgress />
@@ -77,7 +90,7 @@ const Orders = ({ userOrders }) => {
     );
   }
 
-  if (userOrders?.data?.length < 1) {
+  if (orders?.data?.length < 1) {
     return (
       <div className={classes.centeredContainer}>
         <Typography variant="h6" color="textPrimary">
@@ -102,35 +115,33 @@ const Orders = ({ userOrders }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {userOrders?.data
-            ?.slice(page * ROWS_PER_PAGE, page * ROWS_PER_PAGE + ROWS_PER_PAGE)
-            .map((order) => (
-              <TableRow key={order.id}>
-                <TableCell>{_.padStart(order.id, '6', '000000')}</TableCell>
-                <TableCell>
-                  {new Intl.NumberFormat('hr-HR', {
-                    style: 'currency',
-                    currency: 'HRK',
-                  }).format(order.gross)}
-                </TableCell>
-                <TableCell>
-                  {moment(order.created_at).format('DD.MM.YYYY, HH:mm:ss')}
-                </TableCell>
-                <TableCell>{translateStatus(order.status)}</TableCell>
-                <TableCell>
-                  <Button variant="contained" color="primary">
-                    Pregledaj
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+          {orders?.data.map((order) => (
+            <TableRow key={order.id}>
+              <TableCell>{_.padStart(order.id, '6', '000000')}</TableCell>
+              <TableCell>
+                {new Intl.NumberFormat('hr-HR', {
+                  style: 'currency',
+                  currency: 'HRK',
+                }).format(order.gross)}
+              </TableCell>
+              <TableCell>
+                {moment(order.created_at).format('DD.MM.YYYY, HH:mm:ss')}
+              </TableCell>
+              <TableCell>{translateStatus(order.status)}</TableCell>
+              <TableCell>
+                <Button variant="contained" color="primary">
+                  Pregledaj
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
       <TablePagination
         component="div"
         rowsPerPageOptions={[]}
-        count={userOrders?.data?.length}
-        rowsPerPage={ROWS_PER_PAGE}
+        count={orders.meta.total}
+        rowsPerPage={orders.meta.per_page}
         page={page}
         onChangePage={handleChangePage}
       />

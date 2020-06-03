@@ -206,24 +206,30 @@ const Checkout = () => {
             enableReinitialize
             initialValues={{
               delivery_info: {
-                company: company || '',
-                email: email || '',
-                name: name || '',
-                surname: surname || '',
-                address: address || '',
-                city: city || '',
-                postal_code: postal_code || '',
-                mobile_phone: mobile_phone || '',
+                company: user.purchase?.delivery_info?.company || company || '',
+                email: user.purchase?.delivery_info?.email || email || '',
+                name: user.purchase?.delivery_info?.name || name || '',
+                surname: user.purchase?.delivery_info?.surname || surname || '',
+                address: user.purchase?.delivery_info?.address || address || '',
+                city: user.purchase?.delivery_info?.city || city || '',
+                postal_code:
+                  user.purchase?.delivery_info?.postal_code ||
+                  postal_code ||
+                  '',
+                mobile_phone:
+                  user.purchase?.delivery_info?.mobile_phone ||
+                  mobile_phone ||
+                  '',
               },
               bill_info: {
-                company: '',
-                email: '',
-                name: '',
-                surname: '',
-                address: '',
-                city: '',
-                postal_code: '',
-                mobile_phone: '',
+                company: user.purchase?.bill_info?.company || '',
+                email: user.purchase?.bill_info?.email || '',
+                name: user.purchase?.bill_info?.name || '',
+                surname: user.purchase?.bill_info?.surname || '',
+                address: user.purchase?.bill_info?.address || '',
+                city: user.purchase?.bill_info?.city || '',
+                postal_code: user.purchase?.bill_info?.postal_code || '',
+                mobile_phone: user.purchase?.bill_info?.mobile_phone || '',
               },
             }}
             validateOnChange={false}
@@ -665,6 +671,7 @@ const Checkout = () => {
             label="Komentar"
             variant="outlined"
             multiline
+            defaultValue={user.purchase?.note || ''}
             onBlur={(e) => setNote(e.target.value)}
             rows={4}
             fullWidth
