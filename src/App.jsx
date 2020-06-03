@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Switch, Route, useLocation } from 'react-router-dom';
 
 import { userLogout } from './actions/auth';
+import CookiesModal from './components/CookiesModal';
 import ProtectedRoute from './components/ProtectedRoute';
 import SnackbarComponent from './components/SnackbarComponent';
 
@@ -40,6 +41,7 @@ function App() {
 
   return (
     <>
+      {!JSON.parse(localStorage.getItem('cookies_seen')) && <CookiesModal />}
       <SnackbarComponent />
       <Layout>
         <ScrollToTop>
