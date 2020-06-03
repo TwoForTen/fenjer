@@ -9,7 +9,7 @@ import NavButtons from '../components/NavButtons';
 import notFoundLogo from '../assets/404_logo.png';
 import valovi from '../assets/valovi.svg';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',

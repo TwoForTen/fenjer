@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Pagination from '@material-ui/lab/Pagination';
 
 import Filters from '../../components/Filters';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
@@ -16,13 +17,24 @@ const Products = () => {
   const params = useParams();
   const dispatch = useDispatch();
 
+  const [page, setPage] = useState(1);
+
   const categoryData =
-    useDataFetch({
-      url: `/categories/${params.categorySlug}`,
-      method: 'GET',
-    }) || {};
+    useDataFetch(
+      {
+        url: `/categories/${params.categorySlug}`,
+        method: 'GET',
+      },
+      page
+    ) || {};
 
   const { products } = categoryData;
+
+  console.log(categoryData);
+
+  const handleChangePage = (_, newPage) => {
+    setPage(newPage);
+  };
 
   if (products?.length < 1) {
     return <Redirect to="/404" />;
@@ -34,18 +46,21 @@ const Products = () => {
       <div style={{ textAlign: !products && 'center' }}>
         <Filters />
         {products ? (
-          products.map((product) =>
-            product.types.map((type) => {
-              return (
-                <ProductCard
-                  type={type}
-                  key={type.id}
-                  productName={product.name}
-                  onClick={() => dispatch(setProduct(type))}
-                />
-              );
-            })
-          )
+          <>
+            {products.map((product) =>
+              product.types.map((type) => {
+                return (
+                  <ProductCard
+                    type={type}
+                    key={type.id}
+                    productName={product.name}
+                    onClick={() => dispatch(setProduct(type))}
+                  />
+                );
+              })
+            )}
+            <Pagination count={10} variant="outlined" shape="rounded" />
+          </>
         ) : (
           <CircularProgress className="mt-4" />
         )}

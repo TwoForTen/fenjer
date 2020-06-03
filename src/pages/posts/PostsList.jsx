@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -20,10 +21,19 @@ const useStyles = makeStyles((theme) => ({
 const PostsList = () => {
   const classes = useStyles();
 
-  const posts = useDataFetch({
-    url: '/posts',
-    method: 'get',
-  });
+  const [page, setPage] = useState(1);
+
+  const posts = useDataFetch(
+    {
+      url: `/posts?page=${page}`,
+      method: 'get',
+    },
+    page
+  );
+
+  const handleChangePage = (_, newPage) => {
+    setPage(newPage);
+  };
 
   if (posts?.data?.length < 1) {
     return (
@@ -43,9 +53,18 @@ const PostsList = () => {
       <PageBreadcrumbs titles={['Novosti']} />
       <div style={{ textAlign: !posts && 'center' }}>
         {posts ? (
-          posts?.data.map((post) => {
-            return <PostCard post={post} key={post.id} />;
-          })
+          <>
+            {posts?.data.map((post) => {
+              return <PostCard post={post} key={post.id} />;
+            })}
+            <Pagination
+              className="mb-4"
+              count={posts?.meta?.last_page}
+              variant="outlined"
+              shape="rounded"
+              onChange={handleChangePage}
+            />
+          </>
         ) : (
           <CircularProgress className="mt-4" />
         )}
