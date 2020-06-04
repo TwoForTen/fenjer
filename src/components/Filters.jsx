@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useReducer } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -29,113 +31,161 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '50px',
     maxWidth: '50px',
   },
-  filterInput: {
-    maxWidth: '180px',
-  },
 }));
 
-const Filters = () => {
+const FILTER = 'FILTER';
+
+const filterInputReducer = (state, action) => {
+  switch (action.type) {
+    case FILTER:
+      return {
+        ...state,
+        [action.payload.filterType]: action.payload.filterValue,
+      };
+    default:
+      return state;
+  }
+};
+
+const Filters = ({ products }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const [filterState, inputDispatch] = useReducer(filterInputReducer, {
+    name: '',
+    code: '',
+    barcode: '',
+    sortBy: '',
+  });
+
   return (
-    <div className={classes.filterContainer}>
-      <TextField
-        size="small"
-        margin="normal"
-        variant="outlined"
-        label="Pretraživanje po nazivu"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Button
-                className={classes.filterButton}
-                color="primary"
-                variant="contained"
-              >
-                <Search />
-              </Button>
-            </InputAdornment>
-          ),
-        }}
-      />
-      <TextField
-        size="small"
-        margin="normal"
-        variant="outlined"
-        label="Pretraživanje po šifri"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Button
-                className={classes.filterButton}
-                color="primary"
-                variant="contained"
-              >
-                <Search />
-              </Button>
-            </InputAdornment>
-          ),
-        }}
-      />
-      <FormControl
-        className={classes.filterInput}
-        fullWidth
-        variant="outlined"
-        size="small"
-        margin="normal"
-      >
-        <InputLabel id="brand">Odaberite brand</InputLabel>
-        <Select labelId="brand">
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl
-        className={classes.filterInput}
-        fullWidth
-        variant="outlined"
-        size="small"
-        margin="normal"
-      >
-        <InputLabel id="broj">Broj proizvoda</InputLabel>
-        <Select labelId="broj">
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl
-        className={classes.filterInput}
-        fullWidth
-        variant="outlined"
-        size="small"
-        margin="normal"
-      >
-        <InputLabel id="sort">Sortiraj po</InputLabel>
-        <Select labelId="sort">
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-      <div>
-        <IconButton>
-          <ViewList />
-        </IconButton>
-        <IconButton>
-          <ViewModule />
-        </IconButton>
-      </div>
-    </div>
+    <Grid container spacing={1} alignItems="center">
+      <Grid item xs={3}>
+        <TextField
+          fullWidth
+          name="name"
+          size="small"
+          margin="normal"
+          variant="outlined"
+          onChange={(e) =>
+            inputDispatch({
+              type: FILTER,
+              payload: {
+                filterType: e.target.name,
+                filterValue: e.target.value,
+              },
+            })
+          }
+          label="Pretraživanje po nazivu"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Button
+                  className={classes.filterButton}
+                  color="primary"
+                  variant="contained"
+                >
+                  <Search />
+                </Button>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <TextField
+          fullWidth
+          size="small"
+          name="code"
+          margin="normal"
+          variant="outlined"
+          label="Pretraživanje po šifri"
+          onChange={(e) =>
+            inputDispatch({
+              type: FILTER,
+              payload: {
+                filterType: e.target.name,
+                filterValue: e.target.value,
+              },
+            })
+          }
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Button
+                  className={classes.filterButton}
+                  color="primary"
+                  variant="contained"
+                >
+                  <Search />
+                </Button>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <TextField
+          fullWidth
+          size="small"
+          margin="normal"
+          name="barcode"
+          variant="outlined"
+          label="Pretraživanje po barcodu"
+          onChange={(e) =>
+            inputDispatch({
+              type: FILTER,
+              payload: {
+                filterType: e.target.name,
+                filterValue: e.target.value,
+              },
+            })
+          }
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Button
+                  className={classes.filterButton}
+                  color="primary"
+                  variant="contained"
+                >
+                  <Search />
+                </Button>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Grid>
+      <Grid item xs={2}>
+        <FormControl
+          className={classes.filterInput}
+          fullWidth
+          variant="outlined"
+          size="small"
+          margin="normal"
+        >
+          <InputLabel id="sort">Sortiraj po</InputLabel>
+          <Select labelId="sort" defaultValue="">
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item xs={1}>
+        <div>
+          <IconButton>
+            <ViewList />
+          </IconButton>
+          <IconButton>
+            <ViewModule />
+          </IconButton>
+        </div>
+      </Grid>
+    </Grid>
   );
 };
 

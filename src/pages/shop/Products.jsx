@@ -30,8 +30,6 @@ const Products = () => {
 
   const { products } = categoryData;
 
-  console.log(categoryData);
-
   const handleChangePage = (_, newPage) => {
     setPage(newPage);
   };
@@ -44,7 +42,7 @@ const Products = () => {
     <>
       <PageBreadcrumbs titles={['proizvodi', categoryData.name]} />
       <div style={{ textAlign: !products && 'center' }}>
-        <Filters />
+        <Filters products={products} />
         {products ? (
           <>
             {products.map((product) =>
