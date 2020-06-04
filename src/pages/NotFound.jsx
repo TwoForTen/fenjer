@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import NavButtons from '../components/NavButtons';
 
 import notFoundLogo from '../assets/404_logo.png';
-import valovi from '../assets/valovi.svg';
+// import valovi from '../assets/valovi.svg';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -26,17 +26,18 @@ const useStyles = makeStyles(() => ({
     backgroundSize: 'contain',
     backgroundPosition: 'center',
   },
-  waves: {
-    width: '100vw',
-    paddingTop: '30%',
-    position: 'absolute',
-    left: '0',
-    bottom: '0',
-    backgroundImage: `url(${valovi})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'top',
-  },
+  // waves: {
+  //   minWidth: '100vw',
+  //   paddingTop: '30%',
+  //   marginTop: '30%',
+  //   position: 'absolute',
+  //   left: '0',
+  //   bottom: '0',
+  //   backgroundImage: `url(${valovi})`,
+  //   backgroundRepeat: 'no-repeat',
+  //   backgroundSize: 'cover',
+  //   backgroundPosition: 'top',
+  // },
 }));
 
 const NotFound = () => {
@@ -51,7 +52,7 @@ const NotFound = () => {
         </Typography>
         <NavButtons />
       </Container>
-      <div className={classes.waves} />
+      {/* <div className={classes.waves} /> */}
     </>
   );
 };
