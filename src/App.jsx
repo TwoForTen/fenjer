@@ -23,7 +23,7 @@ import Product from './pages/shop/Product';
 import Products from './pages/shop/Products';
 import Registration from './pages/Registration';
 import Terms from './pages/Terms';
-import UserAccount from './pages/UserAccount';
+import UserAccount from './pages/user/UserAccount';
 
 import ScrollToTop from './hoc/ScrollToTop';
 

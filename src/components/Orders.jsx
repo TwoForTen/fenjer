@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from '../axiosInstance';
 import _ from 'lodash';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -15,6 +16,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+
+import { showOrder } from '../actions/order';
 
 const useStyles = makeStyles((theme) => ({
   tableContainer: {
@@ -32,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 const useTranslateStatus = () => {
   const theme = useTheme();
+
   const translateStatus = (status) => {
     switch (status) {
       case 'pending':
@@ -61,6 +65,7 @@ const useTranslateStatus = () => {
 
 const Orders = ({ userOrders }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const translateStatus = useTranslateStatus();
 
   const [orders, setOrders] = useState({ data: [], links: {}, meta: {} });
@@ -81,6 +86,8 @@ const Orders = ({ userOrders }) => {
       setPage(newPage);
     });
   };
+
+  console.log(orders);
 
   if (!orders) {
     return (
@@ -129,7 +136,11 @@ const Orders = ({ userOrders }) => {
               </TableCell>
               <TableCell>{translateStatus(order.status)}</TableCell>
               <TableCell>
-                <Button variant="contained" color="primary">
+                <Button
+                  onClick={() => dispatch(showOrder(order.cart))}
+                  variant="contained"
+                  color="primary"
+                >
                   Pregledaj
                 </Button>
               </TableCell>

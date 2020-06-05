@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import _ from 'lodash';
-import axios from '../axiosInstance';
+import axios from '../../axiosInstance';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import SwipeableViews from 'react-swipeable-views';
@@ -11,9 +11,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Orders from '../components/Orders';
-import PageBreadcrumbs from '../components/PageBreadcrumbs';
-import UserDetails from '../components/UserDetails';
+import Orders from '../../components/Orders';
+import PageBreadcrumbs from '../../components/PageBreadcrumbs';
+import UserDetails from '../../components/UserDetails';
+import OrderOverview from './OrderOverview';
 
 const useStyles = makeStyles((theme) => ({
   fullWidthBorder: {
@@ -42,6 +43,7 @@ const UserAccount = () => {
   const [userOrders, setUserOrders] = useState();
 
   const user = useSelector((state) => state.user.details);
+  const order = useSelector((state) => state.order);
 
   return (
     <>
@@ -87,7 +89,11 @@ const UserAccount = () => {
               <CircularProgress className="mt-4" />
             )}
           </Container>
-          <Orders userOrders={userOrders} />
+          {_.isEmpty(order) ? (
+            <Orders userOrders={userOrders} />
+          ) : (
+            <OrderOverview />
+          )}
         </SwipeableViews>
       </div>
     </>
