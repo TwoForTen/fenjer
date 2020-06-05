@@ -50,9 +50,7 @@ const Product = () => {
   const product = useSelector((state) => state.product);
   const cart = useSelector((state) => state.cart);
 
-  const {
-    selectedProduct: { name, color, quantity, code, description, in_stock, id },
-  } = product;
+  const { name, color, quantity, code, description, in_stock, id } = product;
 
   return (
     <Paper className={classes.root}>

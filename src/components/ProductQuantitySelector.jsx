@@ -67,16 +67,19 @@ const ProductQuantitySelector = ({ cartItem }) => {
       <Button
         className={`${classes.buttonGroup} ${classes.buttonLeft}`}
         onClick={() => dispatch(decrementCartQuantity({ index: cartItem }))}
-        disabled={cart[cartItem]?.quantity <= 1}
+        disabled={cart[cartItem]?.ordered_quantity <= 1}
       >
         -
       </Button>
       <TextField
         className={`${classes.buttonGroup} ${classes.inputRoot}`}
-        value={cart[cartItem]?.quantity}
+        value={cart[cartItem]?.ordered_quantity}
         onChange={(e) =>
           dispatch(
-            setCartQuantity({ index: cartItem, quantity: +e.target.value })
+            setCartQuantity({
+              index: cartItem,
+              ordered_quantity: +e.target.value,
+            })
           )
         }
         type="number"
@@ -97,13 +100,13 @@ const ProductQuantitySelector = ({ cartItem }) => {
       <Button
         className={`${classes.buttonGroup} ${classes.buttonLeft}`}
         onClick={() => dispatch(decrementProduct())}
-        disabled={product.quantity <= 1}
+        disabled={product.ordered_quantity <= 1}
       >
         -
       </Button>
       <TextField
         className={`${classes.buttonGroup} ${classes.inputRoot}`}
-        value={product.quantity}
+        value={product?.ordered_quantity}
         onChange={(e) => dispatch(setProductQuantity(+e.target.value))}
         type="number"
         pattern="[0-9]*"

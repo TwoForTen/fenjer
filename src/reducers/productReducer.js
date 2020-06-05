@@ -5,33 +5,27 @@ import {
   SET_PRODUCT_QUANTITY,
 } from '../actions/actionTypes';
 
-const initialState = {
-  selectedProduct: {},
-  quantity: 1,
-};
-
-export const productReducer = (state = initialState, action) => {
+export const productReducer = (state = {}, action) => {
   switch (action.type) {
     case SET_PRODUCT:
       return {
-        ...state,
-        selectedProduct: action.payload,
-        quantity: 1,
+        ...action.payload,
+        ordered_quantity: 1,
       };
     case SET_PRODUCT_QUANTITY:
       return {
         ...state,
-        quantity: action.payload,
+        ordered_quantity: action.payload,
       };
     case INCREMENT_PRODUCT:
       return {
         ...state,
-        quantity: state.quantity + 1,
+        ordered_quantity: state.ordered_quantity + 1,
       };
     case DECREMENT_PRODUCT:
       return {
         ...state,
-        quantity: state.quantity - 1,
+        ordered_quantity: state.ordered_quantity - 1,
       };
     default:
       return state;

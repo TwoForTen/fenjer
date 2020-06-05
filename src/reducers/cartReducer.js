@@ -17,13 +17,13 @@ export const cartReducer = (state = initialState, action) => {
       return [...state, action.payload];
     case ADD_QUANTITY:
       const duplicateProduct = state.findIndex(
-        (product) =>
-          product.selectedProduct.id === action.payload.selectedProduct.id
+        (product) => product.id === action.payload.id
       );
       modifiedState[duplicateProduct] = {
-        selectedProduct: modifiedState[duplicateProduct].selectedProduct,
-        quantity:
-          modifiedState[duplicateProduct].quantity + action.payload.quantity,
+        ...modifiedState[duplicateProduct],
+        ordered_quantity:
+          modifiedState[duplicateProduct].ordered_quantity +
+          action.payload.quantity,
       };
       return modifiedState;
     case REMOVE_FROM_CART:
@@ -32,20 +32,22 @@ export const cartReducer = (state = initialState, action) => {
       return modifiedState;
     case SET_CART_QUANTITY:
       modifiedState[action.payload.index] = {
-        selectedProduct: modifiedState[action.payload.index].selectedProduct,
-        quantity: action.payload.quantity,
+        ...modifiedState[action.payload.index],
+        ordered_quantity: action.payload.ordered_quantity,
       };
       return modifiedState;
     case INCREMENT_CART_QUANTITY:
       modifiedState[action.payload.index] = {
-        selectedProduct: modifiedState[action.payload.index].selectedProduct,
-        quantity: modifiedState[action.payload.index].quantity + 1,
+        ...modifiedState[action.payload.index],
+        ordered_quantity:
+          modifiedState[action.payload.index].ordered_quantity + 1,
       };
       return modifiedState;
     case DECREMENT_CART_QUANTITY:
       modifiedState[action.payload.index] = {
-        selectedProduct: modifiedState[action.payload.index].selectedProduct,
-        quantity: modifiedState[action.payload.index].quantity - 1,
+        ...modifiedState[action.payload.index],
+        ordered_quantity:
+          modifiedState[action.payload.index].ordered_quantity - 1,
       };
       return modifiedState;
     case CLEAR_CART:

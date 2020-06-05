@@ -23,9 +23,7 @@ const Product = () => {
   const classes = useStyles();
   const params = useParams();
   const dispatch = useDispatch();
-  const clickedProduct = useSelector((state) => state.product);
-
-  const { selectedProduct } = clickedProduct;
+  const selectedProduct = useSelector((state) => state.product);
 
   const products =
     useDataFetch({
