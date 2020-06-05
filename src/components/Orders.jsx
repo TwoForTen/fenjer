@@ -137,7 +137,7 @@ const Orders = ({ userOrders }) => {
               <TableCell>{translateStatus(order.status)}</TableCell>
               <TableCell>
                 <Button
-                  onClick={() => dispatch(showOrder(order.cart))}
+                  onClick={() => dispatch(showOrder(order))}
                   variant="contained"
                   color="primary"
                 >

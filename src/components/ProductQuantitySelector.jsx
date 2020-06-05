@@ -58,8 +58,6 @@ const ProductQuantitySelector = ({ cartItem }) => {
   const product = useSelector((state) => state.product);
   const cart = useSelector((state) => state.cart);
 
-  console.log(product);
-
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);

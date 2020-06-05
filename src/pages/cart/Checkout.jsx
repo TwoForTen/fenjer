@@ -746,7 +746,6 @@ const Checkout = () => {
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             onClick={() => {
-              console.log(deliverRef.current);
               if (deliverRef.current) {
                 if (_.isEmpty(deliverRef.current.errors)) {
                   deliverRef.current.handleSubmit();
