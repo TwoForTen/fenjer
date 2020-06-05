@@ -23,7 +23,7 @@ export const cartReducer = (state = initialState, action) => {
         ...modifiedState[duplicateProduct],
         ordered_quantity:
           modifiedState[duplicateProduct].ordered_quantity +
-          action.payload.quantity,
+          action.payload.ordered_quantity,
       };
       return modifiedState;
     case REMOVE_FROM_CART:

@@ -58,6 +58,8 @@ const ProductQuantitySelector = ({ cartItem }) => {
   const product = useSelector((state) => state.product);
   const cart = useSelector((state) => state.cart);
 
+  console.log(product);
+
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
@@ -106,7 +108,7 @@ const ProductQuantitySelector = ({ cartItem }) => {
       </Button>
       <TextField
         className={`${classes.buttonGroup} ${classes.inputRoot}`}
-        value={product?.ordered_quantity}
+        value={product.ordered_quantity || 1}
         onChange={(e) => dispatch(setProductQuantity(+e.target.value))}
         type="number"
         pattern="[0-9]*"

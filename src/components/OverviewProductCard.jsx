@@ -35,10 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const CartProductCard = ({ product }) => {
   const classes = useStyles();
 
-  const {
-    selectedProduct: { name, img, code, price },
-    quantity,
-  } = product;
+  const { name, img, code, price, ordered_quantity } = product;
 
   return (
     <Card className={classes.card}>
@@ -101,7 +98,7 @@ const CartProductCard = ({ product }) => {
           >
             KOLIČINA
           </Typography>
-          <Typography variant="subtitle1">{quantity} kom</Typography>
+          <Typography variant="subtitle1">{ordered_quantity} kom</Typography>
         </Grid>
         <Grid item xs={2} className={classes.gridItem}>
           <Typography
@@ -116,7 +113,7 @@ const CartProductCard = ({ product }) => {
             {new Intl.NumberFormat('hr-HR', {
               style: 'currency',
               currency: 'HRK',
-            }).format(price * quantity)}
+            }).format(price * ordered_quantity)}
           </Typography>
         </Grid>
       </Grid>

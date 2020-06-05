@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const calculateSum = (product) => {
   const productPrices = product.map((prod) => {
-    return prod.selectedProduct.price * prod.quantity;
+    return prod.price * prod.ordered_quantity;
   });
 
   const gross = productPrices.reduce((sum, num) => sum + num);
@@ -72,8 +72,8 @@ const Cart = () => {
       {productsInCart.map((product, index) => {
         return (
           <CartProductCard
-            key={product.selectedProduct.id}
-            onClick={() => dispatch(setProduct(product.selectedProduct))}
+            key={product.id}
+            onClick={() => dispatch(setProduct(product))}
             product={product}
             index={index}
           />

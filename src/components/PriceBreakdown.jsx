@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 const calculateSum = (product, delivery) => {
   const productPrices = product.map((prod) => {
-    return prod.selectedProduct.price * prod.quantity;
+    return prod.price * prod.ordered_quantity;
   });
 
   const productGross = productPrices.reduce((sum, num) => sum + num);

@@ -62,8 +62,8 @@ const Cart = () => {
       {cart.map((product, index) => {
         return (
           <CartProductCard
-            key={product.selectedProduct.id}
-            onClick={() => dispatch(setProduct(product.selectedProduct))}
+            key={product.id}
+            onClick={() => dispatch(setProduct(product))}
             product={product}
             index={index}
           />

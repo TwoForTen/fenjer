@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -32,12 +33,10 @@ const Product = () => {
     }) || [];
 
   useEffect(() => {
-    Object.entries(products)?.length > 1 &&
+    !_.isEmpty(products) &&
       dispatch(
         setProduct(
-          Object.entries(selectedProduct)?.length > 1
-            ? selectedProduct
-            : products?.types[0]
+          !_.isEmpty(selectedProduct) ? selectedProduct : products?.types[0]
         )
       );
   }, [products]);
@@ -49,7 +48,7 @@ const Product = () => {
       />
       <ProductView />
       <div className={classes.otherProductTypesContainer}>
-        {products?.types?.map((type, index) => {
+        {products?.types?.map((type) => {
           return (
             <OtherProductTypes
               type={type}

@@ -268,12 +268,7 @@ const Overview = () => {
             </Typography>
           </div>
           {cart.map((product) => {
-            return (
-              <OverviewProductCard
-                product={product}
-                key={product.selectedProduct.id}
-              />
-            );
+            return <OverviewProductCard product={product} key={product.id} />;
           })}
         </div>
         <div
@@ -290,9 +285,8 @@ const Overview = () => {
               setLoading(true);
               const cartProducts = cart.map((product) => {
                 return {
-                  ...product.selectedProduct,
-                  ordered_quantity: product.quantity,
-                  price: +product.selectedProduct.price,
+                  ...product,
+                  price: +product.price,
                 };
               });
               axios

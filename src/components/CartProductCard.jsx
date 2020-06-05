@@ -52,10 +52,7 @@ const CartProductCard = ({ product, onClick, index }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const {
-    selectedProduct: { name, img, code, price, product_id },
-    quantity,
-  } = product;
+  const { name, img, code, price, product_id, ordered_quantity } = product;
 
   return (
     <Card className={classes.card}>
@@ -145,7 +142,7 @@ const CartProductCard = ({ product, onClick, index }) => {
             {new Intl.NumberFormat('hr-HR', {
               style: 'currency',
               currency: 'HRK',
-            }).format(price * quantity)}
+            }).format(price * ordered_quantity)}
           </Typography>
         </Grid>
       </Grid>
