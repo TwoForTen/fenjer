@@ -146,7 +146,9 @@ const Contact = () => {
                           variant="h6"
                           component="span"
                           color="inherit"
-                        >{`Terenska prodaja ${index + 1}`}</Typography>
+                        >
+                          {field_sale.name}
+                        </Typography>
                       </ListItem>
                     );
                   })}
@@ -288,6 +290,7 @@ const Contact = () => {
               </div>
               {field_sales &&
                 field_sales.map((field_sale, index) => {
+                  console.log(field_sale);
                   return (
                     <div
                       id={`index${2 + index}`}
@@ -300,7 +303,7 @@ const Contact = () => {
                         variant="h6"
                         element="h2"
                       >
-                        {`Terenska prodaja ${index + 1}`}
+                        {field_sale.name}
                       </Typography>
                       <div className={classes.sectionList}>
                         <Typography
