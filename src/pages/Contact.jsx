@@ -59,17 +59,16 @@ const Contact = () => {
   const [value, setValue] = useState(0);
 
   const sectionObserver = new IntersectionObserver(
-    (entries, observer) => {
+    (entries) => {
       entries.map((entry) => {
         if (entry.isIntersecting) {
-          console.log(entry.target);
           setValue(() => {
             return +entry.target.id.split('index')[1];
           });
         }
       });
     },
-    { rootMargin: `-66px 0px -${window.innerHeight - 66}px 0px` }
+    { rootMargin: `-66px 0px -${window.innerHeight - 90}px 0px` }
   );
 
   const contactData =
