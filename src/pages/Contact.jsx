@@ -44,10 +44,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const scrollIntoView = (selector) => {
+const scrollIntoView = (element) => {
   window.scrollTo({
     top:
-      document.getElementById(selector).offsetTop -
+      document.getElementById(element).offsetTop -
       document.querySelector('header').offsetHeight,
     behavior: 'smooth',
   });
