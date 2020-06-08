@@ -118,7 +118,7 @@ const Contact = () => {
                 <ListItem
                   button
                   selected={value === 0}
-                  onClick={(event) => scrollIntoView('index0')}
+                  onClick={() => scrollIntoView('index0')}
                 >
                   <Typography variant="h6" component="span" color="inherit">
                     Kontakt
@@ -127,7 +127,7 @@ const Contact = () => {
                 <ListItem
                   button
                   selected={value === 1}
-                  onClick={(event) => scrollIntoView('index1')}
+                  onClick={() => scrollIntoView('index1')}
                 >
                   <Typography variant="h6" component="span" color="inherit">
                     Sjedište tvrtke
@@ -139,7 +139,7 @@ const Contact = () => {
                       <ListItem
                         button
                         selected={value === 2 + index}
-                        onClick={(event) => scrollIntoView(`index${2 + index}`)}
+                        onClick={() => scrollIntoView(`index${2 + index}`)}
                         key={field_sale.name}
                       >
                         <Typography
@@ -153,7 +153,7 @@ const Contact = () => {
                 <ListItem
                   button
                   selected={value === 2 + field_sales?.length}
-                  onClick={(event) =>
+                  onClick={() =>
                     scrollIntoView(`index${2 + field_sales?.length}`)
                   }
                 >
