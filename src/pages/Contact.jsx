@@ -44,23 +44,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const scrollIntoView = (selector) => {
+  window.scrollTo({
+    top:
+      document.getElementById(selector).offsetTop -
+      document.querySelector('header').offsetHeight,
+    behavior: 'smooth',
+  });
+};
+
 const Contact = () => {
   const classes = useStyles();
 
   const [value, setValue] = useState(0);
 
-  const handleChange = (_, newValue) => {
-    setValue(newValue);
-  };
-
-  const options = {};
-
-  const sectionObserver = new IntersectionObserver((entries, observer) => {
-    entries.map((entry) => {
-      if (entry.isIntersecting) {
-      }
-    });
-  }, options);
+  const sectionObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.map((entry) => {
+        if (entry.isIntersecting) {
+          console.log(entry.target);
+          setValue(() => {
+            return +entry.target.id.split('index')[1];
+          });
+        }
+      });
+    },
+    { rootMargin: `-66px 0px -${window.innerHeight - 66}px 0px` }
+  );
 
   const contactData =
     useDataFetch({
@@ -85,7 +95,10 @@ const Contact = () => {
       sectionObserver.observe(section);
     });
 
-    // return () => sectionObserver.unobserve(sections);
+    return () =>
+      sections.forEach((section) => {
+        sectionObserver.unobserve(section);
+      });
   }, [contactData]);
 
   return (
@@ -106,7 +119,7 @@ const Contact = () => {
                 <ListItem
                   button
                   selected={value === 0}
-                  onClick={(event) => handleChange(event, 0)}
+                  onClick={(event) => scrollIntoView('index0')}
                 >
                   <Typography variant="h6" component="span" color="inherit">
                     Kontakt
@@ -115,7 +128,7 @@ const Contact = () => {
                 <ListItem
                   button
                   selected={value === 1}
-                  onClick={(event) => handleChange(event, 1)}
+                  onClick={(event) => scrollIntoView('index1')}
                 >
                   <Typography variant="h6" component="span" color="inherit">
                     Sjedište tvrtke
@@ -127,8 +140,8 @@ const Contact = () => {
                       <ListItem
                         button
                         selected={value === 2 + index}
-                        onClick={(event) => handleChange(event, 2 + index)}
-                        key={field_sale.id}
+                        onClick={(event) => scrollIntoView(`index${2 + index}`)}
+                        key={field_sale.name}
                       >
                         <Typography
                           variant="h6"
@@ -142,7 +155,7 @@ const Contact = () => {
                   button
                   selected={value === 2 + field_sales?.length}
                   onClick={(event) =>
-                    handleChange(event, 2 + field_sales?.length)
+                    scrollIntoView(`index${2 + field_sales?.length}`)
                   }
                 >
                   <Typography variant="h6" component="span" color="inherit">
@@ -152,7 +165,10 @@ const Contact = () => {
               </List>
             </Grid>
             <Grid item xs={9}>
-              <div className={`${classes.sectionContainer} contact-section`}>
+              <div
+                id="index0"
+                className={`${classes.sectionContainer} contact-section`}
+              >
                 <Typography
                   className={classes.sectionTitle}
                   color="textPrimary"
@@ -173,7 +189,7 @@ const Contact = () => {
                     <ul>
                       {phones.map((phone) => {
                         return (
-                          <li key={phone.id}>
+                          <li key={phone.number}>
                             <Typography
                               variant="subtitle1"
                               color="textSecondary"
@@ -233,7 +249,10 @@ const Contact = () => {
                   </div>
                 )}
               </div>
-              <div className={`${classes.sectionContainer} contact-section`}>
+              <div
+                id="index1"
+                className={`${classes.sectionContainer} contact-section`}
+              >
                 <Typography
                   className={classes.sectionTitle}
                   color="textPrimary"
@@ -272,8 +291,9 @@ const Contact = () => {
                 field_sales.map((field_sale, index) => {
                   return (
                     <div
+                      id={`index${2 + index}`}
                       className={`${classes.sectionContainer} contact-section`}
-                      key={field_sale.id}
+                      key={field_sale.name}
                     >
                       <Typography
                         className={classes.sectionTitle}
@@ -342,7 +362,8 @@ const Contact = () => {
 
               <iframe
                 allowFullScreen
-                className={classes.googleMaps}
+                className={`contact-section ${classes.googleMaps}`}
+                id={`index${2 + field_sales.length}`}
                 frameBorder="0"
                 height="450"
                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxHcVuajrRGTFmp5bS6NHK8JHA6JlyXH8
