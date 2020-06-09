@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import LocalShipping from '@material-ui/icons/LocalShipping';
+import delivery_icon from '../../assets/delivery_icon.svg';
 
 import CartProductCard from '../../components/CartProductCard';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
@@ -82,10 +82,11 @@ const Cart = () => {
                 style={{ display: 'flex', alignItems: 'center' }}
                 className="mt-2"
               >
-                <LocalShipping
-                  fontSize="large"
-                  color="action"
-                  className="mr-2"
+                <img
+                  src={delivery_icon}
+                  alt="delivery_icon"
+                  style={{ width: '60px' }}
+                  className="mr-2 mb-2"
                 />
                 <Typography color="textPrimary">
                   <strong>Dostava</strong>
