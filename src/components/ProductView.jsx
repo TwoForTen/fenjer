@@ -15,15 +15,17 @@ import { showSnackbar } from '../actions/snackbar';
 
 import ProductQuantitySelector from './ProductQuantitySelector';
 
+import plant from '../assets/plant.jpg';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: `${theme.spacing(3)}px 0`,
     padding: theme.spacing(6),
   },
   image: {
-    height: '100%',
+    height: 'auto',
     maxHeight: '600px',
-    width: 'auto',
+    maxWidth: '100%',
   },
   statusContainer: {
     borderBottom: `1px solid ${theme.palette.primary.main}`,
@@ -128,12 +130,8 @@ const Product = () => {
           </Typography>
         </Grid>
 
-        <Grid item xs={6} align="center">
-          <img
-            className={classes.image}
-            src="http://localhost:8000/images/flower.png"
-            alt="product_image"
-          />
+        <Grid item xs={12} md={6} align="center">
+          <img className={classes.image} src={plant} alt="product_image" />
         </Grid>
       </Grid>
     </Paper>

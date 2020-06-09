@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import axios from '../axiosInstance';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -6,9 +9,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { setProduct } from '../actions/products';
+
+import plant from '../assets/plant.jpg';
+
 const useStyles = makeStyles((theme) => ({
   card: {
-    padding: theme.spacing(4),
+    // padding: theme.spacing(4),
+    objectFit: 'contain',
     position: 'relative',
     '&:hover > $cardMask': {
       opacity: '1',
@@ -17,15 +25,8 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     width: '100%',
-    maxHeight: '400px',
+    maxHeight: '100%',
     objectFit: 'scale-down',
-  },
-  imageContainer: {
-    height: '100%',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   cardImage: {
     height: 'auto',
@@ -48,26 +49,41 @@ const useStyles = makeStyles((theme) => ({
 
 const PromotedCard = ({ promotedProduct }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const [imageLoaded, setImageLoaded] = useState(false);
   const { name } = promotedProduct;
 
+  console.log(promotedProduct);
+
   return (
     <>
-      <Card className={classes.card}>
+      <Card
+        className={classes.card}
+        onClick={() => {
+          dispatch(setProduct(promotedProduct));
+          axios
+            .get(`/products/${promotedProduct.product_id}`)
+            .then((res) =>
+              history.push(
+                `/proizvodi/${res.data.category.slug}/${res.data.slug}`
+              )
+            );
+        }}
+      >
         <div className={classes.cardMask}>
           <Typography>{name}</Typography>
         </div>
         <CardContent className={classes.cardContent}>
-          <div className={classes.imageContainer}>
-            <img
-              style={{ display: imageLoaded ? 'block' : 'none' }}
-              onLoad={() => setImageLoaded(true)}
-              className={classes.cardImage}
-              alt="Promoted Product"
-              src="http://localhost:8000/images/flower.png"
-            />
-            {!imageLoaded && <CircularProgress />}
-          </div>
+          <img
+            style={{ display: imageLoaded ? 'block' : 'none' }}
+            onLoad={() => setImageLoaded(true)}
+            className={classes.cardImage}
+            alt="Promoted Product"
+            src={plant}
+          />
+          {!imageLoaded && <CircularProgress />}
         </CardContent>
       </Card>
     </>
