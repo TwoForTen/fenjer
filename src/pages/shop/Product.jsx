@@ -16,7 +16,11 @@ import { setProduct } from '../../actions/products';
 const useStyles = makeStyles((theme) => ({
   otherProductTypesContainer: {
     display: 'flex',
+    flexWrap: 'wrap',
     marginBottom: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'center',
+    },
   },
 }));
 

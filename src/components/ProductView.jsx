@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     height: 'auto',
     maxHeight: '600px',
     maxWidth: '100%',
+    borderRadius: theme.shape.borderRadius,
   },
   statusContainer: {
     borderBottom: `1px solid ${theme.palette.primary.main}`,
@@ -56,7 +57,7 @@ const Product = () => {
 
   return (
     <Paper className={classes.root}>
-      <Grid container spacing={6}>
+      <Grid container spacing={10}>
         <Grid item md={6} xs={12}>
           <Typography variant="h2" color="textPrimary" className="mb-3">
             <strong>{name}</strong>

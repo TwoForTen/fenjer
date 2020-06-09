@@ -4,15 +4,18 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import plant from '../assets/plant.jpg';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    borderRadius: theme.shape.borderRadius,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    width: '200px',
-    height: '178px',
+    maxWidth: '200px',
     marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     '&:hover > $typeMask': {
       cursor: 'pointer',
       opacity: '1',
@@ -21,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
   img: {
     width: '100%',
     height: 'auto',
+    borderRadius: 'inherit',
   },
   typeMask: {
     height: '100%',
@@ -51,11 +55,7 @@ const OtherProductTypes = ({ type, selectedProduct, onClick }) => {
       <div className={classes.typeMask}>
         <Typography>{type.name}</Typography>
       </div>
-      <img
-        className={classes.img}
-        src="http://localhost:8000/images/product_flower.png"
-        alt="product_image"
-      />
+      <img className={classes.img} src={plant} alt="product_image" />
     </Paper>
   );
 };

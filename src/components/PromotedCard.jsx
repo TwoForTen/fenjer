@@ -55,8 +55,6 @@ const PromotedCard = ({ promotedProduct }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const { name } = promotedProduct;
 
-  console.log(promotedProduct);
-
   return (
     <>
       <Card
@@ -75,7 +73,10 @@ const PromotedCard = ({ promotedProduct }) => {
         <div className={classes.cardMask}>
           <Typography>{name}</Typography>
         </div>
-        <CardContent className={classes.cardContent}>
+        <CardContent
+          style={{ textAlign: 'center' }}
+          className={classes.cardContent}
+        >
           <img
             style={{ display: imageLoaded ? 'block' : 'none' }}
             onLoad={() => setImageLoaded(true)}
@@ -83,7 +84,7 @@ const PromotedCard = ({ promotedProduct }) => {
             alt="Promoted Product"
             src={plant}
           />
-          {!imageLoaded && <CircularProgress />}
+          {!imageLoaded && <CircularProgress className="mt-4 mr-4 mb-4 ml-4" />}
         </CardContent>
       </Card>
     </>
