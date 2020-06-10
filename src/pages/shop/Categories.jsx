@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import CategoryCard from '../../components/CategoryCard';
+import Filters from '../../components/Filters';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 
 import useDataFetch from '../../hooks/useDataFetch';
@@ -43,6 +44,7 @@ const Proizvodi = () => {
 
       <PageBreadcrumbs titles={['Proizvodi']} />
       <div style={{ textAlign: !categories && 'center' }}>
+        <Filters showView={false} />
         {categories?.data ? (
           categories?.data.map((category) => {
             return <CategoryCard category={category} key={category.id} />;

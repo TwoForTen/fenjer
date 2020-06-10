@@ -47,7 +47,7 @@ const filterInputReducer = (state, action) => {
   }
 };
 
-const Filters = ({ products }) => {
+const Filters = ({ products, showView = true }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -59,7 +59,12 @@ const Filters = ({ products }) => {
   });
 
   return (
-    <Grid container spacing={1} alignItems="center">
+    <Grid
+      container
+      spacing={1}
+      alignItems="center"
+      style={{ justifyContent: 'center' }}
+    >
       <Grid item xs={3}>
         <TextField
           fullWidth
@@ -156,35 +161,40 @@ const Filters = ({ products }) => {
           }}
         />
       </Grid>
-      <Grid item xs={2}>
-        <FormControl
-          className={classes.filterInput}
-          fullWidth
-          variant="outlined"
-          size="small"
-          margin="normal"
-        >
-          <InputLabel id="sort">Sortiraj po</InputLabel>
-          <Select labelId="sort" defaultValue="">
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
-      <Grid item xs={1}>
-        <div>
-          <IconButton>
-            <ViewList />
-          </IconButton>
-          <IconButton>
-            <ViewModule />
-          </IconButton>
-        </div>
-      </Grid>
+      {showView && (
+        <>
+          <Grid item xs={2}>
+            <FormControl
+              className={classes.filterInput}
+              fullWidth
+              variant="outlined"
+              size="small"
+              margin="normal"
+            >
+              <InputLabel id="sort">Sortiraj po</InputLabel>
+              <Select labelId="sort" defaultValue="">
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={1}>
+            <div>
+              <IconButton>
+                <ViewList />
+              </IconButton>
+              <IconButton>
+                <ViewModule />
+              </IconButton>
+            </div>
+          </Grid>
+        </>
+      )}
     </Grid>
   );
 };
