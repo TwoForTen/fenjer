@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Close from '@material-ui/icons/Close';
 
@@ -18,6 +19,7 @@ import { removeFromCart } from '../actions/cart';
 const useStyles = makeStyles((theme) => ({
   card: {
     margin: `${theme.spacing(4)}px 0`,
+    minHeight: '140px',
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -28,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   imageContainer: {
-    height: '140px',
-    width: '200px',
+    maxHeight: '140px',
+    maxWidth: '200px',
     objectFit: 'contain',
     overflow: 'hidden',
     margin: 'auto',
@@ -52,7 +54,11 @@ const CartProductCard = ({ product, onClick, index }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const breakpoint = useMediaQuery((theme) => theme.breakpoints.up('md'));
+
   const { name, img, code, price, product_id, ordered_quantity } = product;
+
+  console.log(breakpoint);
 
   return (
     <Card className={classes.card}>

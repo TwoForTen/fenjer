@@ -19,6 +19,10 @@ import {
 } from '../actions/cart';
 
 const useStyles = makeStyles((theme) => ({
+  componentRoot: {
+    maxWidth: '150px',
+    width: '100%',
+  },
   buttonGroup: {
     backgroundColor: theme.palette.background.default + '!important',
     borderColor: '#000 !important',
@@ -27,23 +31,26 @@ const useStyles = makeStyles((theme) => ({
   buttonLeft: {
     border: `1px solid`,
     borderRadius: `${theme.shape.borderRadius} 0 0 ${theme.shape.borderRadius}`,
-    minWidth: '40px',
-    minHeight: '36px',
+    maxWidth: '40px',
+    minWidth: 'inherit',
     maxHeight: '36px',
+    width: '33.33%',
   },
   buttonRight: {
     border: `1px solid`,
     borderRadius: `0 ${theme.shape.borderRadius} ${theme.shape.borderRadius} 0`,
-    minWidth: '40px',
-    minHeight: '36px',
+    maxWidth: '40px',
+    minWidth: 'inherit',
     maxHeight: '36px',
+    width: '33.33%',
   },
   inputRoot: {
     borderTop: `1px solid`,
     borderBottom: `1px solid`,
     maxWidth: '40px',
-    minHeight: '36px',
     maxHeight: '36px',
+    width: '33.33%',
+    minWidth: 'inherit',
     '& > div > input': {
       textAlign: 'center',
       padding: '8px 0',
@@ -63,7 +70,7 @@ const ProductQuantitySelector = ({ cartItem }) => {
   }, [cart]);
 
   const cartQuantity = (
-    <div onClick={(e) => e.stopPropagation()}>
+    <div className={classes.componentRoot} onClick={(e) => e.stopPropagation()}>
       <Button
         className={`${classes.buttonGroup} ${classes.buttonLeft}`}
         onClick={() => dispatch(decrementCartQuantity({ index: cartItem }))}
