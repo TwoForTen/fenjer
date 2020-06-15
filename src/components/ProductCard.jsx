@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
   card: ({ view }) => {
     return {
       position: 'relative',
-      margin: `${theme.spacing(4)}px 0`,
+      marginTop: theme.spacing(4),
+      marginBottom: theme.spacing(4),
       minHeight: '140px',
       display: 'flex',
       justifyContent: 'space-around',
