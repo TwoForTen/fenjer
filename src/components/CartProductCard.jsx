@@ -18,11 +18,17 @@ import { removeFromCart } from '../actions/cart';
 
 const useStyles = makeStyles((theme) => ({
   card: {
+    position: 'relative',
     margin: `${theme.spacing(4)}px 0`,
     minHeight: '140px',
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '250px',
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
   },
   gridLink: {
     '&:hover': {
@@ -47,6 +53,13 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto 0',
     overflow: 'hidden',
   },
+  closeButton: {
+    [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      right: '0',
+      top: '0',
+    },
+  },
 }));
 
 const CartProductCard = ({ product, onClick, index }) => {
@@ -54,22 +67,21 @@ const CartProductCard = ({ product, onClick, index }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const breakpoint = useMediaQuery((theme) => theme.breakpoints.up('md'));
+  const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   const { name, img, code, price, product_id, ordered_quantity } = product;
-
-  console.log(breakpoint);
 
   return (
     <Card className={classes.card}>
       <IconButton
         onClick={() => dispatch(removeFromCart(index))}
-        className="ml-2"
+        className={`ml-2 ${classes.closeButton}`}
       >
         <Close fontSize="small" color="disabled" />
       </IconButton>
       <Grid
         container
+        align={breakpoint ? 'center' : ''}
         className={classes.gridLink}
         spacing={2}
         onClick={() => {
@@ -83,7 +95,7 @@ const CartProductCard = ({ product, onClick, index }) => {
             );
         }}
       >
-        <Grid item xs={2} className={classes.gridItem}>
+        <Grid item md={2} xs={12} className={classes.gridItem}>
           <div className={classes.imageContainer}>
             <img
               className={classes.cartProductImage}
@@ -92,7 +104,7 @@ const CartProductCard = ({ product, onClick, index }) => {
             />
           </div>
         </Grid>
-        <Grid item xs={2} className={classes.gridItem}>
+        <Grid item md={2} xs={12} className={classes.gridItem}>
           <Typography
             className={classes.smallText}
             color="textSecondary"
@@ -103,7 +115,7 @@ const CartProductCard = ({ product, onClick, index }) => {
           </Typography>
           <Typography variant="subtitle1">{name}</Typography>
         </Grid>
-        <Grid item xs={2} className={classes.gridItem}>
+        <Grid item md={2} xs={12} className={classes.gridItem}>
           <Typography
             className={classes.smallText}
             color="textSecondary"
@@ -114,7 +126,7 @@ const CartProductCard = ({ product, onClick, index }) => {
           </Typography>
           <Typography variant="subtitle1">{code}</Typography>
         </Grid>
-        <Grid item xs={2} className={classes.gridItem}>
+        <Grid item md={2} xs={12} className={classes.gridItem}>
           <div>
             <Typography
               className={classes.smallText}
@@ -132,10 +144,10 @@ const CartProductCard = ({ product, onClick, index }) => {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={2} className={classes.gridItem}>
+        <Grid item md={2} xs={12} className={classes.gridItem}>
           <ProductQuantitySelector cartItem={index} />
         </Grid>
-        <Grid item xs={2} className={classes.gridItem}>
+        <Grid item md={2} xs={12} className={classes.gridItem}>
           <Typography
             className={classes.smallText}
             color="textSecondary"

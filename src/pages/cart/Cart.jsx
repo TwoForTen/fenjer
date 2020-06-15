@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 
 import delivery_icon from '../../assets/delivery_icon.svg';
@@ -18,6 +19,13 @@ import { setProduct } from '../../actions/products';
 import useDataFetch from '../../hooks/useDataFetch';
 
 const useStyles = makeStyles((theme) => ({
+  cardView: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+    },
+  },
   detailsRoot: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -31,6 +39,8 @@ const Cart = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+
+  const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   const deliveryFee =
     useDataFetch({
@@ -59,16 +69,18 @@ const Cart = () => {
   return (
     <>
       <PageBreadcrumbs titles={['Košarica']} />
-      {cart.map((product, index) => {
-        return (
-          <CartProductCard
-            key={product.id}
-            onClick={() => dispatch(setProduct(product))}
-            product={product}
-            index={index}
-          />
-        );
-      })}
+      <div className={classes.cardView}>
+        {cart.map((product, index) => {
+          return (
+            <CartProductCard
+              key={product.id}
+              onClick={() => dispatch(setProduct(product))}
+              product={product}
+              index={index}
+            />
+          );
+        })}
+      </div>
       {/* ADD SKELETON LOADING */}
       <div className={classes.detailsRoot}>
         {!_.isEmpty(deliveryFee) && (
@@ -105,7 +117,11 @@ const Cart = () => {
           </div>
         )}
         <Link to="/zavrsetak-kupnje">
-          <Button variant="contained" className="mb-4" color="primary">
+          <Button
+            variant="contained"
+            className={`mb-4 ${breakpoint ? 'mt-4' : ''}`}
+            color="primary"
+          >
             Potvrdi narudžbu
           </Button>
         </Link>
