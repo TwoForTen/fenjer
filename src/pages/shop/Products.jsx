@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Pagination from '@material-ui/lab/Pagination';
@@ -14,20 +14,27 @@ import useDataFetch from '../../hooks/useDataFetch';
 
 import { setProduct } from '../../actions/products';
 
+const GRID_VIEW = {
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'space-around',
+};
+
 const useStyles = makeStyles((theme) => ({
-  productsView: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-    },
+  productsView: ({ view }) => {
+    return {
+      ...(view === 'grid' && GRID_VIEW),
+      [theme.breakpoints.down('sm')]: GRID_VIEW,
+    };
   },
 }));
 
 const Products = () => {
+  const view = useSelector((state) => state.filter.product_view);
+
   const params = useParams();
   const dispatch = useDispatch();
-  const classes = useStyles();
+  const classes = useStyles({ view });
 
   const [page, setPage] = useState(1);
 

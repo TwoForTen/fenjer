@@ -16,6 +16,8 @@ import ViewList from '@material-ui/icons/ViewList';
 import ViewModule from '@material-ui/icons/ViewModule';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { productsView } from '../actions/filters';
+
 const useStyles = makeStyles((theme) => ({
   filterContainer: {
     marginTop: theme.spacing(3),
@@ -50,6 +52,8 @@ const filterInputReducer = (state, action) => {
 const Filters = ({ products, showView = true }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const view = useSelector((state) => state.filter.product_view);
 
   const [filterState, inputDispatch] = useReducer(filterInputReducer, {
     name: '',
@@ -185,11 +189,11 @@ const Filters = ({ products, showView = true }) => {
 
           <Grid item xs={1}>
             <div>
-              <IconButton>
-                <ViewList />
+              <IconButton onClick={() => dispatch(productsView('list'))}>
+                <ViewList color={view === 'list' ? 'primary' : 'inherit'} />
               </IconButton>
-              <IconButton>
-                <ViewModule />
+              <IconButton onClick={() => dispatch(productsView('grid'))}>
+                <ViewModule color={view === 'grid' ? 'primary' : 'inherit'} />
               </IconButton>
             </div>
           </Grid>

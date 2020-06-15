@@ -60,7 +60,7 @@ const Contact = () => {
 
   const sectionObserver = new IntersectionObserver(
     (entries) => {
-      entries.map((entry) => {
+      return entries.map((entry) => {
         if (entry.isIntersecting) {
           setValue(() => {
             return +entry.target.id.split('index')[1];

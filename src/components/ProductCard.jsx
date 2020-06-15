@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useLocation, useHistory } from 'react-router-dom';
 
 import sanitiseName from '../helpers/sanitiseName';
 
@@ -14,30 +15,37 @@ import Cancel from '@material-ui/icons/Cancel';
 
 import plant from '../assets/plant.jpg';
 
+const gridView = (theme) => {
+  return {
+    maxWidth: '250px',
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+  };
+};
+
 const useStyles = makeStyles((theme) => ({
   link: {
     [theme.breakpoints.down('sm')]: {
       maxWidth: '250px',
     },
   },
-  card: {
-    position: 'relative',
-    margin: `${theme.spacing(4)}px 0`,
-    minHeight: '140px',
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: '250px',
-      paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(2),
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      marginBottom: theme.spacing(2),
-    },
-    '&:hover': {
-      cursor: 'pointer',
-    },
+  card: ({ view }) => {
+    return {
+      position: 'relative',
+      margin: `${theme.spacing(4)}px 0`,
+      minHeight: '140px',
+      display: 'flex',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      ...(view === 'grid' && gridView(theme)),
+      [theme.breakpoints.down('sm')]: gridView(theme),
+      '&:hover': {
+        cursor: 'pointer',
+      },
+    };
   },
   imageContainer: {
     height: '140px',
@@ -60,10 +68,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const useGridViewContent = (view) => {
+  switch (view) {
+    case 'grid':
+      return 12;
+    default:
+      return 3;
+  }
+};
+
 const ProductCard = ({ type, productName, onClick }) => {
+  const view = useSelector((state) => state.filter.product_view);
+
   const location = useLocation();
   const history = useHistory();
-  const classes = useStyles();
+  const classes = useStyles({ view });
+  const gridViewContent = useGridViewContent(view);
 
   const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
@@ -77,8 +97,12 @@ const ProductCard = ({ type, productName, onClick }) => {
         history.push(`${location.pathname}/${sanitiseName(productName)}`);
       }}
     >
-      <Grid container align={breakpoint ? 'center' : ''} spacing={4}>
-        <Grid item xs={12} md={3} className={classes.gridItem}>
+      <Grid
+        container
+        align={breakpoint || view === 'grid' ? 'center' : ''}
+        spacing={4}
+      >
+        <Grid item xs={12} md={gridViewContent} className={classes.gridItem}>
           <div className={classes.imageContainer}>
             <img
               className={classes.categoryImage}
@@ -87,7 +111,7 @@ const ProductCard = ({ type, productName, onClick }) => {
             />
           </div>
         </Grid>
-        <Grid item xs={12} md={3} className={classes.gridItem}>
+        <Grid item xs={12} md={gridViewContent} className={classes.gridItem}>
           <Typography
             className={classes.smallText}
             color="textSecondary"
@@ -98,7 +122,7 @@ const ProductCard = ({ type, productName, onClick }) => {
           </Typography>
           <Typography variant="subtitle1">{name}</Typography>
         </Grid>
-        <Grid item xs={12} md={3} className={classes.gridItem}>
+        <Grid item xs={12} md={gridViewContent} className={classes.gridItem}>
           <Typography
             className={classes.smallText}
             color="textSecondary"
@@ -109,7 +133,12 @@ const ProductCard = ({ type, productName, onClick }) => {
           </Typography>
           <Typography variant="subtitle1">{code}</Typography>
         </Grid>
-        <Grid item xs={12} md={2} className={classes.gridItem}>
+        <Grid
+          item
+          xs={12}
+          md={view === 'grid' ? 12 : 2}
+          className={classes.gridItem}
+        >
           <div>
             <Typography
               className={classes.smallText}
@@ -129,11 +158,13 @@ const ProductCard = ({ type, productName, onClick }) => {
         </Grid>
         <Grid
           style={
-            breakpoint ? { position: 'absolute', right: '0', top: '0' } : {}
+            breakpoint || view === 'grid'
+              ? { position: 'absolute', right: '0', top: '0' }
+              : {}
           }
           item
           xs={12}
-          md={1}
+          md={view === 'grid' ? 12 : 1}
           className={classes.gridItem}
         >
           {Boolean(in_stock) ? (
