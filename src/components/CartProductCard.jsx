@@ -16,6 +16,8 @@ import Close from '@material-ui/icons/Close';
 
 import { removeFromCart } from '../actions/cart';
 
+import plant from '../assets/plant.jpg';
+
 const useStyles = makeStyles((theme) => ({
   card: {
     position: 'relative',
@@ -39,18 +41,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   imageContainer: {
-    maxHeight: '140px',
-    maxWidth: '200px',
-    objectFit: 'contain',
-    overflow: 'hidden',
-    margin: 'auto',
+    height: '140px',
+    width: 'auto',
+    alignSelf: 'center',
+    padding: theme.spacing(1),
+    textAlign: 'center',
   },
   smallText: {
     fontSize: '10px',
   },
   cartProductImage: {
-    height: 'auto',
-    width: '100%',
+    height: '100%',
+    width: 'auto',
+    borderRadius: theme.shape.borderRadius,
   },
   gridItem: {
     margin: 'auto 0',
@@ -102,7 +105,7 @@ const CartProductCard = ({ product, onClick, index }) => {
           <div className={classes.imageContainer}>
             <img
               className={classes.cartProductImage}
-              src="http://localhost:8000/images/product_flower.png"
+              src={plant}
               alt="product_image"
             />
           </div>

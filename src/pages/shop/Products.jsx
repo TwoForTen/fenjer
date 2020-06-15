@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Pagination from '@material-ui/lab/Pagination';
+import { makeStyles } from '@material-ui/core/styles';
 
 import Filters from '../../components/Filters';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
@@ -13,9 +14,20 @@ import useDataFetch from '../../hooks/useDataFetch';
 
 import { setProduct } from '../../actions/products';
 
+const useStyles = makeStyles((theme) => ({
+  productsView: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+    },
+  },
+}));
+
 const Products = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const [page, setPage] = useState(1);
 
@@ -45,18 +57,20 @@ const Products = () => {
         <Filters products={products} />
         {products ? (
           <>
-            {products.map((product) =>
-              product.types.map((type) => {
-                return (
-                  <ProductCard
-                    type={type}
-                    key={type.id}
-                    productName={product.name}
-                    onClick={() => dispatch(setProduct(type))}
-                  />
-                );
-              })
-            )}
+            <div className={classes.productsView}>
+              {products.map((product) =>
+                product.types.map((type) => {
+                  return (
+                    <ProductCard
+                      type={type}
+                      key={type.id}
+                      productName={product.name}
+                      onClick={() => dispatch(setProduct(type))}
+                    />
+                  );
+                })
+              )}
+            </div>
             <Pagination count={10} variant="outlined" shape="rounded" />
           </>
         ) : (
