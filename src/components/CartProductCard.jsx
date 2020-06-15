@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: '250px',
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      marginBottom: theme.spacing(2),
     },
   },
   gridLink: {

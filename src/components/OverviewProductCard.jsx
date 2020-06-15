@@ -3,6 +3,7 @@ import React from 'react';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -11,10 +12,19 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
+    minHeight: '140px',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '240px',
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      marginBottom: theme.spacing(2),
+    },
   },
   imageContainer: {
-    height: '140px',
-    width: '200px',
+    maxHeight: '140px',
+    maxWidth: '200px',
     objectFit: 'contain',
     overflow: 'hidden',
     margin: 'auto',
@@ -35,12 +45,14 @@ const useStyles = makeStyles((theme) => ({
 const CartProductCard = ({ product }) => {
   const classes = useStyles();
 
+  const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+
   const { name, img, code, price, ordered_quantity } = product;
 
   return (
     <Card className={classes.card}>
-      <Grid container spacing={2}>
-        <Grid item xs={2} className={classes.gridItem}>
+      <Grid container align={breakpoint ? 'center' : ''} spacing={2}>
+        <Grid item md={2} xs={12} className={classes.gridItem}>
           <div className={classes.imageContainer}>
             <img
               className={classes.cartProductImage}
@@ -49,7 +61,7 @@ const CartProductCard = ({ product }) => {
             />
           </div>
         </Grid>
-        <Grid item xs={2} className={classes.gridItem}>
+        <Grid item md={2} xs={12} className={classes.gridItem}>
           <Typography
             className={classes.smallText}
             color="textSecondary"
@@ -60,7 +72,7 @@ const CartProductCard = ({ product }) => {
           </Typography>
           <Typography variant="subtitle1">{name}</Typography>
         </Grid>
-        <Grid item xs={2} className={classes.gridItem}>
+        <Grid item md={2} xs={12} className={classes.gridItem}>
           <Typography
             className={classes.smallText}
             color="textSecondary"
@@ -71,7 +83,7 @@ const CartProductCard = ({ product }) => {
           </Typography>
           <Typography variant="subtitle1">{code}</Typography>
         </Grid>
-        <Grid item xs={2} className={classes.gridItem}>
+        <Grid item md={2} xs={12} className={classes.gridItem}>
           <div>
             <Typography
               className={classes.smallText}
@@ -89,7 +101,7 @@ const CartProductCard = ({ product }) => {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={2} className={classes.gridItem}>
+        <Grid item md={2} xs={12} className={classes.gridItem}>
           <Typography
             className={classes.smallText}
             color="textSecondary"
@@ -100,7 +112,7 @@ const CartProductCard = ({ product }) => {
           </Typography>
           <Typography variant="subtitle1">{ordered_quantity} kom</Typography>
         </Grid>
-        <Grid item xs={2} className={classes.gridItem}>
+        <Grid item md={2} xs={12} className={classes.gridItem}>
           <Typography
             className={classes.smallText}
             color="textSecondary"

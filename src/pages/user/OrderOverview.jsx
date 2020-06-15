@@ -6,6 +6,7 @@ import 'moment/locale/hr';
 
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
@@ -13,7 +14,18 @@ import OverviewProductCard from '../../components/OverviewProductCard';
 
 import { clearOrder } from '../../actions/order';
 
+const useStyles = makeStyles((theme) => ({
+  overviewView: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+    },
+  },
+}));
+
 const OrderOverview = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const order = useSelector((state) => state.order);
 
@@ -44,9 +56,11 @@ const OrderOverview = () => {
           </Typography>
         </div>
       </div>
-      {cart.map((product) => {
-        return <OverviewProductCard key={product.id} product={product} />;
-      })}
+      <div className={classes.overviewView}>
+        {cart.map((product) => {
+          return <OverviewProductCard key={product.id} product={product} />;
+        })}
+      </div>
     </div>
   );
 };
