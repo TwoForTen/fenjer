@@ -82,7 +82,10 @@ const UserAccount = () => {
           index={value}
           onChangeIndex={handleChangeIndex}
         >
-          <Container maxWidth="md" style={{ textAlign: !user && 'center' }}>
+          <Container
+            maxWidth="md"
+            style={{ textAlign: _.isEmpty(user) && 'center' }}
+          >
             {!_.isEmpty(user) ? (
               <UserDetails user={user} />
             ) : (
