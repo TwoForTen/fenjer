@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
@@ -55,6 +56,7 @@ const scrollIntoView = (element) => {
 
 const Contact = () => {
   const classes = useStyles();
+  const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('xs'));
 
   const [value, setValue] = useState(0);
 
@@ -113,7 +115,7 @@ const Contact = () => {
           </div>
         ) : (
           <Grid container spacing={3}>
-            <Grid item xs={3}>
+            <Grid item xs={3} style={{ display: breakpoint && 'none' }}>
               <List className={classes.navList}>
                 <ListItem
                   button
@@ -165,7 +167,7 @@ const Contact = () => {
                 </ListItem>
               </List>
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={breakpoint ? 12 : 9}>
               <div
                 id="index0"
                 className={`${classes.sectionContainer} contact-section`}
@@ -290,7 +292,6 @@ const Contact = () => {
               </div>
               {field_sales &&
                 field_sales.map((field_sale, index) => {
-                  console.log(field_sale);
                   return (
                     <div
                       id={`index${2 + index}`}
