@@ -39,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'rgba(0,0,0,0.7)',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: theme.spacing(2),
+    textAlign: 'center',
     display: 'flex',
     top: '0',
     left: '0',

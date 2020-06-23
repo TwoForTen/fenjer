@@ -46,6 +46,8 @@ const Products = () => {
     page
   );
 
+  console.log(categoryData);
+
   const handleChangePage = (_, newPage) => {
     setPage(newPage);
   };
