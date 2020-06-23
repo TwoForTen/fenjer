@@ -55,7 +55,11 @@ const OtherProductTypes = ({ type, selectedProduct, onClick }) => {
       <div className={classes.typeMask}>
         <Typography>{type.name}</Typography>
       </div>
-      <img className={classes.img} src={plant} alt="product_image" />
+      <img
+        className={classes.img}
+        src={type.img || plant}
+        alt="product_image"
+      />
     </Paper>
   );
 };

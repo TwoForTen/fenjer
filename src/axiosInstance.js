@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const defaultOptions = {
-  baseURL: 'http://localhost:8000/api',
+  baseURL: process.env.REACT_APP_PROD_URL || 'http://localhost:8000/api',
   headers: {
     'Content-Type': 'application/json',
     'api-key': process.env.REACT_APP_API_KEY,

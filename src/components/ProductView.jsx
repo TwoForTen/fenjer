@@ -53,7 +53,16 @@ const Product = () => {
   const product = useSelector((state) => state.product);
   const cart = useSelector((state) => state.cart);
 
-  const { name, color, quantity, code, description, in_stock, id } = product;
+  const {
+    name,
+    color,
+    quantity,
+    code,
+    description,
+    in_stock,
+    id,
+    img,
+  } = product;
 
   return (
     <Paper className={classes.root}>
@@ -132,7 +141,11 @@ const Product = () => {
         </Grid>
 
         <Grid item xs={12} md={6} align="center">
-          <img className={classes.image} src={plant} alt="product_image" />
+          <img
+            className={classes.image}
+            src={img || plant}
+            alt="product_image"
+          />
         </Grid>
       </Grid>
     </Paper>

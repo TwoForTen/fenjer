@@ -87,8 +87,6 @@ const Orders = ({ userOrders }) => {
     });
   };
 
-  console.log(orders);
-
   if (!orders) {
     return (
       <div className={classes.centeredContainer}>

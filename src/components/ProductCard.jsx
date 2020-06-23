@@ -107,7 +107,7 @@ const ProductCard = ({ type, productName, onClick }) => {
           <div className={classes.imageContainer}>
             <img
               className={classes.categoryImage}
-              src={plant}
+              src={img || plant}
               alt="product_image"
             />
           </div>

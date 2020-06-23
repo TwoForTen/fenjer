@@ -43,7 +43,7 @@ const CategoryCard = ({ category }) => {
         <div className={classes.imageContainer}>
           <img
             className={classes.categoryImage}
-            src="http://localhost:8000/images/flower.png"
+            src={img}
             alt="category_image"
           />
         </div>

@@ -38,47 +38,50 @@ const Products = () => {
 
   const [page, setPage] = useState(1);
 
-  const categoryData =
-    useDataFetch(
-      {
-        url: `/categories/${params.categorySlug}`,
-        method: 'GET',
-      },
-      page
-    ) || {};
-
-  const { products } = categoryData;
+  const categoryData = useDataFetch(
+    {
+      url: `/categories/${params.categorySlug}`,
+      method: 'GET',
+    },
+    page
+  );
 
   const handleChangePage = (_, newPage) => {
     setPage(newPage);
   };
 
-  if (products?.length < 1) {
+  if (categoryData?.data?.length < 1) {
     return <Redirect to="/404" />;
   }
 
   return (
     <>
-      <PageBreadcrumbs titles={['proizvodi', categoryData.name]} />
-      <div style={{ textAlign: !products && 'center' }}>
-        <Filters products={products} />
-        {products ? (
+      <PageBreadcrumbs
+        titles={['proizvodi', categoryData?.data[0]?.category_name]}
+      />
+      <div style={{ textAlign: !categoryData?.data && 'center' }}>
+        <Filters products={categoryData?.data} />
+        {categoryData?.data ? (
           <>
             <div className={classes.productsView}>
-              {products.map((product) =>
-                product.types.map((type) => {
-                  return (
-                    <ProductCard
-                      type={type}
-                      key={type.id}
-                      productName={product.name}
-                      onClick={() => dispatch(setProduct(type))}
-                    />
-                  );
-                })
-              )}
+              {categoryData?.data.map((product) => {
+                return (
+                  <ProductCard
+                    type={product}
+                    key={product.id}
+                    productName={product.name}
+                    onClick={() => dispatch(setProduct(product))}
+                  />
+                );
+              })}
             </div>
-            <Pagination count={10} variant="outlined" shape="rounded" />
+            <Pagination
+              className="mb-4"
+              onChange={handleChangePage}
+              count={categoryData?.meta?.last_page}
+              variant="outlined"
+              shape="rounded"
+            />
           </>
         ) : (
           <CircularProgress className="mt-4" />

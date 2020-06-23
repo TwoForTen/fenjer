@@ -85,7 +85,7 @@ const PostArticle = () => {
                   {post ? (
                     <img
                       className={classes.image}
-                      src={'http://localhost:8000/images/LoginBackground.png'}
+                      src={post.img}
                       alt="Article img"
                     />
                   ) : (

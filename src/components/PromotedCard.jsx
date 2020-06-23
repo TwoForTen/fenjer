@@ -53,7 +53,7 @@ const PromotedCard = ({ promotedProduct }) => {
   const history = useHistory();
 
   const [imageLoaded, setImageLoaded] = useState(false);
-  const { name } = promotedProduct;
+  const { name, img } = promotedProduct;
 
   return (
     <>
@@ -82,7 +82,7 @@ const PromotedCard = ({ promotedProduct }) => {
             onLoad={() => setImageLoaded(true)}
             className={classes.cardImage}
             alt="Promoted Product"
-            src={plant}
+            src={img || plant}
           />
           {!imageLoaded && <CircularProgress className="mt-4 mr-4 mb-4 ml-4" />}
         </CardContent>

@@ -59,7 +59,7 @@ const CartProductCard = ({ product }) => {
           <div className={classes.imageContainer}>
             <img
               className={classes.cartProductImage}
-              src={plant}
+              src={img || plant}
               alt="product_image"
             />
           </div>
