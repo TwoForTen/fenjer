@@ -43,7 +43,7 @@ const CategoryCard = ({ category }) => {
         <div className={classes.imageContainer}>
           <img
             className={classes.categoryImage}
-            src={img}
+            src={process.env.REACT_APP_PROD_URL + img}
             alt="category_image"
           />
         </div>
