@@ -51,6 +51,15 @@ const useTranslateStatus = () => {
         return (
           <Typography
             component="span"
+            style={{ color: theme.palette.warning.main, fontSize: '14px' }}
+          >
+            Narudžba obrađena
+          </Typography>
+        );
+      case 'completed':
+        return (
+          <Typography
+            component="span"
             style={{ color: theme.palette.success.main, fontSize: '14px' }}
           >
             Narudžba isporučena
