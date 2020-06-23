@@ -1,7 +1,12 @@
 import axios from 'axios';
 
 const defaultOptions = {
+<<<<<<< HEAD
   baseURL: process.env.REACT_APP_PROD_URL,
+=======
+  baseURL:
+    process.env.REACT_APP_PROD_URL + 'api' || 'http://localhost:8000/api',
+>>>>>>> Images Fix, Login Fix
   headers: {
     'Content-Type': 'application/json',
     'api-key': process.env.REACT_APP_API_KEY,

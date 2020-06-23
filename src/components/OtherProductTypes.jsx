@@ -57,7 +57,7 @@ const OtherProductTypes = ({ type, selectedProduct, onClick }) => {
       </div>
       <img
         className={classes.img}
-        src={type.img || plant}
+        src={process.env.REACT_APP_PROD_URL + type.img || plant}
         alt="product_image"
       />
     </Paper>

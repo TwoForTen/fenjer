@@ -82,7 +82,7 @@ const PromotedCard = ({ promotedProduct }) => {
             onLoad={() => setImageLoaded(true)}
             className={classes.cardImage}
             alt="Promoted Product"
-            src={img || plant}
+            src={process.env.REACT_APP_PROD_URL + img || plant}
           />
           {!imageLoaded && <CircularProgress className="mt-4 mr-4 mb-4 ml-4" />}
         </CardContent>

@@ -143,7 +143,7 @@ const Product = () => {
         <Grid item xs={12} md={6} align="center">
           <img
             className={classes.image}
-            src={img || plant}
+            src={process.env.REACT_APP_PROD_URL + img || plant}
             alt="product_image"
           />
         </Grid>

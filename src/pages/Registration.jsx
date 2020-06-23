@@ -45,22 +45,28 @@ const Registration = () => {
   const { state: locationState } = location;
 
   const validationSchema = yup.object().shape({
-    name: yup.string().required(),
-    surname: yup.string().required(),
-    email: yup.string().required().email(),
-    address: yup.string().required(),
-    city: yup.string().required(),
-    postal_code: yup.string().required(),
-    country: yup.string().required(),
-    mobile_phone: yup.string().required(),
-    company: yup.string().required(),
-    oib: yup.string().required(),
-    iban: yup.string().required(),
-    password: yup.string().required().min(6),
+    name: yup.string().required('Ime je obavezno'),
+    surname: yup.string().required('Prezime je obavezno'),
+    email: yup.string().required('Email je obavezan').email(),
+    address: yup.string().required('Adresa je obavezna'),
+    city: yup.string().required('Grad je obavezan'),
+    postal_code: yup.string().required('Poštanski broj je obavezan'),
+    country: yup.string().required('Država je obavezna'),
+    mobile_phone: yup
+      .string()
+      .required('Broj mobitela je obavezan')
+      .matches(
+        /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
+        'Mora biti valjani broj mobitela'
+      ),
+    company: yup.string().required('Tvrtka je obavezna'),
+    oib: yup.string().required('OIB je obavezan'),
+    iban: yup.string().required('IBAN je obavezan'),
+    password: yup.string().required('Lozinka je obavzena').min(6),
     password_repeat: yup
       .string()
       .oneOf([yup.ref('password'), null])
-      .required(),
+      .required('Ponovljena zaporka je obavezna'),
   });
 
   if (token) {

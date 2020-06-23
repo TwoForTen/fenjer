@@ -70,7 +70,7 @@ const Login = () => {
                   password,
                 };
                 axios
-                  .post('http://localhost:8000/api/auth/login', body)
+                  .post(`${process.env.REACT_APP_PROD_URL}api/auth/login`, body)
                   .then((res) => {
                     localStorage.setItem(
                       '_jwt',

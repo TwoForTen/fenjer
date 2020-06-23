@@ -59,7 +59,7 @@ const CartProductCard = ({ product }) => {
           <div className={classes.imageContainer}>
             <img
               className={classes.cartProductImage}
-              src={img || plant}
+              src={process.env.REACT_APP_PROD_URL + img || plant}
               alt="product_image"
             />
           </div>
