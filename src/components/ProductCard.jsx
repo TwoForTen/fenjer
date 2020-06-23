@@ -2,8 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 
-import sanitiseName from '../helpers/sanitiseName';
-
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -95,7 +93,7 @@ const ProductCard = ({ type, productName, onClick }) => {
       className={classes.card}
       onClick={() => {
         onClick();
-        history.push(`${location.pathname}/${sanitiseName(productName)}`);
+        history.push(`${location.pathname}/${productName}`);
       }}
     >
       <Grid

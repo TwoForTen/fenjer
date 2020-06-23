@@ -69,7 +69,7 @@ const Products = () => {
                   <ProductCard
                     type={product}
                     key={product.id}
-                    productName={product.name}
+                    productName={product.slug}
                     onClick={() => dispatch(setProduct(product))}
                   />
                 );
