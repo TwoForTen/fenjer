@@ -40,7 +40,7 @@ const Products = () => {
 
   const categoryData = useDataFetch(
     {
-      url: `/categories/${params.categorySlug}`,
+      url: `/categories/${params.categorySlug}?page=${page}`,
       method: 'GET',
     },
     page
