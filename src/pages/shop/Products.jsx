@@ -46,9 +46,8 @@ const Products = () => {
     page
   );
 
-  console.log(categoryData);
-
   const handleChangePage = (_, newPage) => {
+    window.scrollTo({ top: 0 });
     setPage(newPage);
   };
 
@@ -79,6 +78,10 @@ const Products = () => {
             </div>
             <Pagination
               className="mb-4"
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
               onChange={handleChangePage}
               count={categoryData?.meta?.last_page}
               variant="outlined"

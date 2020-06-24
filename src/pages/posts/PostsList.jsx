@@ -32,6 +32,7 @@ const PostsList = () => {
   );
 
   const handleChangePage = (_, newPage) => {
+    window.scrollTo({ top: 0 });
     setPage(newPage);
   };
 
@@ -59,6 +60,10 @@ const PostsList = () => {
             })}
             <Pagination
               className="mb-4"
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
               count={posts?.meta?.last_page}
               variant="outlined"
               shape="rounded"
