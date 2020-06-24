@@ -11,16 +11,17 @@ import showroom_img from '../assets/showroom.jpg';
 
 const useStyles = makeStyles((theme) => ({
   paperRoot: {
-    width: '250px',
-    height: '250px',
-    backgroundImage: `url(${showroom_img})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    display: 'flex',
+    borderRadius: theme.shape.borderRadius,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    maxWidth: '100%',
   },
   showroomImg: {
     width: '100%',
     height: 'auto',
+    borderRadius: 'inherit',
   },
 }));
 
@@ -29,14 +30,18 @@ const ShowroomCard = () => {
   const history = useHistory();
 
   return (
-    <Grid item md={3} sm={4} xs={6}>
-      <Paper
-        // onClick={() => {
-        //   history.push(`/showroom/${showroom_id}`);
-        // }}
-        className={classes.paperRoot}
-      ></Paper>
-    </Grid>
+    <Paper
+      // onClick={() => {
+      //   history.push(`/showroom/${showroom_id}`);
+      // }}
+      className={classes.paperRoot}
+    >
+      <img
+        className={classes.showroomImg}
+        src={showroom_img}
+        alt="showroom_image"
+      />
+    </Paper>
   );
 };
 
