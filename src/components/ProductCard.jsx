@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
@@ -10,6 +10,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import Cancel from '@material-ui/icons/Cancel';
+
+import sanitiseName from '../helpers/sanitiseName';
 
 import plant from '../assets/plant.jpg';
 
@@ -79,21 +81,22 @@ const useGridViewContent = (view) => {
 const ProductCard = ({ type, productName, onClick }) => {
   const view = useSelector((state) => state.filter.product_view);
 
-  const location = useLocation();
   const history = useHistory();
   const classes = useStyles({ view });
   const gridViewContent = useGridViewContent(view);
 
   const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
-  const { name, img, code, price, in_stock } = type;
+  const { name, img, code, price, in_stock, category_name } = type;
 
   return (
     <Card
       className={classes.card}
       onClick={() => {
         onClick();
-        history.push(`${location.pathname}/${productName}`);
+        history.push(
+          `/proizvodi/${sanitiseName(category_name)}/${productName}`
+        );
       }}
     >
       <Grid

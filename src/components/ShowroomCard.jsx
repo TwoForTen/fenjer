@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -17,25 +16,50 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     position: 'relative',
     maxWidth: '100%',
+    '&:hover > $showroomMask': {
+      opacity: '1',
+      cursor: 'pointer',
+    },
   },
   showroomImg: {
     width: '100%',
     height: 'auto',
     borderRadius: 'inherit',
   },
+  showroomMask: {
+    height: '100%',
+    width: '100%',
+    borderRadius: 'inherit',
+    position: 'absolute',
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    display: 'flex',
+    top: '0',
+    left: '0',
+    opacity: '0',
+    transition: '300ms',
+  },
 }));
 
-const ShowroomCard = () => {
+const ShowroomCard = ({ arrangement }) => {
   const classes = useStyles();
   const history = useHistory();
 
+  const { id, img } = arrangement;
+
   return (
     <Paper
-      // onClick={() => {
-      //   history.push(`/showroom/${showroom_id}`);
-      // }}
+      onClick={() => {
+        history.push(`/showroom/${id}`);
+      }}
       className={classes.paperRoot}
     >
+      <div className={classes.showroomMask}>
+        <Typography>Pogledaj više</Typography>
+      </div>
       <img
         className={classes.showroomImg}
         src={showroom_img}

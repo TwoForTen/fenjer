@@ -124,7 +124,7 @@ const Product = () => {
                 if (product.ordered_quantity > 0) {
                   const duplicateProduct = cart.find((prod) => prod.id === id);
                   if (!duplicateProduct) {
-                    dispatch(addToCart(product));
+                    dispatch(addToCart([product]));
                     dispatch(
                       showSnackbar({
                         message: 'Proizvod dodan u košaricu.',

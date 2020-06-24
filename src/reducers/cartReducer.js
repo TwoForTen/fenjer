@@ -14,7 +14,7 @@ export const cartReducer = (state = initialState, action) => {
   let modifiedState = [...state];
   switch (action.type) {
     case ADD_TO_CART:
-      return [...state, action.payload];
+      return [...state, ...action.payload];
     case ADD_QUANTITY:
       const duplicateProduct = state.findIndex(
         (product) => product.id === action.payload.id

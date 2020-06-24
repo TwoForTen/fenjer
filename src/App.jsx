@@ -22,7 +22,8 @@ import Overview from './pages/cart/Overview';
 import Product from './pages/shop/Product';
 import Products from './pages/shop/Products';
 import Registration from './pages/Registration';
-import Showroom from './pages/Showroom';
+import Arrangement from './pages/Showroom/Arrangement';
+import Showroom from './pages/Showroom/Showroom';
 import Terms from './pages/Terms';
 import UserAccount from './pages/user/UserAccount';
 
@@ -54,6 +55,11 @@ function App() {
             <Route path="/novosti" exact component={PostsList} />
             <Route path="/prijava" exact component={Login} />
             <Route path="/showroom" exact component={Showroom} />
+            <Route
+              path="/showroom/:arrangementId"
+              exact
+              component={Arrangement}
+            />
             <Route path="/proizvodi" exact component={Categories} />
             <Route path="/proizvodi/:categorySlug" exact component={Products} />
             <Route
