@@ -57,7 +57,11 @@ const OtherProductTypes = ({ type, selectedProduct, onClick }) => {
       <div className={classes.typeMask}>
         <Typography>{type.name}</Typography>
       </div>
-      <img className={classes.img} src={plant} alt="product_image" />
+      <img
+        className={classes.img}
+        src={process.env.REACT_APP_PROD_URL + type.img || plant}
+        alt="product_image"
+      />
     </Paper>
   );
 };
