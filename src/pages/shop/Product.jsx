@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
 import OtherProductTypes from '../../components/OtherProductTypes';
@@ -51,20 +52,21 @@ const Product = () => {
         titles={['proizvodi', products?.category?.name, products?.name]}
       />
       <ProductView />
-      <div className={classes.otherProductTypesContainer}>
+      <Grid container spacing={4}>
         {products?.types?.map((type) => {
           return (
-            <OtherProductTypes
-              type={type}
-              selectedProduct={selectedProduct?.id || products?.types[0]?.id}
-              onClick={() => {
-                dispatch(setProduct(type));
-              }}
-              key={type.id}
-            />
+            <Grid item xs={6} sm={3} md={2} key={type.id}>
+              <OtherProductTypes
+                type={type}
+                selectedProduct={selectedProduct?.id || products?.types[0]?.id}
+                onClick={() => {
+                  dispatch(setProduct(type));
+                }}
+              />
+            </Grid>
           );
         })}
-      </div>
+      </Grid>
     </>
   );
 };

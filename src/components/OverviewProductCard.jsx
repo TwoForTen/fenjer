@@ -58,8 +58,6 @@ const CartProductCard = ({ product, onClick }) => {
 
   const { name, img, code, price, ordered_quantity, product_id } = product;
 
-  console.log(product);
-
   return (
     <Card
       className={classes.card}

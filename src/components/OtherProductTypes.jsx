@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     position: 'relative',
     maxWidth: '200px',
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    // marginRight: theme.spacing(1),
+    // marginBottom: theme.spacing(1),
     '&:hover > $typeMask': {
       cursor: 'pointer',
       opacity: '1',
@@ -57,11 +57,7 @@ const OtherProductTypes = ({ type, selectedProduct, onClick }) => {
       <div className={classes.typeMask}>
         <Typography>{type.name}</Typography>
       </div>
-      <img
-        className={classes.img}
-        src={process.env.REACT_APP_PROD_URL + type.img || plant}
-        alt="product_image"
-      />
+      <img className={classes.img} src={plant} alt="product_image" />
     </Paper>
   );
 };
