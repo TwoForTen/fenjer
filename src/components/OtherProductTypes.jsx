@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     position: 'relative',
     maxWidth: '200px',
-    marginRight: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     '&:hover > $typeMask': {
       cursor: 'pointer',
       opacity: '1',

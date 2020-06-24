@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     margin: `${theme.spacing(3)}px 0`,
     padding: theme.spacing(6),
+    wordWrap: 'break-word',
+    textOverflow: 'ellipsis',
+    hyphens: 'auto',
   },
   image: {
     height: 'auto',
@@ -62,13 +65,14 @@ const Product = () => {
     in_stock,
     id,
     img,
+    price,
   } = product;
 
   return (
     <Paper className={classes.root}>
       <Grid container spacing={10}>
         <Grid item md={6} xs={12}>
-          <Typography variant="h2" color="textPrimary" className="mb-3">
+          <Typography variant="h4" color="textPrimary" className="mb-3">
             <strong>{name}</strong>
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
@@ -76,15 +80,32 @@ const Product = () => {
           </Typography>
 
           <div className={classes.statusContainer}>
-            <Typography variant="caption">Stanje</Typography>
-            <div style={{ display: 'flex', marginTop: '5px' }}>
-              {Boolean(in_stock) ? (
-                <CheckCircle style={{ color: '#3CBC51' }} className="mr-1" />
-              ) : (
-                <Cancel style={{ color: 'red' }} className="mr-1" />
-              )}
-              <Typography variant="body1">{isInStock(in_stock)}</Typography>
-            </div>
+            <Grid item container spacing={2}>
+              <Grid item md={6} xs={12}>
+                <Typography variant="caption">Stanje</Typography>
+                <div style={{ display: 'flex', marginTop: '5px' }}>
+                  {Boolean(in_stock) ? (
+                    <CheckCircle
+                      style={{ color: '#3CBC51' }}
+                      className="mr-1"
+                    />
+                  ) : (
+                    <Cancel style={{ color: 'red' }} className="mr-1" />
+                  )}
+                  <Typography variant="body1">{isInStock(in_stock)}</Typography>
+                </div>
+              </Grid>
+
+              <Grid item md={6} xs={12}>
+                <Typography variant="caption">Cijena</Typography>
+                <Typography style={{ lineHeight: '2' }} variant="body1">
+                  {new Intl.NumberFormat('hr-HR', {
+                    style: 'currency',
+                    currency: 'HRK',
+                  }).format(price)}
+                </Typography>
+              </Grid>
+            </Grid>
           </div>
 
           <Typography>Pakiranje: {quantity} KOM</Typography>
