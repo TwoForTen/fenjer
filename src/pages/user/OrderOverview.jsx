@@ -13,6 +13,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import OverviewProductCard from '../../components/OverviewProductCard';
 
 import { clearOrder } from '../../actions/order';
+import { setProduct } from '../../actions/products';
 
 const useStyles = makeStyles((theme) => ({
   overviewView: {
@@ -58,7 +59,13 @@ const OrderOverview = () => {
       </div>
       <div className={classes.overviewView}>
         {cart.map((product) => {
-          return <OverviewProductCard key={product.id} product={product} />;
+          return (
+            <OverviewProductCard
+              onClick={() => dispatch(setProduct(product))}
+              key={product.id}
+              product={product}
+            />
+          );
         })}
       </div>
     </div>

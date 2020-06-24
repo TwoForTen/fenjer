@@ -23,6 +23,7 @@ import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 import PriceBreakdown from '../../components/PriceBreakdown';
 
 import { clearCart } from '../../actions/cart';
+import { setProduct } from '../../actions/products';
 
 const useStyles = makeStyles((theme) => ({
   containerRoot: {
@@ -268,7 +269,13 @@ const Overview = () => {
             </Typography>
           </div>
           {cart.map((product) => {
-            return <OverviewProductCard product={product} key={product.id} />;
+            return (
+              <OverviewProductCard
+                onClick={() => dispatch(setProduct(product))}
+                product={product}
+                key={product.id}
+              />
+            );
           })}
         </div>
         <div
