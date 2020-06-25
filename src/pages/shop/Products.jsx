@@ -57,6 +57,7 @@ const Products = () => {
     setPage(newPage);
   };
 
+  //FIX TITLE BUG HERE
   const categoryTitle = useMemo(() => {
     return categoryData?.data[0]?.category_name;
   }, [categoryData]);

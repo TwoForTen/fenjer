@@ -138,7 +138,7 @@ const Overview = () => {
                       </li>
                       <li>
                         <Typography color="textSecondary">
-                          {`${user.purchase?.delivery_info?.postal_code} ${user.purchase?.delivery_info?.address}`}
+                          {`${user.purchase?.delivery_info?.postal_code} ${user.purchase?.delivery_info?.city}`}
                         </Typography>
                       </li>
                       <li>
@@ -172,7 +172,7 @@ const Overview = () => {
                       </li>
                       <li>
                         <Typography color="textSecondary">
-                          {`${user.purchase?.bill_info?.postal_code} ${user.purchase?.bill_info?.address}`}
+                          {`${user.purchase?.bill_info?.postal_code} ${user.purchase?.bill_info?.city}`}
                         </Typography>
                       </li>
                       <li>
