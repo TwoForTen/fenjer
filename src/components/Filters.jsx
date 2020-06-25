@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -17,7 +17,7 @@ import ViewList from '@material-ui/icons/ViewList';
 import ViewModule from '@material-ui/icons/ViewModule';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { productsView, setQuery } from '../actions/filters';
+import { productsView, setQuery, clearQuery } from '../actions/filters';
 
 const useStyles = makeStyles((theme) => ({
   filterContainer: {
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const Filters = ({ showView = true }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const THROTTLE_TIME = 800;
+  const THROTTLE_TIME = 250;
 
   const view = useSelector((state) => state.filter.product_view);
 
@@ -51,6 +51,10 @@ const Filters = ({ showView = true }) => {
     }, THROTTLE_TIME),
     [dispatch]
   );
+
+  useEffect(() => {
+    return () => dispatch(clearQuery());
+  }, []);
 
   return (
     <Grid

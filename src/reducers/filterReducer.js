@@ -1,4 +1,4 @@
-import { PRODUCTS_VIEW, SET_QUERY } from '../actions/actionTypes';
+import { PRODUCTS_VIEW, SET_QUERY, CLEAR_QUERY } from '../actions/actionTypes';
 
 const initialState = {
   queries: {
@@ -24,6 +24,11 @@ export const filterReducer = (state = initialState, action) => {
           ...state.queries,
           [action.payload.filterType]: action.payload.filterValue,
         },
+      };
+    case CLEAR_QUERY:
+      return {
+        ...state,
+        queries: {},
       };
     default:
       return state;
