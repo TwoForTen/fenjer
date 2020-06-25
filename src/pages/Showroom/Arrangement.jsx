@@ -29,6 +29,13 @@ const useStyles = makeStyles((theme) => ({
     objectFit: 'cover',
     borderRadius: 'inherit',
   },
+  cardView: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+    },
+  },
 }));
 
 const Arrangement = () => {
@@ -66,16 +73,18 @@ const Arrangement = () => {
 
         {selectedArrangement ? (
           <>
-            {selectedArrangement?.product_types.map((product) => {
-              return (
-                <ProductCard
-                  type={product}
-                  key={product.id}
-                  productName={product.slug}
-                  onClick={() => dispatch(setProduct(product))}
-                />
-              );
-            })}
+            <div className={classes.cardView}>
+              {selectedArrangement?.product_types.map((product) => {
+                return (
+                  <ProductCard
+                    type={product}
+                    key={product.id}
+                    productName={product.slug}
+                    onClick={() => dispatch(setProduct(product))}
+                  />
+                );
+              })}
+            </div>
             <Button variant="contained" color="primary">
               Dodaj sve proizvode u košaricu
             </Button>
