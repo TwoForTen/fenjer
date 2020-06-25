@@ -78,7 +78,7 @@ const useGridViewContent = (view) => {
   }
 };
 
-const ProductCard = ({ type, productName, onClick }) => {
+const ProductCard = ({ type, productName, onClick, categoryName }) => {
   const view = useSelector((state) => state.filter.product_view);
 
   const history = useHistory();
@@ -95,7 +95,9 @@ const ProductCard = ({ type, productName, onClick }) => {
       onClick={() => {
         onClick();
         history.push(
-          `/proizvodi/${sanitiseName(category_name)}/${productName}`
+          `/proizvodi/${sanitiseName(
+            category_name ? category_name : categoryName
+          )}/${productName}`
         );
       }}
     >

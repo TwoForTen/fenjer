@@ -15,6 +15,7 @@ import ProductCard from '../../components/ProductCard';
 import useDataFetch from '../../hooks/useDataFetch';
 
 import { setProduct } from '../../actions/products';
+import { addToCart } from '../../actions/cart';
 
 import showroom_img from '../../assets/showroom.jpg';
 
@@ -85,7 +86,14 @@ const Arrangement = () => {
                 );
               })}
             </div>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                dispatch(addToCart(selectedArrangement?.product_types));
+              }}
+              disabled
+            >
               Dodaj sve proizvode u košaricu
             </Button>
             {selectedArrangement?.description && (

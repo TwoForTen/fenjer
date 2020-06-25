@@ -34,9 +34,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     flexWrap: 'wrap',
   },
-  filterInput: {
-    overflow: 'hidden',
-  },
+  // filterInput: {
+  //   overflow: 'hidden',
+  // },
   filterButton: {
     borderTopLeftRadius: '0',
     borderBottomLeftRadius: '0',
