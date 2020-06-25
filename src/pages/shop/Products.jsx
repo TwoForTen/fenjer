@@ -12,6 +12,8 @@ import ProductCard from '../../components/ProductCard';
 
 import useDataFetch from '../../hooks/useDataFetch';
 
+import parseQueryParams from '../../helpers/parseQueryParams';
+
 import { setProduct } from '../../actions/products';
 
 const GRID_VIEW = {
@@ -31,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Products = () => {
   const view = useSelector((state) => state.filter.product_view);
+  const filter = useSelector((state) => state.filter);
+  const productList = useSelector((state) => state.productList);
 
   const params = useParams();
   const dispatch = useDispatch();
@@ -40,10 +44,12 @@ const Products = () => {
 
   const categoryData = useDataFetch(
     {
-      url: `/categories/${params.categorySlug}?page=${page}`,
+      url: `/categories/${params.categorySlug}?page=${page}&${parseQueryParams(
+        filter.queries
+      )}`,
       method: 'GET',
     },
-    page
+    filter.queries
   );
 
   const handleChangePage = (_, newPage) => {
@@ -61,7 +67,7 @@ const Products = () => {
         titles={['proizvodi', categoryData?.data[0]?.category_name]}
       />
       <div style={{ textAlign: !categoryData?.data && 'center' }}>
-        <Filters products={categoryData?.data} />
+        <Filters categorySlug={params.categorySlug} />
         {categoryData?.data ? (
           <>
             <div className={classes.productsView}>

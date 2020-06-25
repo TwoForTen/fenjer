@@ -25,3 +25,4 @@ export const SHOW_ORDER = 'SHOW_ORDER';
 export const CLEAR_ORDER = 'CLEAR_ORDER';
 
 export const PRODUCTS_VIEW = 'PRODUCTS_VIEW';
+export const SET_QUERY = 'SET_QUERY';

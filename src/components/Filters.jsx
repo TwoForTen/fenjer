@@ -1,4 +1,5 @@
-import React, { useReducer } from 'react';
+import React, { useCallback } from 'react';
+import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
@@ -16,7 +17,7 @@ import ViewList from '@material-ui/icons/ViewList';
 import ViewModule from '@material-ui/icons/ViewModule';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { productsView } from '../actions/filters';
+import { productsView, setQuery } from '../actions/filters';
 
 const useStyles = makeStyles((theme) => ({
   filterContainer: {
@@ -35,32 +36,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FILTER = 'FILTER';
-
-const filterInputReducer = (state, action) => {
-  switch (action.type) {
-    case FILTER:
-      return {
-        ...state,
-        [action.payload.filterType]: action.payload.filterValue,
-      };
-    default:
-      return state;
-  }
-};
-
-const Filters = ({ products, showView = true }) => {
+const Filters = ({ showView = true }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const THROTTLE_TIME = 800;
 
   const view = useSelector((state) => state.filter.product_view);
 
-  const [filterState, inputDispatch] = useReducer(filterInputReducer, {
-    name: '',
-    code: '',
-    barcode: '',
-    sortBy: '',
-  });
+  const handleChange = useCallback(
+    _.debounce((e) => {
+      dispatch(
+        setQuery({ filterType: e.target.name, filterValue: e.target.value })
+      );
+    }, THROTTLE_TIME),
+    [dispatch]
+  );
 
   return (
     <Grid
@@ -76,15 +66,10 @@ const Filters = ({ products, showView = true }) => {
           size="small"
           margin="normal"
           variant="outlined"
-          onChange={(e) =>
-            inputDispatch({
-              type: FILTER,
-              payload: {
-                filterType: e.target.name,
-                filterValue: e.target.value,
-              },
-            })
-          }
+          onChange={(e) => {
+            e.persist();
+            handleChange(e);
+          }}
           label="Pretraživanje po nazivu"
           InputProps={{
             endAdornment: (
@@ -109,15 +94,10 @@ const Filters = ({ products, showView = true }) => {
           margin="normal"
           variant="outlined"
           label="Pretraživanje po šifri"
-          onChange={(e) =>
-            inputDispatch({
-              type: FILTER,
-              payload: {
-                filterType: e.target.name,
-                filterValue: e.target.value,
-              },
-            })
-          }
+          onChange={(e) => {
+            e.persist();
+            handleChange(e);
+          }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -141,15 +121,10 @@ const Filters = ({ products, showView = true }) => {
           name="barcode"
           variant="outlined"
           label="Pretraživanje po barcodu"
-          onChange={(e) =>
-            inputDispatch({
-              type: FILTER,
-              payload: {
-                filterType: e.target.name,
-                filterValue: e.target.value,
-              },
-            })
-          }
+          onChange={(e) => {
+            e.persist();
+            handleChange(e);
+          }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

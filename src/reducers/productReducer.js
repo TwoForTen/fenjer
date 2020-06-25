@@ -12,6 +12,7 @@ export const productReducer = (state = {}, action) => {
         ...action.payload,
         ordered_quantity: 1,
       };
+
     case SET_PRODUCT_QUANTITY:
       return {
         ...state,
