@@ -100,7 +100,7 @@ const ProductQuantitySelector = ({ cartItem }) => {
           )
         }
         type="number"
-        // pattern="[0-9]*"
+        pattern="[0-9]*"
         inputMode="numeric"
       />
       <Button
@@ -123,7 +123,7 @@ const ProductQuantitySelector = ({ cartItem }) => {
       </Button>
       <TextField
         className={`${classes.buttonGroup} ${classes.inputRoot}`}
-        value={product?.ordered_quantity || 1}
+        value={product?.ordered_quantity && product?.ordered_quantity}
         onChange={(e) => dispatch(setProductQuantity(e.target.value))}
         onBlur={() => {
           if (cart[cartItem]?.ordered_quantity < 1) {
@@ -136,7 +136,7 @@ const ProductQuantitySelector = ({ cartItem }) => {
           }
         }}
         type="number"
-        // pattern="[0-9]*"
+        pattern="[0-9]*"
         inputMode="numeric"
       />
       <Button

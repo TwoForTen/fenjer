@@ -22,8 +22,8 @@ export const cartReducer = (state = initialState, action) => {
       modifiedState[duplicateProduct] = {
         ...modifiedState[duplicateProduct],
         ordered_quantity:
-          modifiedState[duplicateProduct].ordered_quantity +
-          action.payload.ordered_quantity,
+          +modifiedState[duplicateProduct].ordered_quantity +
+          +action.payload.ordered_quantity,
       };
       return modifiedState;
     case REMOVE_FROM_CART:
@@ -33,7 +33,7 @@ export const cartReducer = (state = initialState, action) => {
     case SET_CART_QUANTITY:
       modifiedState[action.payload.index] = {
         ...modifiedState[action.payload.index],
-        ordered_quantity: action.payload.ordered_quantity,
+        ordered_quantity: +action.payload.ordered_quantity,
       };
       return modifiedState;
     case INCREMENT_CART_QUANTITY:

@@ -16,17 +16,17 @@ export const productReducer = (state = {}, action) => {
     case SET_PRODUCT_QUANTITY:
       return {
         ...state,
-        ordered_quantity: action.payload,
+        ordered_quantity: +action.payload,
       };
     case INCREMENT_PRODUCT:
       return {
         ...state,
-        ordered_quantity: state.ordered_quantity + 1,
+        ordered_quantity: +state.ordered_quantity + 1,
       };
     case DECREMENT_PRODUCT:
       return {
         ...state,
-        ordered_quantity: state.ordered_quantity - 1,
+        ordered_quantity: +state.ordered_quantity - 1,
       };
     default:
       return state;
