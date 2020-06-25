@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { useParams, Redirect } from 'react-router-dom';
+import React, { useState, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Pagination from '@material-ui/lab/Pagination';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Filters from '../../components/Filters';
@@ -34,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 const Products = () => {
   const view = useSelector((state) => state.filter.product_view);
   const filter = useSelector((state) => state.filter);
-  const productList = useSelector((state) => state.productList);
 
   const params = useParams();
   const dispatch = useDispatch();
@@ -57,15 +57,13 @@ const Products = () => {
     setPage(newPage);
   };
 
-  if (categoryData?.data?.length < 1) {
-    return <Redirect to="/404" />;
-  }
+  const categoryTitle = useMemo(() => {
+    return categoryData?.data[0]?.category_name;
+  }, [categoryData]);
 
   return (
     <>
-      <PageBreadcrumbs
-        titles={['proizvodi', categoryData?.data[0]?.category_name]}
-      />
+      <PageBreadcrumbs titles={['proizvodi', categoryTitle]} />
       <div style={{ textAlign: !categoryData?.data && 'center' }}>
         <Filters categorySlug={params.categorySlug} />
         {categoryData?.data ? (
@@ -82,20 +80,32 @@ const Products = () => {
                 );
               })}
             </div>
-            <Pagination
-              className="mb-4"
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-              onChange={handleChangePage}
-              count={categoryData?.meta?.last_page}
-              variant="outlined"
-              shape="rounded"
-            />
+            {categoryData?.data?.length > 1 && (
+              <Pagination
+                className="mb-4"
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
+                onChange={handleChangePage}
+                count={categoryData?.meta?.last_page}
+                variant="outlined"
+                shape="rounded"
+              />
+            )}
           </>
         ) : (
           <CircularProgress className="mt-4" />
+        )}
+        {categoryData?.data?.length < 1 && (
+          <Typography
+            style={{ textAlign: 'center' }}
+            variant="body1"
+            color="textPrimary"
+            className="mt-4"
+          >
+            Nije pronađen niti jedan proizvod
+          </Typography>
         )}
       </div>
     </>
