@@ -8,8 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 
-import plant from '../assets/plant.jpg';
-
 const useStyles = makeStyles((theme) => ({
   card: {
     marginBottom: theme.spacing(4),
@@ -77,7 +75,7 @@ const CartProductCard = ({ product, onClick }) => {
           <div className={classes.imageContainer}>
             <img
               className={classes.cartProductImage}
-              src={process.env.REACT_APP_PROD_URL + img || plant}
+              src={process.env.REACT_APP_PROD_URL + img}
               alt="product_image"
             />
           </div>

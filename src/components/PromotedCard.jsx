@@ -11,8 +11,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { setProduct } from '../actions/products';
 
-import plant from '../assets/plant.jpg';
-
 const useStyles = makeStyles((theme) => ({
   card: {
     // padding: theme.spacing(4),
@@ -84,7 +82,7 @@ const PromotedCard = ({ promotedProduct }) => {
             onLoad={() => setImageLoaded(true)}
             className={classes.cardImage}
             alt="Promoted Product"
-            src={process.env.REACT_APP_PROD_URL + img || plant}
+            src={process.env.REACT_APP_PROD_URL + img}
           />
           {!imageLoaded && <CircularProgress className="mt-4 mr-4 mb-4 ml-4" />}
         </CardContent>

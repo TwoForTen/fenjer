@@ -4,8 +4,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import plant from '../assets/plant.jpg';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -66,7 +64,7 @@ const OtherProductTypes = ({ type, selectedProduct, onClick }) => {
       </div>
       <img
         className={classes.img}
-        src={process.env.REACT_APP_PROD_URL + type.img || plant}
+        src={process.env.REACT_APP_PROD_URL + type.img}
         alt="product_image"
       />
     </Paper>

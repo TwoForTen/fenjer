@@ -16,8 +16,6 @@ import Close from '@material-ui/icons/Close';
 
 import { removeFromCart } from '../actions/cart';
 
-import plant from '../assets/plant.jpg';
-
 const useStyles = makeStyles((theme) => ({
   card: {
     position: 'relative',
@@ -105,7 +103,7 @@ const CartProductCard = ({ product, onClick, index }) => {
           <div className={classes.imageContainer}>
             <img
               className={classes.cartProductImage}
-              src={process.env.REACT_APP_PROD_URL + img || plant}
+              src={process.env.REACT_APP_PROD_URL + img}
               alt="product_image"
             />
           </div>

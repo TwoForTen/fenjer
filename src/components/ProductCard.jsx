@@ -13,8 +13,6 @@ import Cancel from '@material-ui/icons/Cancel';
 
 import sanitiseName from '../helpers/sanitiseName';
 
-import plant from '../assets/plant.jpg';
-
 const gridView = (theme) => {
   return {
     maxWidth: '250px',
@@ -110,7 +108,7 @@ const ProductCard = ({ type, productName, onClick, categoryName }) => {
           <div className={classes.imageContainer}>
             <img
               className={classes.categoryImage}
-              src={process.env.REACT_APP_PROD_URL + img || plant}
+              src={process.env.REACT_APP_PROD_URL + img}
               alt="product_image"
             />
           </div>

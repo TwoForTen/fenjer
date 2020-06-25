@@ -15,8 +15,6 @@ import { showSnackbar } from '../actions/snackbar';
 
 import ProductQuantitySelector from './ProductQuantitySelector';
 
-import plant from '../assets/plant.jpg';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: `${theme.spacing(3)}px 0`,
@@ -164,7 +162,7 @@ const Product = () => {
         <Grid item xs={12} md={6} align="center">
           <img
             className={classes.image}
-            src={process.env.REACT_APP_PROD_URL + img || plant}
+            src={process.env.REACT_APP_PROD_URL + img}
             alt="product_image"
           />
         </Grid>
