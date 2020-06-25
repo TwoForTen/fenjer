@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     position: 'absolute',
     backgroundColor: 'rgba(0,0,0,0.7)',
+    borderRadius: theme.shape.borderRadius,
     justifyContent: 'center',
     alignItems: 'center',
     padding: theme.spacing(2),

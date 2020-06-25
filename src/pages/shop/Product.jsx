@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
 
 import OtherProductTypes from '../../components/OtherProductTypes';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
@@ -14,19 +13,7 @@ import useDataFetch from '../../hooks/useDataFetch';
 
 import { setProduct } from '../../actions/products';
 
-const useStyles = makeStyles((theme) => ({
-  otherProductTypesContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    marginBottom: theme.spacing(3),
-    [theme.breakpoints.down('sm')]: {
-      justifyContent: 'center',
-    },
-  },
-}));
-
 const Product = () => {
-  const classes = useStyles();
   const params = useParams();
   const dispatch = useDispatch();
   const selectedProduct = useSelector((state) => state.product);
@@ -52,7 +39,7 @@ const Product = () => {
         titles={['proizvodi', products?.category?.name, products?.name]}
       />
       <ProductView />
-      <Grid container spacing={4}>
+      <Grid container spacing={4} className="mb-4">
         {products?.types?.map((type) => {
           return (
             <Grid item xs={6} sm={3} md={2} key={type.id}>

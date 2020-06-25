@@ -151,7 +151,7 @@ const Product = () => {
               }}
               variant="contained"
             >
-              Kupi
+              Dodaj u košaricu
             </Button>
           </div>
           <Typography variant="h5">Opis</Typography>
