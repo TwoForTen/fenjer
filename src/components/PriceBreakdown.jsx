@@ -20,12 +20,16 @@ const calculateSum = (product, delivery) => {
   });
 
   const productGross = productPrices.reduce((sum, num) => sum + num);
+  if (productGross > 500) {
+    delivery = 0;
+  }
 
   const net = productGross / 1.25;
   const vat = productGross - net;
   const gross = productGross + +delivery;
 
   return {
+    productGross,
     gross,
     net,
     vat,
@@ -81,10 +85,15 @@ const PriceBreakdown = ({ cart, delivery }) => {
           </li>
           <li className="mb-3">
             <Typography color="textPrimary">
-              {new Intl.NumberFormat('hr-HR', {
-                style: 'currency',
-                currency: 'HRK',
-              }).format(delivery)}
+              {priceBreakdown().productGross < 501
+                ? new Intl.NumberFormat('hr-HR', {
+                    style: 'currency',
+                    currency: 'HRK',
+                  }).format(delivery)
+                : new Intl.NumberFormat('hr-HR', {
+                    style: 'currency',
+                    currency: 'HRK',
+                  }).format(0)}
             </Typography>
           </li>
           <li>
