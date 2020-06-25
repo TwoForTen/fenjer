@@ -17,7 +17,7 @@ import ViewList from '@material-ui/icons/ViewList';
 import ViewModule from '@material-ui/icons/ViewModule';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { productsView, setQuery, clearQuery } from '../actions/filters';
+import { productsView, setQuery, clearQuery, sort } from '../actions/filters';
 
 const useStyles = makeStyles((theme) => ({
   filterContainer: {
@@ -154,14 +154,30 @@ const Filters = ({ showView = true }) => {
               size="small"
               margin="normal"
             >
-              <InputLabel id="sort">Sortiraj po</InputLabel>
-              <Select labelId="sort" defaultValue="">
-                <MenuItem value="">
-                  <em>None</em>
+              <InputLabel id="sort" htmlFor="sort-select">
+                Sortiraj po
+              </InputLabel>
+              <Select
+                labelId="sort"
+                label="Sortiraj po"
+                defaultValue="Nazivu (A-Z)"
+                inputProps={{
+                  name: 'sort',
+                  id: 'sort-select',
+                }}
+                onChange={(e) => {
+                  dispatch(sort(e.target.value));
+                }}
+              >
+                <MenuItem value={'Nazivu (A-Z)'}>Nazivu (A-Z)</MenuItem>
+                <MenuItem value={'Nazivu (Z-A)'}>Nazivu (Z-A)</MenuItem>
+                <MenuItem value={'Cijeni (manja - veća)'}>
+                  Cijeni (manja - veća)
                 </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={'Cijeni (veća - manja)'}>
+                  Cijeni (veća - manja)
+                </MenuItem>
+                <MenuItem value={'Dostupnost'}>Dostupnost</MenuItem>
               </Select>
             </FormControl>
           </Grid>

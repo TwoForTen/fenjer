@@ -1,4 +1,9 @@
-import { PRODUCTS_VIEW, SET_QUERY, CLEAR_QUERY } from '../actions/actionTypes';
+import {
+  PRODUCTS_VIEW,
+  SET_QUERY,
+  CLEAR_QUERY,
+  SORT,
+} from '../actions/actionTypes';
 
 const initialState = {
   queries: {
@@ -7,7 +12,7 @@ const initialState = {
     barcode: '',
   },
   product_view: 'list',
-  sort_by: '',
+  sort_by: 'Nazivu (A-Z)',
 };
 
 export const filterReducer = (state = initialState, action) => {
@@ -28,7 +33,13 @@ export const filterReducer = (state = initialState, action) => {
     case CLEAR_QUERY:
       return {
         ...state,
+        sort_by: initialState.sort_by,
         queries: {},
+      };
+    case SORT:
+      return {
+        ...state,
+        sort_by: action.payload,
       };
     default:
       return state;

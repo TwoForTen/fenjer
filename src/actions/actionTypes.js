@@ -27,3 +27,4 @@ export const CLEAR_ORDER = 'CLEAR_ORDER';
 export const PRODUCTS_VIEW = 'PRODUCTS_VIEW';
 export const SET_QUERY = 'SET_QUERY';
 export const CLEAR_QUERY = 'CLEAR_QUERY';
+export const SORT = 'SORT';

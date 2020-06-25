@@ -1,4 +1,4 @@
-import { PRODUCTS_VIEW, SET_QUERY, CLEAR_QUERY } from './actionTypes';
+import { PRODUCTS_VIEW, SET_QUERY, CLEAR_QUERY, SORT } from './actionTypes';
 
 export const productsView = (payload) => {
   return {
@@ -16,5 +16,12 @@ export const setQuery = (payload) => {
 export const clearQuery = () => {
   return {
     type: CLEAR_QUERY,
+  };
+};
+
+export const sort = (payload) => {
+  return {
+    type: SORT,
+    payload,
   };
 };

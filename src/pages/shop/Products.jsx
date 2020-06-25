@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -61,6 +61,32 @@ const Products = () => {
     return categoryData?.data[0]?.category_name;
   }, [categoryData]);
 
+  const sortedProducts = (data) => {
+    switch (filter.sort_by) {
+      case 'Nazivu (A-Z)':
+        data.sort((a, b) => {
+          return a.name > b.name ? 1 : b.name > a.name ? -1 : 0;
+        });
+        return data;
+      case 'Nazivu (Z-A)':
+        data.sort((a, b) => {
+          return a.name < b.name ? 1 : b.name < a.name ? -1 : 0;
+        });
+        return data;
+      case 'Cijeni (manja - veća)':
+        data.sort((a, b) => a.price - b.price);
+        return data;
+      case 'Cijeni (veća - manja)':
+        data.sort((a, b) => b.price - a.price);
+        return data;
+      case 'Dostupnost':
+        data.sort((a, b) => b.in_stock - a.in_stock);
+        return data;
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       <PageBreadcrumbs titles={['proizvodi', categoryTitle]} />
@@ -69,7 +95,7 @@ const Products = () => {
         {categoryData?.data ? (
           <>
             <div className={classes.productsView}>
-              {categoryData?.data.map((product) => {
+              {sortedProducts(categoryData?.data).map((product) => {
                 return (
                   <ProductCard
                     type={product}
