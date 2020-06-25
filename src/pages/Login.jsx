@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from '../axiosInstance';
 import { Formik } from 'formik';
 import { Helmet } from 'react-helmet-async';
@@ -11,10 +11,16 @@ import PromotedProducts from '../components/PromotedProducts';
 import { userLogin } from '../actions/auth';
 
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
   textInput: {
     marginBottom: theme.spacing(3),
   },
+  forgotPasswordButton: {
+    textTransform: 'initial',
+    padding: theme.spacing(1),
+    fontWeight: 400,
+    color: theme.palette.text.secondary,
+  },
 }));
 
 const validationSchema = yup.object().shape({
@@ -45,7 +57,13 @@ const Login = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
 
+  const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+
   const { state: locationState } = location;
+
+  const handleClose = () => {
+    setPasswordModalOpen(false);
+  };
 
   if (token) {
     return <Redirect to="/korisnicki-racun" />;
@@ -152,9 +170,14 @@ const Login = () => {
                 );
               }}
             </Formik>
-            <Link to="/">
-              <Typography variant="caption">Zaboravili ste zaporku?</Typography>
-            </Link>
+            <Button
+              className={classes.forgotPasswordButton}
+              variant="text"
+              size="small"
+              onClick={() => setPasswordModalOpen(true)}
+            >
+              Zaboravili ste zaporku?
+            </Button>
           </Grid>
           <Grid sm={6} xs={12} item>
             <Typography className="mb-4" variant="h6">
@@ -169,6 +192,36 @@ const Login = () => {
         </Grid>
       </Paper>
       <PromotedProducts />
+      <Dialog open={passwordModalOpen} onClose={handleClose}>
+        <DialogTitle>Zaboravili ste lozinku?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Molimo Vas da unesete e-mail svog korisničkog računa kako bi
+            obnovili Vašu lozinku.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="E-mail"
+            type="email"
+            variant="outlined"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions className="mt-2 mb-1 mr-3">
+          <Button variant="outlined" onClick={handleClose} color="secondary">
+            Odustani
+          </Button>
+          <Button
+            disableElevation
+            variant="contained"
+            onClick={handleClose}
+            color="secondary"
+          >
+            Potvrdi
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
