@@ -73,7 +73,9 @@ const CartProductCard = ({ product, onClick, index }) => {
 
   const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
-  const { name, img, code, price, product_id, ordered_quantity } = product;
+  const { name, img, code, price, ordered_quantity } = product;
+
+  console.log(product);
 
   return (
     <Card className={classes.card}>

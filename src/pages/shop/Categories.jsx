@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     margin: theme.spacing(6),
   },
+  productContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
 }));
 
 const Proizvodi = () => {
@@ -64,27 +69,29 @@ const Proizvodi = () => {
             })
           : !categories?.data && <CircularProgress className="mt-4" />}
       </div>
-      {(name || code || barcode) &&
-        categories?.data &&
-        categories?.data.map(
-          (category) =>
-            category.products &&
-            category.products.map(
-              (product) =>
-                product.types &&
-                product.types.map((type) => {
-                  return (
-                    <ProductCard
-                      key={type.id}
-                      type={type}
-                      productName={sanitiseName(product.name)}
-                      categoryName={category.name}
-                      onClick={() => dispatch(setProduct(type))}
-                    />
-                  );
-                })
-            )
-        )}
+      <div className={classes.productContainer}>
+        {(name || code || barcode) &&
+          categories?.data &&
+          categories?.data.map(
+            (category) =>
+              category.products &&
+              category.products.map(
+                (product) =>
+                  product.types &&
+                  product.types.map((type) => {
+                    return (
+                      <ProductCard
+                        key={type.id}
+                        type={type}
+                        productName={sanitiseName(product.name)}
+                        categoryName={category.name}
+                        onClick={() => dispatch(setProduct(type))}
+                      />
+                    );
+                  })
+              )
+          )}
+      </div>
     </>
   );
 };

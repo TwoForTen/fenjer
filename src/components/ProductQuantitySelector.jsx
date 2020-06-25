@@ -81,7 +81,7 @@ const ProductQuantitySelector = ({ cartItem }) => {
       <TextField
         className={`${classes.buttonGroup} ${classes.inputRoot}`}
         value={cart[cartItem]?.ordered_quantity}
-        onBlur={(e) => {
+        onBlur={() => {
           if (cart[cartItem]?.ordered_quantity < 1) {
             dispatch(
               setCartQuantity({
@@ -123,10 +123,20 @@ const ProductQuantitySelector = ({ cartItem }) => {
       </Button>
       <TextField
         className={`${classes.buttonGroup} ${classes.inputRoot}`}
-        value={product.ordered_quantity || 1}
-        onChange={(e) => dispatch(setProductQuantity(+e.target.value))}
+        value={product?.ordered_quantity || 1}
+        onChange={(e) => dispatch(setProductQuantity(e.target.value))}
+        onBlur={() => {
+          if (cart[cartItem]?.ordered_quantity < 1) {
+            dispatch(
+              setCartQuantity({
+                index: cartItem,
+                ordered_quantity: 1,
+              })
+            );
+          }
+        }}
         type="number"
-        pattern="[0-9]*"
+        // pattern="[0-9]*"
         inputMode="numeric"
       />
       <Button
