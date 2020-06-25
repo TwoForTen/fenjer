@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
     wordWrap: 'break-word',
     textOverflow: 'ellipsis',
-    hyphens: 'auto',
+    // hyphens: 'auto',
   },
   image: {
     height: 'auto',

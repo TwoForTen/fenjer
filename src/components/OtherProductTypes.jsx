@@ -54,7 +54,13 @@ const OtherProductTypes = ({ type, selectedProduct, onClick }) => {
   const classes = useStyles(STYLE_PROPS);
 
   return (
-    <Paper onClick={onClick} className={classes.root}>
+    <Paper
+      onClick={() => {
+        onClick();
+        window.scrollTo({ top: 0 });
+      }}
+      className={classes.root}
+    >
       <div className={classes.typeMask}>
         <Typography>{type.name}</Typography>
       </div>
