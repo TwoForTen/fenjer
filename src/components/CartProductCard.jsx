@@ -75,8 +75,6 @@ const CartProductCard = ({ product, onClick, index }) => {
 
   const { name, img, code, price, ordered_quantity } = product;
 
-  console.log(product);
-
   return (
     <Card className={classes.card}>
       <IconButton

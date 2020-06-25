@@ -739,7 +739,14 @@ const Checkout = () => {
             >
               {/* <Checkbox defaultChecked color="default" disabled /> */}
               <Update className="mr-4" fontSize="large" />
-              <Typography variant="body1">{`Odgoda plaćanja na ${payment_deadline} dana`}</Typography>
+              <Typography
+                variant="body1"
+                color={!payment_deadline && 'secondary'}
+              >
+                {payment_deadline
+                  ? `Odgoda plaćanja na ${payment_deadline} dana`
+                  : 'Prijavite se kako bi izračunali vašu odgodu plaćanja'}
+              </Typography>
             </div>
           </Paper>
         </div>

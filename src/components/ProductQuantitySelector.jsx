@@ -123,7 +123,7 @@ const ProductQuantitySelector = ({ cartItem }) => {
       </Button>
       <TextField
         className={`${classes.buttonGroup} ${classes.inputRoot}`}
-        value={product?.ordered_quantity && product?.ordered_quantity}
+        value={product?.ordered_quantity ? product?.ordered_quantity : 1}
         onChange={(e) => dispatch(setProductQuantity(e.target.value))}
         onBlur={() => {
           if (cart[cartItem]?.ordered_quantity < 1) {
