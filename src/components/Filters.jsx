@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,11 +11,17 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { makeStyles } from '@material-ui/core/styles';
 
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Search from '@material-ui/icons/Search';
 import ViewList from '@material-ui/icons/ViewList';
 import ViewModule from '@material-ui/icons/ViewModule';
-import { makeStyles } from '@material-ui/core/styles';
 
 import { productsView, setQuery, clearQuery, sort } from '../actions/filters';
 
@@ -28,11 +34,20 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     flexWrap: 'wrap',
   },
+  filterInput: {
+    overflow: 'hidden',
+  },
   filterButton: {
     borderTopLeftRadius: '0',
     borderBottomLeftRadius: '0',
     minWidth: '50px',
     maxWidth: '50px',
+    zIndex: '101',
+  },
+  expansionPanel: {
+    backgroundColor: 'transparent',
+    boxShadow: 'none',
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -40,6 +55,7 @@ const Filters = ({ showView = true }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const THROTTLE_TIME = 250;
+  const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   const view = useSelector((state) => state.filter.product_view);
 
@@ -56,20 +72,21 @@ const Filters = ({ showView = true }) => {
     return () => dispatch(clearQuery());
   }, []);
 
-  return (
+  const FILTERS = (
     <Grid
       container
       spacing={1}
       alignItems="center"
       style={{ justifyContent: 'center' }}
     >
-      <Grid item xs={3}>
+      <Grid item xs={12} md={3}>
         <TextField
           fullWidth
           name="name"
           size="small"
           margin="normal"
           variant="outlined"
+          className={classes.filterInput}
           onChange={(e) => {
             e.persist();
             handleChange(e);
@@ -90,7 +107,7 @@ const Filters = ({ showView = true }) => {
           }}
         />
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={12} md={3}>
         <TextField
           fullWidth
           size="small"
@@ -98,6 +115,7 @@ const Filters = ({ showView = true }) => {
           margin="normal"
           variant="outlined"
           label="Pretraživanje po šifri"
+          className={classes.filterInput}
           onChange={(e) => {
             e.persist();
             handleChange(e);
@@ -117,7 +135,7 @@ const Filters = ({ showView = true }) => {
           }}
         />
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={12} md={3}>
         <TextField
           fullWidth
           size="small"
@@ -125,6 +143,7 @@ const Filters = ({ showView = true }) => {
           name="barcode"
           variant="outlined"
           label="Pretraživanje po barcodu"
+          className={classes.filterInput}
           onChange={(e) => {
             e.persist();
             handleChange(e);
@@ -146,9 +165,8 @@ const Filters = ({ showView = true }) => {
       </Grid>
       {showView && (
         <>
-          <Grid item xs={2}>
+          <Grid item xs={12} md={3}>
             <FormControl
-              className={classes.filterInput}
               fullWidth
               variant="outlined"
               size="small"
@@ -181,20 +199,39 @@ const Filters = ({ showView = true }) => {
               </Select>
             </FormControl>
           </Grid>
-
-          <Grid item xs={1}>
-            <div>
-              <IconButton onClick={() => dispatch(productsView('list'))}>
-                <ViewList color={view === 'list' ? 'primary' : 'inherit'} />
-              </IconButton>
-              <IconButton onClick={() => dispatch(productsView('grid'))}>
-                <ViewModule color={view === 'grid' ? 'primary' : 'inherit'} />
-              </IconButton>
-            </div>
-          </Grid>
+          {!breakpoint && (
+            <Grid item xs={12}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Typography color="textSecondary" className="mr-1">
+                  Prikaz:
+                </Typography>
+                <IconButton onClick={() => dispatch(productsView('list'))}>
+                  <ViewList color={view === 'list' ? 'primary' : 'inherit'} />
+                </IconButton>
+                <IconButton onClick={() => dispatch(productsView('grid'))}>
+                  <ViewModule color={view === 'grid' ? 'primary' : 'inherit'} />
+                </IconButton>
+              </div>
+            </Grid>
+          )}
         </>
       )}
     </Grid>
+  );
+
+  return (
+    <>
+      {breakpoint ? (
+        <ExpansionPanel className={classes.expansionPanel}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography>Prikaži filtere</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>{FILTERS}</ExpansionPanelDetails>
+        </ExpansionPanel>
+      ) : (
+        FILTERS
+      )}
+    </>
   );
 };
 

@@ -83,7 +83,7 @@ const Products = () => {
         data.sort((a, b) => b.in_stock - a.in_stock);
         return data;
       default:
-        break;
+        return data;
     }
   };
 
