@@ -90,13 +90,11 @@ const CartProductCard = ({ product, onClick, index }) => {
         spacing={2}
         onClick={() => {
           onClick();
-          axios
-            .get(`/products/${product_id}`)
-            .then((res) =>
-              history.push(
-                `/proizvodi/${res.data.category.slug}/${res.data.slug}`
-              )
+          axios.get(`/products/${product.slug}`).then((res) => {
+            history.push(
+              `/proizvodi/${res.data.category.slug}/${res.data.slug}`
             );
+          });
         }}
       >
         <Grid item md={2} xs={12} className={classes.gridItem}>

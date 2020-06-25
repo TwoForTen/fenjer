@@ -81,16 +81,26 @@ const ProductQuantitySelector = ({ cartItem }) => {
       <TextField
         className={`${classes.buttonGroup} ${classes.inputRoot}`}
         value={cart[cartItem]?.ordered_quantity}
+        onBlur={(e) => {
+          if (cart[cartItem]?.ordered_quantity < 1) {
+            dispatch(
+              setCartQuantity({
+                index: cartItem,
+                ordered_quantity: 1,
+              })
+            );
+          }
+        }}
         onChange={(e) =>
           dispatch(
             setCartQuantity({
               index: cartItem,
-              ordered_quantity: +e.target.value,
+              ordered_quantity: e.target.value,
             })
           )
         }
         type="number"
-        pattern="[0-9]*"
+        // pattern="[0-9]*"
         inputMode="numeric"
       />
       <Button
