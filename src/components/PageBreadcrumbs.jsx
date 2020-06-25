@@ -8,7 +8,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   breadcrumbsContainer: {
-    padding: '80px 1.5rem',
+    paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(5),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     borderBottom: (showBorder) =>
       showBorder && `1px solid ${theme.palette.primary.main}`,
     width: '100%',

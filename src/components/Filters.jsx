@@ -195,7 +195,7 @@ const Filters = ({ showView = true }) => {
                 <MenuItem value={'Cijeni (veća - manja)'}>
                   Cijeni (veća - manja)
                 </MenuItem>
-                <MenuItem value={'Dostupnost'}>Dostupnost</MenuItem>
+                <MenuItem value={'Dostupnost'}>Dostupnosti</MenuItem>
               </Select>
             </FormControl>
           </Grid>
