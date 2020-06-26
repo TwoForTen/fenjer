@@ -73,13 +73,7 @@ const Checkout = () => {
       surname: yup.string().required('Prezime je obavezno'),
       city: yup.string().required('Grad je obavezan'),
       postal_code: yup.string().required('Poštanski broj je obavezan'),
-      mobile_phone: yup
-        .string()
-        .required('Broj mobitela je obavezan')
-        .matches(
-          /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
-          'Mora biti valjani broj mobitela'
-        ),
+      mobile_phone: yup.string().required('Broj mobitela je obavezan'),
       address: yup.string().required('Adresa je obavezna'),
     }),
     bill_info:
@@ -94,13 +88,7 @@ const Checkout = () => {
         surname: yup.string().required('Prezime je obavezno'),
         city: yup.string().required('Grad je obavezan'),
         postal_code: yup.string().required('Poštanski broj je obavezan'),
-        mobile_phone: yup
-          .string()
-          .required('Broj mobitela je obavezan')
-          .matches(
-            /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
-            'Mora biti valjani broj mobitela'
-          ),
+        mobile_phone: yup.string().required('Broj mobitela je obavezan'),
         address: yup.string().required('Adresa je obavezna'),
       }),
   });
@@ -741,7 +729,7 @@ const Checkout = () => {
               <Update className="mr-4" fontSize="large" />
               <Typography
                 variant="body1"
-                color={!payment_deadline && 'secondary'}
+                color={!payment_deadline ? 'secondary' : 'textPrimary'}
               >
                 {payment_deadline
                   ? `Odgoda plaćanja na ${payment_deadline} dana`
