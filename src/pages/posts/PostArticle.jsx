@@ -85,7 +85,7 @@ const PostArticle = () => {
                   {post ? (
                     <img
                       className={classes.image}
-                      src={post.img}
+                      src={process.env.REACT_APP_PROD_URL + post.img}
                       alt="Article img"
                     />
                   ) : (
