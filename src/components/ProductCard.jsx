@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
     return {
       position: 'relative',
       marginTop: theme.spacing(4),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
       minHeight: '140px',
       display: 'flex',
       justifyContent: 'space-around',

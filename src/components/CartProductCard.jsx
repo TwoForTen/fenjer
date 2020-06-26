@@ -20,6 +20,8 @@ const useStyles = makeStyles((theme) => ({
   card: {
     position: 'relative',
     margin: `${theme.spacing(4)}px 0`,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     minHeight: '140px',
     display: 'flex',
     justifyContent: 'space-around',

@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
     display: 'flex',
     justifyContent: 'space-around',
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     alignItems: 'center',
     minHeight: '140px',
     [theme.breakpoints.down('sm')]: {
