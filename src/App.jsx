@@ -19,6 +19,7 @@ import PostArticle from './pages/posts/PostArticle';
 import PostsList from './pages/posts/PostsList';
 import Categories from './pages/shop/Categories';
 import Overview from './pages/cart/Overview';
+import PasswordReset from './pages/PasswordReset';
 import Product from './pages/shop/Product';
 import Products from './pages/shop/Products';
 import Registration from './pages/Registration';
@@ -66,6 +67,11 @@ function App() {
               path="/proizvodi/:categorySlug/:productSlug"
               exact
               component={Product}
+            />
+            <Route
+              path="/promjena-lozinke/:tokenSlug"
+              exact
+              component={PasswordReset}
             />
             <Route path="/registracija" exact component={Registration} />
             <Route path="/uvjeti-prodaje" exact component={Terms} />

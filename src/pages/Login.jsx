@@ -11,6 +11,7 @@ import PromotedProducts from '../components/PromotedProducts';
 import { userLogin } from '../actions/auth';
 
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -47,7 +48,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const validationSchema = yup.object().shape({
-  email: yup.string().email('Mora biti valjan E-mail'),
+  email: yup
+    .string()
+    .email('Mora biti valjan E-mail')
+    .required('E-mail je obavezan'),
 });
 
 const Login = () => {
@@ -58,11 +62,21 @@ const Login = () => {
   const token = useSelector((state) => state.user.token);
 
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const [emailValue, setEmailValue] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  console.log(loading);
 
   const { state: locationState } = location;
 
   const handleClose = () => {
     setPasswordModalOpen(false);
+    setTimeout(() => {
+      setSuccessMessage(false);
+      setEmailValue('');
+    }, 500);
   };
 
   if (token) {
@@ -176,7 +190,7 @@ const Login = () => {
               size="small"
               onClick={() => setPasswordModalOpen(true)}
             >
-              Zaboravili ste zaporku?
+              Zaboravili ste lozinku?
             </Button>
           </Grid>
           <Grid sm={6} xs={12} item>
@@ -193,33 +207,84 @@ const Login = () => {
       </Paper>
       <PromotedProducts />
       <Dialog open={passwordModalOpen} onClose={handleClose}>
-        <DialogTitle>Zaboravili ste lozinku?</DialogTitle>
+        <DialogTitle>
+          {!successMessage ? 'Zaboravili ste lozinku?' : 'Uspijeh!'}
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Molimo Vas da unesete e-mail svog korisničkog računa kako bi
-            obnovili Vašu lozinku.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="E-mail"
-            type="email"
-            variant="outlined"
-            fullWidth
-          />
+          {!successMessage ? (
+            <>
+              <DialogContentText>
+                Molimo Vas da unesete e-mail svog korisničkog računa kako bi
+                obnovili Vašu lozinku.
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                label="E-mail"
+                type="email"
+                variant="outlined"
+                onChange={(e) => setEmailValue(e.target.value)}
+                value={emailValue}
+                error={!!emailError}
+                helperText={emailError && emailError}
+                fullWidth
+              />
+            </>
+          ) : (
+            <DialogContentText>
+              E-mail s poveznicom za promjenu lozinke je uspješno poslan na{' '}
+              <strong>{emailValue}</strong>
+            </DialogContentText>
+          )}
         </DialogContent>
         <DialogActions className="mt-2 mb-1 mr-3">
-          <Button variant="outlined" onClick={handleClose} color="secondary">
-            Odustani
-          </Button>
-          <Button
-            disableElevation
-            variant="contained"
-            onClick={handleClose}
-            color="secondary"
-          >
-            Potvrdi
-          </Button>
+          {!successMessage ? (
+            <>
+              <Button
+                variant="outlined"
+                onClick={handleClose}
+                color="secondary"
+              >
+                Odustani
+              </Button>
+              <Button
+                endIcon={loading && <CircularProgress size={18} />}
+                disabled={loading}
+                disableElevation
+                variant="contained"
+                onClick={handleClose}
+                color="secondary"
+                onClick={() => {
+                  // TODO: Convert To useReducer !!!!
+                  validationSchema
+                    .validate({
+                      email: emailValue,
+                    })
+                    .then((res) => {
+                      setEmailError('');
+                      setLoading(true);
+                      axios
+                        .post('/auth/send-password-reset-link', res)
+                        .then((res) => {
+                          setSuccessMessage(true);
+                          setLoading(false);
+                        })
+                        .catch((err) => {
+                          setLoading(false);
+                          setEmailError(err.message);
+                        });
+                    })
+                    .catch((err) => setEmailError(err.message));
+                }}
+              >
+                Potvrdi
+              </Button>
+            </>
+          ) : (
+            <Button variant="contained" color="secondary" onClick={handleClose}>
+              U redu
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </>

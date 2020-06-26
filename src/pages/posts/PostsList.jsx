@@ -71,7 +71,7 @@ const PostsList = () => {
             />
           </>
         ) : (
-          <CircularProgress className="mt-4" />
+          <CircularProgress className="mt-4 mb-4" />
         )}
       </div>
     </>

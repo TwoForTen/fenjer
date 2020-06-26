@@ -122,7 +122,7 @@ const Products = () => {
             )}
           </>
         ) : (
-          <CircularProgress className="mt-4" />
+          <CircularProgress className="mt-4 mb-4" />
         )}
         {categoryData?.data?.length < 1 && (
           <Typography
