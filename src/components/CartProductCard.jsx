@@ -73,7 +73,15 @@ const CartProductCard = ({ product, onClick, index }) => {
 
   const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
-  const { name, img, code, price, ordered_quantity } = product;
+  const {
+    name,
+    img,
+    code,
+    price,
+    ordered_quantity,
+    slug,
+    product_id,
+  } = product;
 
   return (
     <Card className={classes.card}>
@@ -90,7 +98,7 @@ const CartProductCard = ({ product, onClick, index }) => {
         spacing={2}
         onClick={() => {
           onClick();
-          axios.get(`/products/${product.slug}`).then((res) => {
+          axios.get(`/products/${product_id || slug}`).then((res) => {
             history.push(
               `/proizvodi/${res.data.category.slug}/${res.data.slug}`
             );
