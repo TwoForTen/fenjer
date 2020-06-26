@@ -21,8 +21,8 @@ const PromotedProducts = () => {
   const promotedProducts =
     useDataFetch({
       method: 'GET',
-      url: '/product-types',
-    })?.data?.filter((promotedProduct) => promotedProduct?.promoted) || [];
+      url: '/product-types?promoted=1',
+    })?.data || [];
 
   if (promotedProducts?.length > 0) {
     return (
