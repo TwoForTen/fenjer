@@ -109,7 +109,7 @@ const Products = () => {
             </div>
             {categoryData?.data?.length > 1 && (
               <Pagination
-                className="mb-4"
+                className="mb-4 mt-4"
                 style={{
                   display: 'flex',
                   justifyContent: 'center',

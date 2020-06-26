@@ -54,7 +54,15 @@ const CartProductCard = ({ product, onClick }) => {
 
   const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
-  const { name, img, code, price, ordered_quantity, product_id } = product;
+  const {
+    name,
+    img,
+    code,
+    price,
+    ordered_quantity,
+    product_id,
+    slug,
+  } = product;
 
   return (
     <Card
@@ -62,7 +70,7 @@ const CartProductCard = ({ product, onClick }) => {
       onClick={() => {
         onClick();
         axios
-          .get(`/products/${product_id}`)
+          .get(`/products/${product_id || slug}`)
           .then((res) =>
             history.push(
               `/proizvodi/${res.data.category.slug}/${res.data.slug}`
