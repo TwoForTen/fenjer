@@ -263,13 +263,13 @@ const Login = () => {
                       setLoading(true);
                       axios
                         .post('/auth/send-password-reset-link', res)
-                        .then((res) => {
+                        .then(() => {
                           setSuccessMessage(true);
                           setLoading(false);
                         })
                         .catch((err) => {
                           setLoading(false);
-                          setEmailError(err.message);
+                          setEmailError(err.response.data.message);
                         });
                     })
                     .catch((err) => setEmailError(err.message));

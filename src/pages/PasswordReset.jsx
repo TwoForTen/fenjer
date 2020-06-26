@@ -65,7 +65,7 @@ const PasswordReset = () => {
             password_confirmation: '',
           }}
           validationSchema={validationSchema}
-          onSubmit={(values, actions) => {
+          onSubmit={(values) => {
             axios
               .post('/auth/reset-password', {
                 ...values,
