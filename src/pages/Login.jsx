@@ -67,8 +67,6 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log(loading);
-
   const { state: locationState } = location;
 
   const handleClose = () => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import _ from 'lodash';
 import { useParams, Redirect } from 'react-router-dom';
 import * as yup from 'yup';
@@ -21,7 +21,27 @@ const PasswordReset = () => {
   const params = useParams();
   const classes = useStyles();
 
+  const [inputValues, setInputValues] = useState({
+    email: '',
+    password: '',
+    password_repeat: '',
+  });
+
+  const handleChange = (e) => {
+    e.persist();
+    setInputValues((prevState) => {
+      return {
+        ...prevState,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
   const schemaValidation = yup.object().shape({
+    email: yup
+      .string()
+      .email('Mora biti valjani e-email')
+      .required('E-mail je obavezan'),
     password: yup.string().required('Lozinka je obavzena').min(6),
     password_repeat: yup
       .string()
@@ -42,10 +62,22 @@ const PasswordReset = () => {
       </div>
       <Container maxWidth="sm" className="mt-4 mb-4">
         <TextField
+          type="email"
+          name="email"
+          label="E-mail"
+          variant="outlined"
+          value={inputValues.email}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
           type="password"
           name="password"
           label="Nova lozinka"
           variant="outlined"
+          value={inputValues.password}
+          onChange={handleChange}
           fullWidth
           margin="normal"
         />
@@ -53,6 +85,8 @@ const PasswordReset = () => {
           type="password"
           name="password_repeat"
           label="Potvrda lozinke"
+          value={inputValues.password_repeat}
+          onChange={handleChange}
           variant="outlined"
           fullWidth
           margin="normal"
@@ -62,6 +96,9 @@ const PasswordReset = () => {
           variant="contained"
           color="secondary"
           className="mt-3"
+          onClick={() => {
+            schemaValidation.validate({});
+          }}
         >
           Potvrdi
         </Button>
