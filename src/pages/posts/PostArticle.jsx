@@ -81,12 +81,11 @@ const PostArticle = () => {
             <Grid container spacing={4}>
               <Grid item md={6} xs={12}>
                 <div className={classes.imageContainer}>
-                  {/* add .img back */}
-                  {post ? (
+                  {post.img ? (
                     <img
                       className={classes.image}
                       src={process.env.REACT_APP_PROD_URL + post.img}
-                      alt="Article img"
+                      alt="article_img"
                     />
                   ) : (
                     <Skeleton animation="wave" variant="rect" height={300} />
