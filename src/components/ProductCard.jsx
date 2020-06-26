@@ -34,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
     return {
       position: 'relative',
       marginTop: theme.spacing(4),
-      marginBottom: theme.spacing(4),
       minHeight: '140px',
       display: 'flex',
       justifyContent: 'space-around',
+      width: '100%',
       alignItems: 'center',
       ...(view === 'grid' && gridView(theme)),
       [theme.breakpoints.down('sm')]: gridView(theme),

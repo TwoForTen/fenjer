@@ -133,6 +133,11 @@ const Overview = () => {
                       </li>
                       <li>
                         <Typography color="textSecondary">
+                          {`${user.purchase?.delivery_info?.email}`}
+                        </Typography>
+                      </li>
+                      <li>
+                        <Typography color="textSecondary">
                           {user.purchase?.delivery_info?.address}
                         </Typography>
                       </li>
@@ -168,6 +173,11 @@ const Overview = () => {
                       <li>
                         <Typography color="textSecondary">
                           {user.purchase?.bill_info?.address}
+                        </Typography>
+                      </li>
+                      <li>
+                        <Typography color="textSecondary">
+                          {`${user.purchase?.delivery_info?.email}`}
                         </Typography>
                       </li>
                       <li>
