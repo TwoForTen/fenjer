@@ -62,10 +62,16 @@ const Registration = () => {
     company: yup.string().required('Tvrtka je obavezna'),
     oib: yup.string().required('OIB je obavezan'),
     iban: yup.string().required('IBAN je obavezan'),
-    password: yup.string().required('Lozinka je obavzena').min(6),
+    password: yup
+      .string()
+      .required('Lozinka je obavzena')
+      .min(6, 'Lozinka mora sadržavati barem 6 znakova'),
     password_repeat: yup
       .string()
-      .oneOf([yup.ref('password'), null])
+      .oneOf(
+        [yup.ref('password'), null],
+        'Potvrda lozinke mora biti jednaka lozinki'
+      )
       .required('Ponovljena zaporka je obavezna'),
   });
 

@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import axios from '../axiosInstance';
 import _ from 'lodash';
-import { useParams, Redirect } from 'react-router-dom';
+import { Formik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { useParams, Redirect, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 
 import Button from '@material-ui/core/Button';
@@ -8,6 +11,8 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+
+import { showSnackbar } from '../actions/snackbar';
 
 const useStyles = makeStyles((theme) => ({
   headline: {
@@ -20,32 +25,24 @@ const useStyles = makeStyles((theme) => ({
 const PasswordReset = () => {
   const params = useParams();
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  const [inputValues, setInputValues] = useState({
-    email: '',
-    password: '',
-    password_repeat: '',
-  });
-
-  const handleChange = (e) => {
-    e.persist();
-    setInputValues((prevState) => {
-      return {
-        ...prevState,
-        [e.target.name]: e.target.value,
-      };
-    });
-  };
-
-  const schemaValidation = yup.object().shape({
+  const validationSchema = yup.object().shape({
     email: yup
       .string()
       .email('Mora biti valjani e-email')
       .required('E-mail je obavezan'),
-    password: yup.string().required('Lozinka je obavzena').min(6),
-    password_repeat: yup
+    password: yup
       .string()
-      .oneOf([yup.ref('password'), null])
+      .required('Lozinka je obavzena')
+      .min(6, 'Lozinka mora sadržavati barem 6 znakova'),
+    password_confirmation: yup
+      .string()
+      .oneOf(
+        [yup.ref('password'), null],
+        'Potvrda lozinke mora biti jednaka lozinki'
+      )
       .required('Ponovljena zaporka je obavezna'),
   });
 
@@ -61,47 +58,109 @@ const PasswordReset = () => {
         </Typography>
       </div>
       <Container maxWidth="sm" className="mt-4 mb-4">
-        <TextField
-          type="email"
-          name="email"
-          label="E-mail"
-          variant="outlined"
-          value={inputValues.email}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-        />
-        <TextField
-          type="password"
-          name="password"
-          label="Nova lozinka"
-          variant="outlined"
-          value={inputValues.password}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-        />
-        <TextField
-          type="password"
-          name="password_repeat"
-          label="Potvrda lozinke"
-          value={inputValues.password_repeat}
-          onChange={handleChange}
-          variant="outlined"
-          fullWidth
-          margin="normal"
-        />
-        <Button
-          style={{ marginLeft: 'auto', display: 'block' }}
-          variant="contained"
-          color="secondary"
-          className="mt-3"
-          onClick={() => {
-            schemaValidation.validate({});
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+            password_confirmation: '',
+          }}
+          validationSchema={validationSchema}
+          onSubmit={(values, actions) => {
+            axios
+              .post('/auth/reset-password', {
+                ...values,
+                token: params.tokenSlug,
+              })
+              .then((res) => {
+                history.replace('/prijava');
+                dispatch(
+                  showSnackbar({
+                    message: res.data.message,
+                    severity: 'success',
+                  })
+                );
+              })
+              .catch((err) => {
+                dispatch(
+                  showSnackbar({
+                    message: err.response.data.message,
+                    severity: 'error',
+                  })
+                );
+              });
           }}
         >
-          Potvrdi
-        </Button>
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+          }) => {
+            return (
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  type="email"
+                  name="email"
+                  label="E-mail"
+                  variant="outlined"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  fullWidth
+                  error={!!errors.email && touched.email}
+                  helperText={errors.email && touched.email && errors.email}
+                  margin="normal"
+                />
+                <TextField
+                  type="password"
+                  name="password"
+                  label="Nova lozinka"
+                  variant="outlined"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={!!errors.password && touched.password}
+                  helperText={
+                    errors.password && touched.password && errors.password
+                  }
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  type="password"
+                  name="password_confirmation"
+                  label="Potvrda lozinke"
+                  value={values.password_confirmation}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  variant="outlined"
+                  error={
+                    !!errors.password_confirmation &&
+                    touched.password_confirmation
+                  }
+                  helperText={
+                    errors.password_confirmation &&
+                    touched.password_confirmation &&
+                    errors.password_confirmation
+                  }
+                  fullWidth
+                  margin="normal"
+                />
+                <Button
+                  style={{ marginLeft: 'auto', display: 'block' }}
+                  variant="contained"
+                  color="secondary"
+                  className="mt-3"
+                  type="submit"
+                >
+                  Potvrdi
+                </Button>
+              </form>
+            );
+          }}
+        </Formik>
       </Container>
     </>
   );

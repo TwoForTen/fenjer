@@ -22,7 +22,7 @@ const PromotedProducts = () => {
     useDataFetch({
       method: 'GET',
       url: '/product-types?promoted=1',
-    })?.data || [];
+    }) || [];
 
   if (promotedProducts?.length > 0) {
     return (
