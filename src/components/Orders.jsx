@@ -5,6 +5,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -33,49 +34,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useTranslateStatus = () => {
+const useStatusColor = () => {
   const theme = useTheme();
 
-  const translateStatus = (status) => {
+  const statusColor = (status) => {
     switch (status) {
-      case 'pending':
-        return (
-          <Typography
-            component="span"
-            style={{ color: theme.palette.error.main, fontSize: '14px' }}
-          >
-            Narudžba nije obrađena
-          </Typography>
-        );
-      case 'dispatched':
-        return (
-          <Typography
-            component="span"
-            style={{ color: theme.palette.warning.main, fontSize: '14px' }}
-          >
-            Narudžba obrađena
-          </Typography>
-        );
-      case 'completed':
-        return (
-          <Typography
-            component="span"
-            style={{ color: theme.palette.success.main, fontSize: '14px' }}
-          >
-            Narudžba isporučena
-          </Typography>
-        );
+      case 'U obradi':
+        return theme.palette.info.main;
+      case 'Obređna':
+        return theme.palette.warning.main;
+      case 'U isporuci':
+        return theme.palette.success.main;
       default:
         break;
     }
   };
-  return (status) => translateStatus(status);
+  return (status) => statusColor(status);
 };
 
 const Orders = ({ userOrders }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const translateStatus = useTranslateStatus();
+  const statusColor = useStatusColor();
 
   const [orders, setOrders] = useState({ data: [], links: {}, meta: {} });
   const [page, setPage] = useState(0);
@@ -141,7 +121,16 @@ const Orders = ({ userOrders }) => {
               <TableCell>
                 {moment(order.created_at).format('DD.MM.YYYY, HH:mm:ss')}
               </TableCell>
-              <TableCell>{translateStatus(order.status)}</TableCell>
+              <TableCell>
+                <Chip
+                  component="span"
+                  style={{
+                    backgroundColor: statusColor(order.status),
+                    fontSize: '13px',
+                  }}
+                  label={order.status}
+                />
+              </TableCell>
               <TableCell>
                 <Button
                   onClick={() => dispatch(showOrder(order))}
