@@ -4,9 +4,9 @@ import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
 import 'moment/locale/hr';
 
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
@@ -15,18 +15,7 @@ import OverviewProductCard from '../../components/OverviewProductCard';
 import { clearOrder } from '../../actions/order';
 import { setProduct } from '../../actions/products';
 
-const useStyles = makeStyles((theme) => ({
-  overviewView: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-    },
-  },
-}));
-
 const OrderOverview = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const order = useSelector((state) => state.order);
 
@@ -57,17 +46,18 @@ const OrderOverview = () => {
           </Typography>
         </div>
       </div>
-      <div className={classes.overviewView}>
+      <Grid container spacing={3}>
         {cart.map((product) => {
           return (
-            <OverviewProductCard
-              onClick={() => dispatch(setProduct(product))}
-              key={product.id}
-              product={product}
-            />
+            <Grid item md={12} sm={4} xs={6} key={product.id}>
+              <OverviewProductCard
+                onClick={() => dispatch(setProduct(product))}
+                product={product}
+              />
+            </Grid>
           );
         })}
-      </div>
+      </Grid>
     </div>
   );
 };

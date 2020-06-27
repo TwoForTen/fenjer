@@ -278,15 +278,18 @@ const Overview = () => {
               Narudžba
             </Typography>
           </div>
-          {cart.map((product) => {
-            return (
-              <OverviewProductCard
-                onClick={() => dispatch(setProduct(product))}
-                product={product}
-                key={product.id}
-              />
-            );
-          })}
+          <Grid container spacing={3} className="mb-4">
+            {cart.map((product) => {
+              return (
+                <Grid item md={12} sm={4} xs={6} key={product.id}>
+                  <OverviewProductCard
+                    onClick={() => dispatch(setProduct(product))}
+                    product={product}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
         </div>
         <div
           style={{

@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import Cancel from '@material-ui/icons/Cancel';
 
+import constrictName from '../helpers/constrictName';
 import sanitiseName from '../helpers/sanitiseName';
 
 import plant from '../assets/plant.jpg';
@@ -74,16 +75,6 @@ const useGridViewContent = (view) => {
     default:
       return 3;
   }
-};
-
-const constrictName = (name) => {
-  const MAX_LENGTH = 7;
-
-  if (name.split(' ').length > MAX_LENGTH) {
-    return name.split(' ').slice(0, MAX_LENGTH).join(' ') + '...';
-  }
-
-  return name;
 };
 
 const ProductCard = ({ type, productName, onClick, categoryName }) => {

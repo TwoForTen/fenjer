@@ -8,9 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 
+import constrictName from '../helpers/constrictName';
+
 const useStyles = makeStyles((theme) => ({
   card: {
-    marginBottom: theme.spacing(4),
     display: 'flex',
     justifyContent: 'space-around',
     paddingLeft: theme.spacing(2),
@@ -21,9 +22,6 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: '240px',
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      marginBottom: theme.spacing(2),
     },
     '&:hover': {
       cursor: 'pointer',
@@ -99,7 +97,7 @@ const CartProductCard = ({ product, onClick }) => {
           >
             NAZIV PROIZVODA
           </Typography>
-          <Typography variant="subtitle1">{name}</Typography>
+          <Typography variant="subtitle1">{constrictName(name)}</Typography>
         </Grid>
         <Grid item md={2} xs={12} className={classes.gridItem}>
           <Typography
