@@ -35,10 +35,10 @@ const PromotedProducts = () => {
         >
           Izdvojeni Artikli
         </Typography>
-        <Grid container spacing={4} className="mt-3 mb-3">
+        <Grid container spacing={3} className="mt-3 mb-3">
           {promotedProducts.map((product) => {
             return (
-              <Grid item xs={6} sm={4} md={3} key={product.id}>
+              <Grid item xs={6} sm={4} md={4} key={product.id}>
                 <PromotedCard promotedProduct={product} />
               </Grid>
             );

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,13 +30,6 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     objectFit: 'cover',
     borderRadius: 'inherit',
-  },
-  cardView: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-    },
   },
 }));
 
@@ -74,18 +68,19 @@ const Arrangement = () => {
 
         {selectedArrangement ? (
           <>
-            <div className={classes.cardView}>
+            <Grid container spacing={3} className="mt-4 mb-4">
               {selectedArrangement?.product_types.map((product) => {
                 return (
-                  <ProductCard
-                    type={product}
-                    key={product.id}
-                    productName={product.slug}
-                    onClick={() => dispatch(setProduct(product))}
-                  />
+                  <Grid item md={12} sm={4} xs={6} key={product.id}>
+                    <ProductCard
+                      type={product}
+                      productName={product.slug}
+                      onClick={() => dispatch(setProduct(product))}
+                    />
+                  </Grid>
                 );
               })}
-            </div>
+            </Grid>
             <Button
               variant="contained"
               color="primary"
@@ -93,7 +88,6 @@ const Arrangement = () => {
                 dispatch(addToCart(selectedArrangement?.product_types));
               }}
               disabled
-              className="mt-4"
             >
               Dodaj sve proizvode u košaricu
             </Button>
