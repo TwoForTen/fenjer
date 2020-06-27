@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 
 import Filters from '../../components/Filters';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
@@ -17,28 +17,12 @@ import parseQueryParams from '../../helpers/parseQueryParams';
 
 import { setProduct } from '../../actions/products';
 
-const GRID_VIEW = {
-  display: 'flex',
-  flexWrap: 'wrap',
-  justifyContent: 'space-around',
-};
-
-const useStyles = makeStyles((theme) => ({
-  productsView: ({ view }) => {
-    return {
-      ...(view === 'grid' && GRID_VIEW),
-      [theme.breakpoints.down('sm')]: GRID_VIEW,
-    };
-  },
-}));
-
 const Products = () => {
   const view = useSelector((state) => state.filter.product_view);
   const filter = useSelector((state) => state.filter);
 
   const params = useParams();
   const dispatch = useDispatch();
-  const classes = useStyles({ view });
 
   const [page, setPage] = useState(1);
 
@@ -95,18 +79,25 @@ const Products = () => {
         <Filters categorySlug={params.categorySlug} />
         {categoryData?.data ? (
           <>
-            <div className={classes.productsView}>
+            <Grid align="center" container spacing={3}>
               {sortedProducts(categoryData?.data).map((product) => {
                 return (
-                  <ProductCard
-                    type={product}
+                  <Grid
+                    item
                     key={product.id}
-                    productName={product.slug}
-                    onClick={() => dispatch(setProduct(product))}
-                  />
+                    xs={6}
+                    sm={4}
+                    md={view === 'list' ? 12 : 3}
+                  >
+                    <ProductCard
+                      type={product}
+                      productName={product.slug}
+                      onClick={() => dispatch(setProduct(product))}
+                    />
+                  </Grid>
                 );
               })}
-            </div>
+            </Grid>
             {categoryData?.data?.length > 1 && (
               <Pagination
                 className="mb-4 mt-4"

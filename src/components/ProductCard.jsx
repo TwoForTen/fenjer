@@ -13,34 +13,32 @@ import Cancel from '@material-ui/icons/Cancel';
 
 import sanitiseName from '../helpers/sanitiseName';
 
+import plant from '../assets/plant.jpg';
+
 const gridView = (theme) => {
   return {
     maxWidth: '250px',
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(2),
   };
 };
 
 const useStyles = makeStyles((theme) => ({
   link: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       maxWidth: '250px',
     },
   },
   card: ({ view }) => {
     return {
       position: 'relative',
-      marginTop: theme.spacing(4),
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
       minHeight: '140px',
+      height: '100%',
       display: 'flex',
       justifyContent: 'space-around',
       width: '100%',
-      alignItems: 'center',
       ...(view === 'grid' && gridView(theme)),
       [theme.breakpoints.down('sm')]: gridView(theme),
       '&:hover': {
@@ -78,6 +76,16 @@ const useGridViewContent = (view) => {
   }
 };
 
+const constrictName = (name) => {
+  const MAX_LENGTH = 7;
+
+  if (name.split(' ').length > MAX_LENGTH) {
+    return name.split(' ').slice(0, MAX_LENGTH).join(' ') + '...';
+  }
+
+  return name;
+};
+
 const ProductCard = ({ type, productName, onClick, categoryName }) => {
   const view = useSelector((state) => state.filter.product_view);
 
@@ -103,14 +111,15 @@ const ProductCard = ({ type, productName, onClick, categoryName }) => {
     >
       <Grid
         container
-        align={breakpoint || view === 'grid' ? 'center' : ''}
-        spacing={4}
+        align="left"
+        spacing={breakpoint || view === 'grid' ? 2 : 4}
       >
         <Grid item xs={12} md={gridViewContent} className={classes.gridItem}>
           <div className={classes.imageContainer}>
             <img
               className={classes.categoryImage}
-              src={process.env.REACT_APP_PROD_URL + img}
+              // src={process.env.REACT_APP_PROD_URL + img}
+              src={plant}
               alt="product_image"
             />
           </div>
@@ -124,7 +133,7 @@ const ProductCard = ({ type, productName, onClick, categoryName }) => {
           >
             NAZIV PROIZVODA
           </Typography>
-          <Typography variant="subtitle1">{name}</Typography>
+          <Typography variant="subtitle1">{constrictName(name)}</Typography>
         </Grid>
         <Grid item xs={12} md={gridViewContent} className={classes.gridItem}>
           <Typography
