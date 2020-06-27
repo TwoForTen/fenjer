@@ -93,6 +93,7 @@ const Arrangement = () => {
                 dispatch(addToCart(selectedArrangement?.product_types));
               }}
               disabled
+              className="mt-4"
             >
               Dodaj sve proizvode u košaricu
             </Button>

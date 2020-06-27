@@ -55,7 +55,7 @@ const OtherProductTypes = ({ type, selectedProduct, onClick }) => {
     <Paper
       onClick={() => {
         onClick();
-        window.scrollTo({ top: 0 });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }}
       className={classes.root}
     >
