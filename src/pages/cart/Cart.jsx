@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -20,13 +21,6 @@ import { setProduct } from '../../actions/products';
 import useDataFetch from '../../hooks/useDataFetch';
 
 const useStyles = makeStyles((theme) => ({
-  cardView: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-    },
-  },
   detailsRoot: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -58,11 +52,21 @@ const Cart = () => {
         <Typography
           color="textPrimary"
           variant="h6"
-          className="mt-4"
+          className="mt-4 mb-4"
           align="center"
         >
           Trenutno nemate proizvoda u košarici.
         </Typography>
+        <Link to="/proizvodi">
+          <Button
+            variant="contained"
+            color="primary"
+            className="mb-4"
+            style={{ margin: '0 auto', display: 'block' }}
+          >
+            Proizvodi
+          </Button>
+        </Link>
       </>
     );
   }
@@ -70,19 +74,19 @@ const Cart = () => {
   return (
     <>
       <PageBreadcrumbs titles={['Košarica']} />
-      <div className={classes.cardView}>
+      <Grid container spacing={3} className="mt-4 mb-4">
         {cart.map((product, index) => {
           return (
-            <CartProductCard
-              key={product.id}
-              onClick={() => dispatch(setProduct(product))}
-              product={product}
-              index={index}
-            />
+            <Grid item md={12} sm={4} xs={6} key={product.id}>
+              <CartProductCard
+                onClick={() => dispatch(setProduct(product))}
+                product={product}
+                index={index}
+              />
+            </Grid>
           );
         })}
-      </div>
-      {/* ADD SKELETON LOADING */}
+      </Grid>
       <div className={classes.detailsRoot}>
         {!_.isEmpty(deliveryFee) ? (
           <div>

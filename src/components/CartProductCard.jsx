@@ -19,9 +19,8 @@ import { removeFromCart } from '../actions/cart';
 const useStyles = makeStyles((theme) => ({
   card: {
     position: 'relative',
-    margin: `${theme.spacing(4)}px 0`,
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
     minHeight: '140px',
     display: 'flex',
     justifyContent: 'space-around',
@@ -30,9 +29,6 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: '250px',
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      marginBottom: theme.spacing(2),
     },
   },
   gridLink: {
@@ -95,7 +91,6 @@ const CartProductCard = ({ product, onClick, index }) => {
       </IconButton>
       <Grid
         container
-        align={breakpoint ? 'center' : ''}
         className={classes.gridLink}
         spacing={2}
         onClick={() => {
