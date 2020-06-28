@@ -42,11 +42,14 @@ const Proizvodi = () => {
 
   if (categories?.data?.length < 1) {
     return (
-      <div className={classes.centeredContainer}>
-        <Typography variant="body1" color="textPrimary">
-          Nije pronađen ni jedan proizvod
-        </Typography>
-      </div>
+      <>
+        <PageBreadcrumbs titles={['Proizvodi']} />
+        <div className={classes.centeredContainer}>
+          <Typography variant="body1" color="textPrimary">
+            Nije pronađen ni jedan proizvod
+          </Typography>
+        </div>
+      </>
     );
   }
 

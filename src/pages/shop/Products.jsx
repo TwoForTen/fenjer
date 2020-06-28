@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -74,6 +75,9 @@ const Products = () => {
 
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>{categoryTitle}</title>
+      </Helmet>
       <PageBreadcrumbs titles={['proizvodi', categoryTitle]} />
       <div style={{ textAlign: !categoryData?.data && 'center' }}>
         <Filters categorySlug={params.categorySlug} />

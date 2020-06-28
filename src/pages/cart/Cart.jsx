@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -73,6 +74,9 @@ const Cart = () => {
 
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>Košarica</title>
+      </Helmet>
       <PageBreadcrumbs titles={['Košarica']} />
       <Grid container spacing={3} className="mt-4 mb-4">
         {cart.map((product, index) => {

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import _ from 'lodash';
+import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -35,6 +36,9 @@ const Product = () => {
 
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>{products?.name}</title>
+      </Helmet>
       <PageBreadcrumbs
         titles={['proizvodi', products?.category?.name, products?.name]}
       />

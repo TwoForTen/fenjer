@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import axios from '../../axiosInstance';
+import { Helmet } from 'react-helmet-async';
 import { useLocation, Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -82,6 +83,9 @@ const Overview = () => {
 
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>Pregled Narudžbe</title>
+      </Helmet>
       <PageBreadcrumbs titles={['Završetak kupnje', 'Pregled narudžbe']} />
       <div className={classes.containerRoot}>
         <div>

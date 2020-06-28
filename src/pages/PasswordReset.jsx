@@ -2,6 +2,7 @@ import React from 'react';
 import axios from '../axiosInstance';
 import _ from 'lodash';
 import { Formik } from 'formik';
+import { Helmet } from 'react-helmet-async';
 import { useDispatch } from 'react-redux';
 import { useParams, Redirect, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
@@ -52,6 +53,10 @@ const PasswordReset = () => {
 
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>Promjena lozinke</title>
+      </Helmet>
+
       <div className={classes.headline}>
         <Typography variant="h6" color="textPrimary">
           Promjena lozinke

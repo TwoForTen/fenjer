@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -45,6 +46,9 @@ const Arrangement = () => {
 
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>{selectedArrangement?.name}</title>
+      </Helmet>
       <PageBreadcrumbs titles={['Showroom', selectedArrangement?.name]} />
       <div
         className="mt-4 mb-4"

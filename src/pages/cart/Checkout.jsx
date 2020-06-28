@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import _ from 'lodash';
 import { Formik, Form } from 'formik';
+import { Helmet } from 'react-helmet-async';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
@@ -99,6 +100,9 @@ const Checkout = () => {
 
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>Završetak Kupnje</title>
+      </Helmet>
       <PageBreadcrumbs titles={['Završetak kupnje']} />
       <div className={classes.containerRoot}>
         <div>

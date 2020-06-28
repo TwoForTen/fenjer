@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from '../axiosInstance';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Card from '@material-ui/core/Card';
@@ -9,6 +10,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 
 import constrictName from '../helpers/constrictName';
+
+import { setLoading } from '../actions/loading';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -51,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 const CartProductCard = ({ product, onClick }) => {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
@@ -69,13 +73,11 @@ const CartProductCard = ({ product, onClick }) => {
       className={classes.card}
       onClick={() => {
         onClick();
-        axios
-          .get(`/products/${product_id || slug}`)
-          .then((res) =>
-            history.push(
-              `/proizvodi/${res.data.category.slug}/${res.data.slug}`
-            )
-          );
+        dispatch(setLoading());
+        axios.get(`/products/${product_id || slug}`).then((res) => {
+          dispatch(setLoading());
+          history.push(`/proizvodi/${res.data.category.slug}/${res.data.slug}`);
+        });
       }}
     >
       <Grid container align={breakpoint ? 'center' : ''} spacing={2}>

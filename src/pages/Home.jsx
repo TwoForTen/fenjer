@@ -29,7 +29,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Fenjer</title>
+        <title>Fenjer.hr</title>
       </Helmet>
       <div
         className={classes.container}

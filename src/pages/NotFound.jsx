@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -26,18 +27,6 @@ const useStyles = makeStyles(() => ({
     backgroundSize: 'contain',
     backgroundPosition: 'center',
   },
-  // waves: {
-  //   minWidth: '100vw',
-  //   paddingTop: '30%',
-  //   marginTop: '30%',
-  //   position: 'absolute',
-  //   left: '0',
-  //   bottom: '0',
-  //   backgroundImage: `url(${valovi})`,
-  //   backgroundRepeat: 'no-repeat',
-  //   backgroundSize: 'cover',
-  //   backgroundPosition: 'top',
-  // },
 }));
 
 const NotFound = () => {
@@ -45,6 +34,10 @@ const NotFound = () => {
 
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>404</title>
+      </Helmet>
+
       <Container className={classes.root} maxWidth="md">
         <div className={classes.container}></div>
         <Typography variant="h6" color="textPrimary">

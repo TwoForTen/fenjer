@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import { Helmet } from 'react-helmet-async';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -18,6 +19,9 @@ const Showroom = () => {
 
   return (
     <>
+      <Helmet titleTemplate="%s | Fenjer.hr">
+        <title>Showroom</title>
+      </Helmet>
       <PageBreadcrumbs titles={['Showroom']} />
       {!_.isEmpty(arrangements) ? (
         <Grid container spacing={3} className="mb-3 mt-3">
