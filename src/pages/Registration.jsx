@@ -45,34 +45,59 @@ const Registration = () => {
   const { state: locationState } = location;
 
   const validationSchema = yup.object().shape({
-    name: yup.string().required('Ime je obavezno'),
-    surname: yup.string().required('Prezime je obavezno'),
-    email: yup.string().required('Email je obavezan').email(),
-    address: yup.string().required('Adresa je obavezna'),
-    city: yup.string().required('Grad je obavezan'),
-    postal_code: yup.string().required('Poštanski broj je obavezan'),
+    name: yup
+      .string()
+      .required('Ime je obavezno')
+      .max(100, 'Ime ne može sadržavati više od 100 znakova'),
+    surname: yup
+      .string()
+      .required('Prezime je obavezno')
+      .max(100, 'Prezime ne može sadržavati više od 100 znakova'),
+    email: yup
+      .string()
+      .required('Email je obavezan')
+      .email('E-mail mora biti pravilno formatiran'),
+    address: yup
+      .string()
+      .required('Adresa je obavezna')
+      .max(255, 'Adresa ne može sadržavati više od 255 znakova'),
+    city: yup
+      .string()
+      .required('Grad je obavezan')
+      .max(255, 'Grad ne može sadržavati više od 255 znakova'),
+    postal_code: yup
+      .string()
+      .required('Poštanski broj je obavezan')
+      .max(50, 'Poštanski broj ne može sadržavati više od 50 znakova'),
     country: yup.string().required('Država je obavezna'),
     mobile_phone: yup
       .string()
       .required('Broj mobitela je obavezan')
-      .matches(
-        /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
-        'Mora biti valjani broj mobitela'
-      ),
-    company: yup.string().required('Tvrtka je obavezna'),
-    oib: yup.string().required('OIB je obavezan'),
-    iban: yup.string().required('IBAN je obavezan'),
+      .max(100, 'Broj mobitela ne može sadržavati više od 100 znakova'),
+    company: yup
+      .string()
+      .required('Tvrtka je obavezna')
+      .max(255, 'Ime tvrtke ne može sadržavati više od 255 znakova'),
+    oib: yup
+      .string()
+      .required('OIB je obavezan')
+      .max(50, 'OIB ne može sadržavati više od 50 znakova'),
+    iban: yup
+      .string()
+      .required('IBAN je obavezan')
+      .max(50, 'IBAN ne može sadržavati više od 100 znakova'),
     password: yup
       .string()
       .required('Lozinka je obavzena')
-      .min(6, 'Lozinka mora sadržavati barem 6 znakova'),
+      .min(6, 'Lozinka mora sadržavati barem 6 znakova')
+      .max(255, 'Lozinka ne može sadržavati više od 255 znakova'),
     password_repeat: yup
       .string()
       .oneOf(
         [yup.ref('password'), null],
         'Potvrda lozinke mora biti jednaka lozinki'
       )
-      .required('Ponovljena zaporka je obavezna'),
+      .required('Ponovljena lozinka je obavezna'),
   });
 
   if (token) {

@@ -21,7 +21,7 @@ import { setProduct } from '../../actions/products';
 
 import useDataFetch from '../../hooks/useDataFetch';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   detailsRoot: {
     display: 'flex',
     flexWrap: 'wrap',
