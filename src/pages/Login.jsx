@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import PromotedProducts from '../components/PromotedProducts';
 
 import { userLogin } from '../actions/auth';
+import { setLoading } from '../actions/loading';
 
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -57,12 +58,12 @@ const Login = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
+  const loading = useSelector((state) => state.loading);
 
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
   const [emailValue, setEmailValue] = useState('');
   const [emailError, setEmailError] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const { state: locationState } = location;
 
@@ -96,9 +97,11 @@ const Login = () => {
                   email,
                   password,
                 };
+                dispatch(setLoading());
                 axios
                   .post(`${process.env.REACT_APP_PROD_URL}api/auth/login`, body)
                   .then((res) => {
+                    dispatch(setLoading());
                     localStorage.setItem(
                       '_jwt',
                       JSON.stringify(res.data.access_token)
@@ -113,6 +116,7 @@ const Login = () => {
                     );
                   })
                   .catch((err) => {
+                    dispatch(setLoading());
                     actions.setSubmitting(false);
                     actions.setErrors({
                       authError:
@@ -257,15 +261,15 @@ const Login = () => {
                     })
                     .then((res) => {
                       setEmailError('');
-                      setLoading(true);
+                      dispatch(setLoading());
                       axios
                         .post('/auth/send-password-reset-link', res)
                         .then(() => {
                           setSuccessMessage(true);
-                          setLoading(false);
+                          dispatch(setLoading());
                         })
                         .catch((err) => {
-                          setLoading(false);
+                          dispatch(setLoading());
                           setEmailError(err.response.data.message);
                         });
                     })
