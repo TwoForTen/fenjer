@@ -27,7 +27,7 @@ const OrderOverview = () => {
       <Helmet titleTemplate="%s | Fenjer.hr">
         <title>Korisnički Račun</title>
       </Helmet>
-      <div className="mt-4">
+      <div className="mt-4 mb-4">
         <div
           style={{
             display: 'flex',

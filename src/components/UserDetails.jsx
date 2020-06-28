@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { userLogout } from '../actions/auth';
-import { setLoading } from '../actuons/loading';
+import { setLoading } from '../actions/loading';
 
 const useStyles = makeStyles((theme) => ({
   root: {
