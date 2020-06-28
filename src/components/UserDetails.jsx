@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { userLogout } from '../actions/auth';
+import { setLoading } from '../actuons/loading';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -165,9 +166,14 @@ const UserDetails = ({ user }) => {
           variant="contained"
           color="primary"
           onClick={() => {
-            axios.post('/auth/logout').then(() => {
-              dispatch(userLogout(history));
-            });
+            dispatch(setLoading());
+            axios
+              .post('/auth/logout')
+              .then(() => {
+                dispatch(setLoading());
+                dispatch(userLogout(history));
+              })
+              .catch(() => dispatch(setLoading()));
           }}
         >
           Odjava
