@@ -15,6 +15,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Close from '@material-ui/icons/Close';
 
 import { removeFromCart } from '../actions/cart';
+import { setLoading } from '../actions/loading';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -69,8 +70,6 @@ const CartProductCard = ({ product, onClick, index }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-
   const {
     name,
     img,
@@ -95,7 +94,9 @@ const CartProductCard = ({ product, onClick, index }) => {
         spacing={2}
         onClick={() => {
           onClick();
+          dispatch(setLoading());
           axios.get(`/products/${product_id || slug}`).then((res) => {
+            dispatch(setLoading());
             history.push(
               `/proizvodi/${res.data.category.slug}/${res.data.slug}`
             );

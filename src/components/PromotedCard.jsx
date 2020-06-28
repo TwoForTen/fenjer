@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { setProduct } from '../actions/products';
+import { setLoading } from '../actions/loading';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -61,13 +62,13 @@ const PromotedCard = ({ promotedProduct }) => {
         className={classes.card}
         onClick={() => {
           dispatch(setProduct(promotedProduct));
-          axios
-            .get(`/products/${promotedProduct.product_id}`)
-            .then((res) =>
-              history.push(
-                `/proizvodi/${res.data.category.slug}/${res.data.slug}`
-              )
+          dispatch(setLoading());
+          axios.get(`/products/${promotedProduct.product_id}`).then((res) => {
+            dispatch(setLoading());
+            history.push(
+              `/proizvodi/${res.data.category.slug}/${res.data.slug}`
             );
+          });
         }}
       >
         <div className={classes.cardMask}>
