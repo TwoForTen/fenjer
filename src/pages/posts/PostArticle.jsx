@@ -35,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
     textTransform: 'capitalize',
   },
+  skeleton: {
+    borderRadius: theme.shape.borderRadius,
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 const PostArticle = () => {
@@ -75,7 +79,7 @@ const PostArticle = () => {
                 variant="rect"
                 height={16}
                 width={100}
-                className="mb-4"
+                className={`mb-4 ${classes.skeleton}`}
               />
             )}
             <Grid container spacing={4}>
@@ -88,7 +92,12 @@ const PostArticle = () => {
                       alt="article_img"
                     />
                   ) : (
-                    <Skeleton animation="wave" variant="rect" height={300} />
+                    <Skeleton
+                      className={classes.skeleton}
+                      animation="wave"
+                      variant="rect"
+                      height={300}
+                    />
                   )}
                 </div>
               </Grid>
@@ -103,43 +112,43 @@ const PostArticle = () => {
                       animation="wave"
                       variant="rect"
                       height={13}
-                      className="mb-2"
+                      className={classes.skeleton}
                     />
                     <Skeleton
                       animation="wave"
                       variant="rect"
                       height={13}
-                      className="mb-2"
+                      className={classes.skeleton}
                     />
                     <Skeleton
                       animation="wave"
                       variant="rect"
                       height={13}
-                      className="mb-2"
+                      className={classes.skeleton}
                     />
                     <Skeleton
                       animation="wave"
                       variant="rect"
                       height={13}
-                      className="mb-2"
+                      className={classes.skeleton}
                     />
                     <Skeleton
                       animation="wave"
                       variant="rect"
                       height={13}
-                      className="mb-2"
+                      className={classes.skeleton}
                     />
                     <Skeleton
                       animation="wave"
                       variant="rect"
                       height={13}
-                      className="mb-2"
+                      className={classes.skeleton}
                     />
                     <Skeleton
                       animation="wave"
                       variant="rect"
                       height={13}
-                      className="mb-2"
+                      className={classes.skeleton}
                       style={{ width: '40%' }}
                     />
                   </>

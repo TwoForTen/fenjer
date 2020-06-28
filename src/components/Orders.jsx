@@ -41,7 +41,7 @@ const useStatusColor = () => {
     switch (status) {
       case 'U obradi':
         return theme.palette.info.main;
-      case 'Obređna':
+      case 'Obrađena':
         return theme.palette.warning.main;
       case 'U isporuci':
         return theme.palette.success.main;

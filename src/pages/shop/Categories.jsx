@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -23,11 +24,6 @@ const useStyles = makeStyles((theme) => ({
   centeredContainer: {
     textAlign: 'center',
     margin: theme.spacing(6),
-  },
-  productContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
   },
 }));
 
@@ -69,7 +65,7 @@ const Proizvodi = () => {
             })
           : !categories?.data && <CircularProgress className="mt-4" />}
       </div>
-      <div className={classes.productContainer}>
+      <Grid container spacing={3} className="mt-3 mb-4">
         {(name || code || barcode) &&
           categories?.data &&
           categories?.data.map(
@@ -80,18 +76,19 @@ const Proizvodi = () => {
                   product.types &&
                   product.types.map((type) => {
                     return (
-                      <ProductCard
-                        key={type.id}
-                        type={type}
-                        productName={sanitiseName(product.name)}
-                        categoryName={category.name}
-                        onClick={() => dispatch(setProduct(type))}
-                      />
+                      <Grid item md={12} sm={4} xs={6} key={type.id}>
+                        <ProductCard
+                          type={type}
+                          productName={sanitiseName(product.name)}
+                          categoryName={category.name}
+                          onClick={() => dispatch(setProduct(type))}
+                        />
+                      </Grid>
                     );
                   })
               )
           )}
-      </div>
+      </Grid>
     </>
   );
 };
