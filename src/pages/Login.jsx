@@ -48,10 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email('Mora biti valjan E-mail')
-    .required('E-mail je obavezan'),
+  email: yup.string().email('Mora biti valjan E-mail'),
 });
 
 const Login = () => {

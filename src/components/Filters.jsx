@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -34,9 +34,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     flexWrap: 'wrap',
   },
-  // filterInput: {
-  //   overflow: 'hidden',
-  // },
   filterButton: {
     borderTopLeftRadius: '0',
     borderBottomLeftRadius: '0',
@@ -70,7 +67,11 @@ const Filters = ({ showView = true }) => {
   );
 
   useEffect(() => {
-    return () => dispatch(clearQuery());
+    // Might Find A Different Way
+    return () => {
+      dispatch(productsView('list'));
+      dispatch(clearQuery());
+    };
   }, []);
 
   const FILTERS = (
