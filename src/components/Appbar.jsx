@@ -54,7 +54,11 @@ const Appbar = () => {
   const theme = useTheme();
   const user = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
-  const { token, name } = user;
+  const {
+    token,
+    details: { company },
+  } = user;
+
   const checkAuth = useCheckAuth();
   const desktopAppbar = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
@@ -130,15 +134,15 @@ const Appbar = () => {
         <NavLink to="/korisnicki-racun" onClick={handleCloseDrawer}>
           <Button
             color="primary"
-            startIcon={name && <Person />}
+            startIcon={company && <Person />}
             variant="contained"
           >
-            {!name ? (
+            {!company ? (
               <CircularProgress color="inherit" size={20} />
-            ) : name.length < 14 ? (
-              name
+            ) : company.length < 14 ? (
+              company
             ) : (
-              `${name.slice(0, 13)}...`
+              `${company.slice(0, 13)}...`
             )}
           </Button>
         </NavLink>
@@ -181,9 +185,11 @@ const Appbar = () => {
       <AppBar className={classes.appBarRoot} color="default">
         <Container>
           <Toolbar disableGutters>
-            <div className={classes.logoContainer}>
-              <img src={logo} alt="fenjer_logo" />
-            </div>
+            <NavLink to="/">
+              <div className={classes.logoContainer}>
+                <img src={logo} alt="fenjer_logo" />
+              </div>
+            </NavLink>
             <Toolbar disableGutters className={classes.rightToolbar}>
               {desktopAppbar && (
                 <>

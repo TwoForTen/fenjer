@@ -9,7 +9,6 @@ import {
 const initialState = {
   purchase: {},
   details: {},
-  name: '',
   token: JSON.parse(localStorage.getItem('_jwt')) || '',
 };
 
@@ -18,7 +17,6 @@ export const userReducer = (state = initialState, action) => {
     case STORE_USER:
       return {
         ...state,
-        name: action.payload.full_name,
         details: { ...action.payload },
       };
     case STORE_PURCHASE:
@@ -39,13 +37,11 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload.access_token,
-        name: action.payload.user.name,
       };
     case USER_LOGOUT:
       return {
         ...state,
         token: '',
-        name: '',
         details: {},
         purchase: {},
       };
