@@ -7,6 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Filters from '../../components/Filters';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
@@ -26,6 +27,8 @@ const Products = () => {
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
+
+  const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   const categoryData = useDataFetch(
     {
@@ -83,7 +86,7 @@ const Products = () => {
         <Filters categorySlug={params.categorySlug} />
         {categoryData?.data ? (
           <>
-            <Grid align="center" container spacing={2}>
+            <Grid align="center" container spacing={breakpoint ? 1 : 3}>
               {sortedProducts(categoryData?.data).map((product) => {
                 return (
                   <Grid
