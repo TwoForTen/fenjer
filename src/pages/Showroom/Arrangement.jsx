@@ -72,7 +72,7 @@ const Arrangement = () => {
 
         {selectedArrangement ? (
           <>
-            <Grid container spacing={3} className="mt-4 mb-4">
+            <Grid container spacing={2} className="mt-4 mb-4">
               {selectedArrangement?.product_types.map((product) => {
                 return (
                   <Grid item md={12} sm={4} xs={6} key={product.id}>

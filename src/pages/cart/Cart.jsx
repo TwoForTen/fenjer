@@ -78,7 +78,7 @@ const Cart = () => {
         <title>Košarica</title>
       </Helmet>
       <PageBreadcrumbs titles={['Košarica']} />
-      <Grid container spacing={3} className="mt-4 mb-4">
+      <Grid container spacing={2} className="mt-4 mb-4">
         {cart.map((product, index) => {
           return (
             <Grid item md={12} sm={4} xs={6} key={product.id}>

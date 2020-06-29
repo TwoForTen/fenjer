@@ -68,7 +68,7 @@ const Proizvodi = () => {
             })
           : !categories?.data && <CircularProgress className="mt-4" />}
       </div>
-      <Grid container spacing={3} className="mt-3 mb-4">
+      <Grid container spacing={2} className="mt-3 mb-4">
         {(name || code || barcode) &&
           categories?.data &&
           categories?.data.map(

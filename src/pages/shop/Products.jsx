@@ -83,7 +83,7 @@ const Products = () => {
         <Filters categorySlug={params.categorySlug} />
         {categoryData?.data ? (
           <>
-            <Grid align="center" container spacing={3}>
+            <Grid align="center" container spacing={2}>
               {sortedProducts(categoryData?.data).map((product) => {
                 return (
                   <Grid

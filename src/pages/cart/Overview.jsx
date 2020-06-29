@@ -282,7 +282,7 @@ const Overview = () => {
               Narudžba
             </Typography>
           </div>
-          <Grid container spacing={3} className="mb-4">
+          <Grid container spacing={2} className="mb-4">
             {cart.map((product) => {
               return (
                 <Grid item md={12} sm={4} xs={6} key={product.id}>
