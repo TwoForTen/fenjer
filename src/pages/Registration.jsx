@@ -56,7 +56,8 @@ const Registration = () => {
     email: yup
       .string()
       .required('Email je obavezan')
-      .email('E-mail mora biti pravilno formatiran'),
+      .email('E-mail mora biti pravilno formatiran')
+      .max(255, 'E-mail ne može sadržavati više od 255 znakova'),
     address: yup
       .string()
       .required('Adresa je obavezna')
@@ -181,6 +182,7 @@ const Registration = () => {
                 })
                 .catch((err) => {
                   actions.setSubmitting(false);
+                  console.log(err.response);
                   actions.setErrors({
                     authError:
                       err.response?.data?.message ||
