@@ -36,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(1),
   },
   googleMaps: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(6),
+    marginBottom: theme.spacing(10),
   },
   centeredContainer: {
     textAlign: 'center',
