@@ -15,6 +15,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import useDataFetch from '../../hooks/useDataFetch';
 
+import plant from '../../assets/plant.jpg';
+
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: '15px',
@@ -82,79 +84,74 @@ const PostArticle = () => {
                 className={`mb-4 ${classes.skeleton}`}
               />
             )}
-            <Grid container spacing={4}>
-              <Grid item md={6} xs={12}>
-                <div className={classes.imageContainer}>
-                  {post.img ? (
-                    <img
-                      className={classes.image}
-                      src={process.env.REACT_APP_PROD_URL + post.img}
-                      alt="article_img"
-                    />
-                  ) : (
-                    <Skeleton
-                      className={classes.skeleton}
-                      animation="wave"
-                      variant="rect"
-                      height={300}
-                    />
-                  )}
-                </div>
-              </Grid>
-              <Grid item md={6} xs={12}>
-                {post.content ? (
-                  <Typography color="textSecondary" component="p">
-                    {post.content}
-                  </Typography>
-                ) : (
-                  <>
-                    <Skeleton
-                      animation="wave"
-                      variant="rect"
-                      height={13}
-                      className={classes.skeleton}
-                    />
-                    <Skeleton
-                      animation="wave"
-                      variant="rect"
-                      height={13}
-                      className={classes.skeleton}
-                    />
-                    <Skeleton
-                      animation="wave"
-                      variant="rect"
-                      height={13}
-                      className={classes.skeleton}
-                    />
-                    <Skeleton
-                      animation="wave"
-                      variant="rect"
-                      height={13}
-                      className={classes.skeleton}
-                    />
-                    <Skeleton
-                      animation="wave"
-                      variant="rect"
-                      height={13}
-                      className={classes.skeleton}
-                    />
-                    <Skeleton
-                      animation="wave"
-                      variant="rect"
-                      height={13}
-                      className={classes.skeleton}
-                    />
-                    <Skeleton
-                      animation="wave"
-                      variant="rect"
-                      height={13}
-                      className={classes.skeleton}
-                      style={{ width: '40%' }}
-                    />
-                  </>
-                )}
-              </Grid>
-            </Grid>
+            {post.content ? (
+              <Typography color="textSecondary" component="p" className="mb-4">
+                {post.content}
+              </Typography>
+            ) : (
+              <>
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  height={13}
+                  className={classes.skeleton}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  height={13}
+                  className={classes.skeleton}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  height={13}
+                  className={classes.skeleton}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  height={13}
+                  className={classes.skeleton}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  height={13}
+                  className={classes.skeleton}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  height={13}
+                  className={classes.skeleton}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  height={13}
+                  className={classes.skeleton}
+                  style={{ width: '40%' }}
+                />
+              </>
+            )}
+            <div className={classes.imageContainer}>
+              {post.img ? (
+                <img
+                  className={classes.image}
+                  src={plant}
+                  // src={process.env.REACT_APP_PROD_URL + post.img}
+                  alt="article_img"
+                />
+              ) : (
+                <Skeleton
+                  className={classes.skeleton}
+                  animation="wave"
+                  variant="rect"
+                  height={300}
+                />
+              )}
+            </div>
           </CardContent>
           <CardActions disableSpacing>
             <Typography
