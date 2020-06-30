@@ -40,8 +40,6 @@ const Footer = () => {
     method: 'GET',
   });
 
-  console.log(data);
-
   return (
     <footer className={classes.footer}>
       <Paper className={classes.footerRoot}>

@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Payment from '@material-ui/icons/Payment';
@@ -159,8 +160,21 @@ const Checkout = () => {
                   </Link>
                 </div>
               </>
+            ) : user.details.company ? (
+              <>
+                <Typography>{user.details.company}</Typography>
+                <Typography variant="caption" color="textSecondary">
+                  {`${user.details.name} ${user.details.surname}`}
+                </Typography>
+              </>
             ) : (
-              <Typography>{user.name}</Typography>
+              <>
+                <Skeleton variant="text" width={160} />
+                <div style={{ display: 'flex' }}>
+                  <Skeleton variant="text" className="mr-2" width={90} />
+                  <Skeleton variant="text" width={90} />
+                </div>
+              </>
             )}
           </Paper>
         </div>
