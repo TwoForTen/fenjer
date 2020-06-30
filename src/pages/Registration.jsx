@@ -70,7 +70,10 @@ const Registration = () => {
       .string()
       .required('Poštanski broj je obavezan')
       .max(50, 'Poštanski broj ne može sadržavati više od 50 znakova'),
-    country: yup.string().required('Država je obavezna'),
+    country: yup
+      .string()
+      .required('Država je obavezna')
+      .max(255, 'Država ne može sadržavati više od 255 znakova'),
     mobile_phone: yup
       .string()
       .required('Broj mobitela je obavezan')
@@ -211,36 +214,17 @@ const Registration = () => {
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <FormControl
-                        variant="outlined"
+                      <FastField
                         fullWidth
-                        error={errors.country && touched.country && true}
-                      >
-                        <InputLabel className="mb-2" id="država">
-                          Država
-                        </InputLabel>
-                        <FastField
-                          label="Država"
-                          labelId="država"
-                          name="country"
-                          component={Select}
-                          variant="outlined"
-                        >
-                          <MenuItem value="">
-                            <em>None</em>
-                          </MenuItem>
-                          {COUNTRIES.map((country) => {
-                            return (
-                              <MenuItem value={country} key={country}>
-                                {country}
-                              </MenuItem>
-                            );
-                          })}
-                        </FastField>
-                        <FormHelperText>
-                          {errors.country && touched.country && errors.country}
-                        </FormHelperText>
-                      </FormControl>
+                        name="country"
+                        id="country"
+                        label="Država"
+                        variant="outlined"
+                        component={TextField}
+                        helperText={
+                          errors.country && touched.country && errors.country
+                        }
+                      />
                     </Grid>
                     <Grid item sm={6} xs={12}>
                       <FastField

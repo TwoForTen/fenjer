@@ -40,7 +40,6 @@ export const userReducer = (state = initialState, action) => {
       };
     case USER_LOGOUT:
       return {
-        ...state,
         token: '',
         details: {},
         purchase: {},
