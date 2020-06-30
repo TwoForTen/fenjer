@@ -76,7 +76,7 @@ const Contact = () => {
   const contactData =
     useDataFetch({
       method: 'GET',
-      url: '/owner',
+      url: '/contact',
     }) || {};
 
   const {
@@ -156,9 +156,9 @@ const Contact = () => {
                   })}
                 <ListItem
                   button
-                  selected={value === 2 + field_sales?.length}
+                  selected={value === 2 + (field_sales?.length || 0)}
                   onClick={() =>
-                    scrollIntoView(`index${2 + field_sales?.length}`)
+                    scrollIntoView(`index${2 + (field_sales?.length || 0)}`)
                   }
                 >
                   <Typography variant="h6" component="span" color="inherit">
@@ -366,7 +366,7 @@ const Contact = () => {
               <iframe
                 allowFullScreen
                 className={`contact-section ${classes.googleMaps}`}
-                id={`index${2 + field_sales.length}`}
+                id={`index${2 + (field_sales?.length || 0)}`}
                 frameBorder="0"
                 height="450"
                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxHcVuajrRGTFmp5bS6NHK8JHA6JlyXH8
