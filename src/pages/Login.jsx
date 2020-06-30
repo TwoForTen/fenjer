@@ -22,6 +22,15 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import InputLabel from '@material-ui/core/InputLabel';
+
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -59,6 +68,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const loading = useSelector((state) => state.loading);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
   const [emailValue, setEmailValue] = useState('');
@@ -151,21 +162,41 @@ const Login = () => {
                       error={errors.email && touched.email && true}
                       helperText={errors.email && touched.email && errors.email}
                     />
-                    <TextField
-                      fullWidth
+                    <FormControl
+                      variant="filled"
                       className={classes.textInput}
-                      label="Zaporka"
-                      name="password"
-                      type="password"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.password}
-                      variant="outlined"
-                      error={errors.password && touched.password && true}
-                      helperText={
-                        errors.password && touched.password && errors.password
-                      }
-                    />
+                      fullWidth
+                    >
+                      <InputLabel htmlFor="password" variant="outlined">
+                        Lozinka
+                      </InputLabel>
+                      <OutlinedInput
+                        id="password"
+                        name="password"
+                        type={showPassword ? 'text' : 'password'}
+                        value={values.password}
+                        onChange={handleChange}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              onClick={() =>
+                                setShowPassword((prevState) => !prevState)
+                              }
+                            >
+                              {showPassword ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        labelWidth={60}
+                      />
+                      {errors.password && touched.password && (
+                        <FormHelperText>{errors.password}</FormHelperText>
+                      )}
+                    </FormControl>
                     {errors.authError && (
                       <Typography className="mb-2" color="secondary">
                         {errors.authError}
