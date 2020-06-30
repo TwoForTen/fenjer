@@ -72,6 +72,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+
   const [emailValue, setEmailValue] = useState('');
   const [emailError, setEmailError] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);

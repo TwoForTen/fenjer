@@ -189,8 +189,8 @@ const Registration = () => {
                   console.log(err.response);
                   actions.setErrors({
                     authError:
-                      err.response?.data?.message ||
-                      err.response?.data?.error ||
+                      err.response.data?.errors?.email[0] ||
+                      err.response.data?.message ||
                       'Došlo je do greške, pokušajte ponovo',
                   });
                 });
@@ -373,7 +373,11 @@ const Registration = () => {
                     </Grid>
                   </Grid>
                   {errors.authError && (
-                    <Typography className="mb-2" color="secondary">
+                    <Typography
+                      style={{ textAlign: 'right' }}
+                      className="mb-2"
+                      color="secondary"
+                    >
                       {errors.authError}
                     </Typography>
                   )}
