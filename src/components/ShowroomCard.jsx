@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: 'auto',
     borderRadius: 'inherit',
+    objectFit: 'contain',
   },
   showroomMask: {
     height: '100%',
