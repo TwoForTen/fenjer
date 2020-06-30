@@ -27,7 +27,7 @@ const Showroom = () => {
         <Grid container spacing={3} className="mb-3 mt-3">
           {arrangements?.data.map((arrangement) => {
             return (
-              <Grid item md={3} sm={4} xs={6} key={arrangement.id}>
+              <Grid item md={4} sm={4} xs={6} key={arrangement.id}>
                 <ShowroomCard arrangement={arrangement} />
               </Grid>
             );
