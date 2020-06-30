@@ -48,12 +48,19 @@ const Arrangement = () => {
         style={{ textAlign: !selectedArrangement && 'center' }}
       >
         <div className={classes.coverImgContainer}>
-          {selectedArrangement ? (
+          {selectedArrangement && selectedArrangement?.type === 'image' ? (
             <img
               className={classes.coverImg}
-              src={showroom_img}
-              alt="showroom_img"
+              src={process.env.REACT_APP_PROD_URL + selectedArrangement.file}
+              alt={selectedArrangement.name}
             />
+          ) : selectedArrangement?.type === 'video' ? (
+            <video controls>
+              <source
+                src={process.env.REACT_APP_PROD_URL + selectedArrangement.file}
+                type="video/mp4"
+              />
+            </video>
           ) : (
             <Skeleton
               style={{ transform: 'scale(1)' }}

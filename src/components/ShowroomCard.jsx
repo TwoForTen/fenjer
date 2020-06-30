@@ -62,7 +62,7 @@ const ShowroomCard = ({ arrangement }) => {
       </div>
       <img
         className={classes.showroomImg}
-        src={showroom_img}
+        src={process.env.REACT_APP_PROD_URL + img}
         alt="showroom_image"
       />
     </Paper>
