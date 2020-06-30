@@ -17,6 +17,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Payment from '@material-ui/icons/Payment';
+import Person from '@material-ui/icons/Person';
 import Update from '@material-ui/icons/Update';
 
 import posta from '../../assets/posta.png';
@@ -161,20 +162,28 @@ const Checkout = () => {
                 </div>
               </>
             ) : user.details.company ? (
-              <>
-                <Typography>{user.details.company}</Typography>
-                <Typography variant="caption" color="textSecondary">
-                  {`${user.details.name} ${user.details.surname}`}
-                </Typography>
-              </>
-            ) : (
-              <>
-                <Skeleton variant="text" width={160} />
-                <div style={{ display: 'flex' }}>
-                  <Skeleton variant="text" className="mr-2" width={90} />
-                  <Skeleton variant="text" width={90} />
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Person className="mr-4" fontSize="large" />
+                <div>
+                  <Typography variant="body1">
+                    {user.details.company}
+                  </Typography>
+                  <Typography variant="caption" color="textSecondary">
+                    {`${user.details.name} ${user.details.surname}`}
+                  </Typography>
                 </div>
-              </>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Person className="mr-4" fontSize="large" />
+                <div>
+                  <Skeleton variant="text" width={160} />
+                  <div style={{ display: 'flex' }}>
+                    <Skeleton variant="text" className="mr-2" width={90} />
+                    <Skeleton variant="text" width={90} />
+                  </div>
+                </div>
+              </div>
             )}
           </Paper>
         </div>
