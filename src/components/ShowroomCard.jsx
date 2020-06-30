@@ -16,6 +16,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     position: 'relative',
     maxWidth: '100%',
+    width: '100%',
+    paddingBottom: '100%',
     '&:hover > $showroomMask': {
       opacity: '1',
       cursor: 'pointer',
