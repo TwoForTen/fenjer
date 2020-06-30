@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from '../axiosInstance';
 import { Formik, FastField } from 'formik';
 import { Helmet } from 'react-helmet-async';
@@ -8,12 +8,13 @@ import * as yup from 'yup';
 
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Select } from 'formik-material-ui';
@@ -43,6 +44,8 @@ const Registration = () => {
   const token = useSelector((state) => state.user.token);
 
   const { state: locationState } = location;
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   const validationSchema = yup.object().shape({
     name: yup
@@ -103,6 +106,16 @@ const Registration = () => {
       )
       .required('Ponovljena lozinka je obavezna'),
   });
+
+  const redirectToLogin = () => {
+    setModalOpen(false);
+    history.push({
+      pathname: '/prijava',
+      state: {
+        fromCheckout: locationState?.fromCheckout && true,
+      },
+    });
+  };
 
   if (token) {
     return <Redirect to="korisnicki-racun" />;
@@ -169,19 +182,7 @@ const Registration = () => {
                   password,
                 })
                 .then(() => {
-                  history.push({
-                    pathname: '/prijava',
-                    state: {
-                      fromCheckout: locationState?.fromCheckout && true,
-                    },
-                  });
-                  dispatch(
-                    showSnackbar({
-                      message:
-                        'Registracija uspješna. Sada se možete prijaviti.',
-                      severity: 'success',
-                    })
-                  );
+                  setModalOpen(true);
                 })
                 .catch((err) => {
                   actions.setSubmitting(false);
@@ -392,6 +393,24 @@ const Registration = () => {
           </Formik>
         </div>
       </Container>
+      <Dialog
+        style={{ textAlign: 'center' }}
+        open={modalOpen}
+        onClose={redirectToLogin}
+      >
+        <DialogTitle>Uspješno ste se registrirali!</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Hvala Vam na uspješnoj registraciji! Sada se možete prijaviti sa
+            svojim e-mailom i lozinkom!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={redirectToLogin} color="primary" autoFocus>
+            Razumijem
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
