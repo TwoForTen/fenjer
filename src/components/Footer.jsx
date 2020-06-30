@@ -8,6 +8,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
+
+import useDataFetch from '../hooks/useDataFetch';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -19,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: 'none',
     borderTop: `1px solid ${theme.palette.divider}`,
     backgroundColor: 'transparent',
-    // textAlign: 'center',
   },
   grid: {
     width: '100%',
@@ -32,6 +34,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Footer = () => {
   const classes = useStyles();
+
+  const data = useDataFetch({
+    url: '/contact',
+    method: 'GET',
+  });
+
+  console.log(data);
 
   return (
     <footer className={classes.footer}>
@@ -74,21 +83,42 @@ const Footer = () => {
             <Grid item md={4} xs={6}>
               <Typography variant="subtitle2">Kontakt Podaci</Typography>
               <List className="mt-3">
-                <ListItem>
-                  <Typography variant="body2">Info: +385 98 283 610</Typography>
-                </ListItem>
-                <ListItem>
-                  <Typography variant="body2">Info: +385 98 437 649</Typography>
-                </ListItem>
-                <ListItem>
-                  <Typography variant="body2">Info: Upisati Broj</Typography>
-                </ListItem>
-                <ListItem>
-                  <Typography variant="body2">Fax: Upisati Fax</Typography>
-                </ListItem>
-                <ListItem>
-                  <Typography variant="body2">Email: Upisati Email</Typography>
-                </ListItem>
+                {data ? (
+                  <>
+                    {data.phones.map((phone) => {
+                      return (
+                        <ListItem key={phone.number}>
+                          <Typography variant="body2">
+                            Info: {phone.number}
+                          </Typography>
+                        </ListItem>
+                      );
+                    })}
+                    <ListItem>
+                      <Typography variant="body2">Fax: {data.fax}</Typography>
+                    </ListItem>
+                    <ListItem>
+                      <Typography variant="body2">
+                        E-mail: {data.email}
+                      </Typography>
+                    </ListItem>
+                  </>
+                ) : (
+                  <>
+                    <ListItem>
+                      <Skeleton variant="text" animation="wave" width={160} />
+                    </ListItem>
+                    <ListItem>
+                      <Skeleton variant="text" animation="wave" width={160} />
+                    </ListItem>
+                    <ListItem>
+                      <Skeleton variant="text" animation="wave" width={160} />
+                    </ListItem>
+                    <ListItem>
+                      <Skeleton variant="text" animation="wave" width={160} />
+                    </ListItem>
+                  </>
+                )}
               </List>
             </Grid>
             <Grid item xs={12} className={classes.copyright}>

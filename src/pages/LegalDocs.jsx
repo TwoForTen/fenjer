@@ -27,8 +27,6 @@ const LegalDocs = () => {
     method: 'GET',
   });
 
-  console.log(data);
-
   return (
     <>
       <Helmet titleTemplate="%s | Fenjer.hr">
