@@ -21,6 +21,8 @@ import { setProduct } from '../../actions/products';
 
 import useDataFetch from '../../hooks/useDataFetch';
 
+import { format as formatCurrency } from '../../helpers/formatCurrency';
+
 const useStyles = makeStyles(() => ({
   detailsRoot: {
     display: 'flex',
@@ -41,7 +43,7 @@ const Cart = () => {
   const deliveryFee =
     useDataFetch({
       method: 'GET',
-      url: '/owner',
+      url: '/contact',
     }) || {};
 
   const { delivery, delivery_free_above } = deliveryFee;
@@ -116,10 +118,7 @@ const Cart = () => {
               <Typography variant="caption" color="textSecondary">
                 Dostava besplatna iznad{' '}
                 <strong>
-                  {new Intl.NumberFormat('hr-HR', {
-                    style: 'currency',
-                    currency: 'HRK',
-                  }).format(delivery_free_above)}
+                  {delivery_free_above && formatCurrency(delivery_free_above)}
                 </strong>
               </Typography>
             </div>

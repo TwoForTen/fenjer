@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import useDataFetch from '../hooks/useDataFetch';
 
+import { format as formatCurrency } from '../helpers/formatCurrency';
+
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
 
 const useStyles = makeStyles((theme) => ({
@@ -51,11 +53,7 @@ const LegalDocs = () => {
             OIB: {data.oib}
             <br />
             <br />
-            Temeljni kapital je{' '}
-            {new Intl.NumberFormat('hr-HR', {
-              style: 'currency',
-              currency: 'HRK',
-            }).format(data.starting_capital)}
+            Temeljni kapital je {formatCurrency(data.starting_capital)}
             <br />
             Uprava: {data.corporate}
           </Typography>

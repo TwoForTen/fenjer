@@ -12,6 +12,7 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 import Cancel from '@material-ui/icons/Cancel';
 
 import constrictName from '../helpers/constrictName';
+import { format as formatCurrency } from '../helpers/formatCurrency';
 import sanitiseName from '../helpers/sanitiseName';
 
 import plant from '../assets/plant.jpg';
@@ -151,12 +152,7 @@ const ProductCard = ({ type, productName, onClick, categoryName }) => {
             >
               CIJENA
             </Typography>
-            <Typography variant="subtitle1">
-              {new Intl.NumberFormat('hr-HR', {
-                style: 'currency',
-                currency: 'HRK',
-              }).format(price)}
-            </Typography>
+            <Typography variant="subtitle1">{formatCurrency(price)}</Typography>
           </div>
         </Grid>
         <Grid

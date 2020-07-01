@@ -10,6 +10,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 
 import constrictName from '../helpers/constrictName';
+import { format as formatCurrency } from '../helpers/formatCurrency';
 
 import { setLoading } from '../actions/loading';
 
@@ -122,12 +123,7 @@ const CartProductCard = ({ product, onClick }) => {
             >
               CIJENA
             </Typography>
-            <Typography variant="subtitle1">
-              {new Intl.NumberFormat('hr-HR', {
-                style: 'currency',
-                currency: 'HRK',
-              }).format(price)}
-            </Typography>
+            <Typography variant="subtitle1">{formatCurrency(price)}</Typography>
           </div>
         </Grid>
         <Grid item md={2} xs={12} className={classes.gridItem}>
@@ -151,10 +147,7 @@ const CartProductCard = ({ product, onClick }) => {
             UKUPNA CIJENA
           </Typography>
           <Typography variant="subtitle1">
-            {new Intl.NumberFormat('hr-HR', {
-              style: 'currency',
-              currency: 'HRK',
-            }).format(price * ordered_quantity)}
+            {formatCurrency(price * ordered_quantity)}
           </Typography>
         </Grid>
       </Grid>

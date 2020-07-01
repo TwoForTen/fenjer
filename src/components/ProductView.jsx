@@ -15,6 +15,8 @@ import { showSnackbar } from '../actions/snackbar';
 
 import ProductQuantitySelector from './ProductQuantitySelector';
 
+import { format as formatCurrency } from '../helpers/formatCurrency';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: `${theme.spacing(3)}px 0`,
@@ -97,10 +99,7 @@ const Product = () => {
               <Grid item md={6} xs={12}>
                 <Typography variant="caption">Cijena</Typography>
                 <Typography style={{ lineHeight: '2' }} variant="body1">
-                  {new Intl.NumberFormat('hr-HR', {
-                    style: 'currency',
-                    currency: 'HRK',
-                  }).format(price)}
+                  {price && formatCurrency(price)}
                 </Typography>
               </Grid>
             </Grid>

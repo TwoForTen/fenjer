@@ -49,7 +49,7 @@ const Products = () => {
         return config;
       },
       (error) => {
-        setLoading(true);
+        setLoading(false);
         throw new Error(error);
       }
     );

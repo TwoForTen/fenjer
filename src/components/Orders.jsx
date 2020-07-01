@@ -20,6 +20,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import { showOrder } from '../actions/order';
 
+import { format as formatCurrency } from '../helpers/formatCurrency';
+
 const useStyles = makeStyles((theme) => ({
   tableContainer: {
     margin: `${theme.spacing(4)}px 0`,
@@ -118,10 +120,7 @@ const Orders = ({ userOrders }) => {
             <TableRow key={order.id}>
               <TableCell>{_.padStart(order.id, '6', '000000')}</TableCell>
               <TableCell>
-                {new Intl.NumberFormat('hr-HR', {
-                  style: 'currency',
-                  currency: 'HRK',
-                }).format(+order.gross + +order.delivery)}
+                {formatCurrency(+order.gross + +order.delivery)}
               </TableCell>
               <TableCell>
                 {moment(order.created_at).format('DD.MM.YYYY, HH:mm:ss')}

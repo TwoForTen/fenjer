@@ -3,6 +3,8 @@ import React, { useCallback } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { format as formatCurrency } from '../helpers/formatCurrency';
+
 const useStyles = makeStyles((theme) => ({
   detailsContainer: {
     display: 'inline-flex',
@@ -20,7 +22,7 @@ const calculateSum = (product, delivery) => {
   });
 
   const productGross = productPrices.reduce((sum, num) => sum + num);
-  if (productGross > 500) {
+  if (productGross > 50000) {
     delivery = 0;
   }
 
@@ -69,39 +71,22 @@ const PriceBreakdown = ({ cart, delivery }) => {
         <ul>
           <li className="mb-3">
             <Typography color="textPrimary">
-              {new Intl.NumberFormat('hr-HR', {
-                style: 'currency',
-                currency: 'HRK',
-              }).format(priceBreakdown().net)}
+              {formatCurrency(priceBreakdown().net)}
             </Typography>
           </li>
           <li className="mb-3">
             <Typography color="textPrimary">
-              {new Intl.NumberFormat('hr-HR', {
-                style: 'currency',
-                currency: 'HRK',
-              }).format(priceBreakdown().vat)}
+              {formatCurrency(priceBreakdown().vat)}
             </Typography>
           </li>
           <li className="mb-3">
             <Typography color="textPrimary">
-              {priceBreakdown().productGross < 501
-                ? new Intl.NumberFormat('hr-HR', {
-                    style: 'currency',
-                    currency: 'HRK',
-                  }).format(delivery)
-                : new Intl.NumberFormat('hr-HR', {
-                    style: 'currency',
-                    currency: 'HRK',
-                  }).format(0)}
+              {delivery && formatCurrency(delivery)}
             </Typography>
           </li>
           <li>
             <Typography color="textPrimary">
-              {new Intl.NumberFormat('hr-HR', {
-                style: 'currency',
-                currency: 'HRK',
-              }).format(priceBreakdown().gross)}
+              {formatCurrency(priceBreakdown().gross)}
             </Typography>
           </li>
         </ul>

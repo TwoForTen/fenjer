@@ -17,6 +17,8 @@ import Close from '@material-ui/icons/Close';
 import { removeFromCart } from '../actions/cart';
 import { setLoading } from '../actions/loading';
 
+import { format as formatCurrency } from '../helpers/formatCurrency';
+
 const useStyles = makeStyles((theme) => ({
   card: {
     position: 'relative',
@@ -144,12 +146,7 @@ const CartProductCard = ({ product, onClick, index }) => {
             >
               CIJENA
             </Typography>
-            <Typography variant="subtitle1">
-              {new Intl.NumberFormat('hr-HR', {
-                style: 'currency',
-                currency: 'HRK',
-              }).format(price)}
-            </Typography>
+            <Typography variant="subtitle1">{formatCurrency(price)}</Typography>
           </div>
         </Grid>
         <Grid item md={2} xs={12} className={classes.gridItem}>
@@ -165,10 +162,7 @@ const CartProductCard = ({ product, onClick, index }) => {
             UKUPNA CIJENA
           </Typography>
           <Typography variant="subtitle1">
-            {new Intl.NumberFormat('hr-HR', {
-              style: 'currency',
-              currency: 'HRK',
-            }).format(price * ordered_quantity)}
+            {formatCurrency(price * ordered_quantity)}
           </Typography>
         </Grid>
       </Grid>
