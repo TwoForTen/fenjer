@@ -25,8 +25,6 @@ const Product = () => {
       method: 'GET',
     }) || [];
 
-  console.log(products);
-
   useEffect(() => {
     !_.isEmpty(products) &&
       dispatch(

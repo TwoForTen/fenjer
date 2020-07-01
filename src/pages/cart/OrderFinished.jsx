@@ -37,6 +37,8 @@ const OrderFinished = ({ orderError, paymentInfo }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
+  console.log(paymentInfo);
+
   return (
     <>
       <Helmet titleTemplate="%s | Fenjer.hr">
@@ -93,9 +95,14 @@ const OrderFinished = ({ orderError, paymentInfo }) => {
                 </Typography>
               </li>
               <li>
-                <Typography color="textSecondary">
-                  Informacije: 098 437 649
-                </Typography>
+                <Typography color="textSecondary">Informacije:</Typography>
+                {paymentInfo.phones.map((phone) => {
+                  return (
+                    <Typography key={phone.number} color="textSecondary">
+                      {phone.number}
+                    </Typography>
+                  );
+                })}
               </li>
               <li>
                 <Typography color="textSecondary">
