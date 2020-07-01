@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import axios from '../../axiosInstance';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,6 +28,7 @@ const Products = () => {
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
@@ -39,6 +41,35 @@ const Products = () => {
     },
     filter.queries
   );
+
+  useEffect(() => {
+    const request = axios.interceptors.request.use(
+      (config) => {
+        setLoading(true);
+        return config;
+      },
+      (error) => {
+        setLoading(true);
+        throw new Error(error);
+      }
+    );
+
+    const response = axios.interceptors.response.use(
+      (res) => {
+        setLoading(false);
+        return res;
+      },
+      (error) => {
+        setLoading(false);
+        throw new Error(error);
+      }
+    );
+
+    return () => {
+      axios.interceptors.request.eject(request);
+      axios.interceptors.response.eject(response);
+    };
+  }, []);
 
   const handleChangePage = (_, newPage) => {
     window.scrollTo({ top: 0 });
@@ -82,9 +113,10 @@ const Products = () => {
         <title>{categoryTitle}</title>
       </Helmet>
       <PageBreadcrumbs titles={['proizvodi', categoryTitle]} />
-      <div style={{ textAlign: !categoryData?.data && 'center' }}>
+      <div style={{ textAlign: (!categoryData?.data || loading) && 'center' }}>
         <Filters categorySlug={params.categorySlug} />
-        {categoryData?.data ? (
+        {loading && <CircularProgress className="mt-4 mb-4" />}
+        {categoryData?.data && (
           <>
             <Grid align="center" container spacing={breakpoint ? 1 : 3}>
               {sortedProducts(categoryData?.data).map((product) => {
@@ -119,8 +151,6 @@ const Products = () => {
               />
             )}
           </>
-        ) : (
-          <CircularProgress className="mt-4 mb-4" />
         )}
         {categoryData?.data?.length < 1 && (
           <Typography

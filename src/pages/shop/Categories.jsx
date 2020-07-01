@@ -37,8 +37,6 @@ const Proizvodi = () => {
 
   const [loading, setLoading] = useState(false);
 
-  console.log(loading);
-
   const categories =
     useDataFetch({
       url: `/categories?${parseQueryParams(filter)}`,
@@ -101,7 +99,7 @@ const Proizvodi = () => {
               return <CategoryCard category={category} key={category.id} />;
             })
           : (!categories?.data || loading) && (
-              <CircularProgress className="mt-4" />
+              <CircularProgress className="mt-4 mb-4" />
             )}
       </div>
       <Grid container spacing={2} className="mt-3 mb-4">
