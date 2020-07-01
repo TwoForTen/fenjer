@@ -7,6 +7,7 @@ import CookiesModal from './components/CookiesModal';
 import ProtectedRoute from './components/ProtectedRoute';
 import SnackbarComponent from './components/SnackbarComponent';
 
+import AboutUs from './pages/AboutUs';
 import Cart from './pages/cart/Cart';
 import Checkout from './pages/cart/Checkout';
 import Contact from './pages/Contact';
@@ -49,6 +50,7 @@ function App() {
       <Layout>
         <ScrollToTop>
           <Switch>
+            <Route path="/o-nama" exact component={AboutUs} />
             <Route path="/" exact component={Home} />
             <Route path="/kontakt" exact component={Contact} />
             <Route path="/maticni-podaci" exact component={LegalDocs} />
