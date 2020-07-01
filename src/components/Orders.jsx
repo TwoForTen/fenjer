@@ -49,8 +49,6 @@ const useStatusColor = () => {
         return theme.palette.info.main;
       case 'U isporuci':
         return theme.palette.warning.main;
-      case 'Isporučeno':
-        return theme.palette.success.main;
       default:
         break;
     }
