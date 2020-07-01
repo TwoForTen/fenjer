@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
+import axios from '../../axiosInstance';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 
@@ -30,15 +31,48 @@ const useStyles = makeStyles((theme) => ({
 const Proizvodi = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const filter = useSelector((state) => state.filter.queries);
 
+  const filter = useSelector((state) => state.filter.queries);
   const { name, code, barcode } = filter;
+
+  const [loading, setLoading] = useState(false);
+
+  console.log(loading);
 
   const categories =
     useDataFetch({
       url: `/categories?${parseQueryParams(filter)}`,
       method: 'GET',
     }) || {};
+
+  useEffect(() => {
+    const request = axios.interceptors.request.use(
+      (config) => {
+        setLoading(true);
+        return config;
+      },
+      (error) => {
+        setLoading(true);
+        throw new Error(error);
+      }
+    );
+
+    const response = axios.interceptors.response.use(
+      (res) => {
+        setLoading(false);
+        return res;
+      },
+      (error) => {
+        setLoading(false);
+        throw new Error(error);
+      }
+    );
+
+    return () => {
+      axios.interceptors.request.eject(request);
+      axios.interceptors.response.eject(response);
+    };
+  }, []);
 
   if (categories?.data?.length < 1) {
     return (
@@ -60,13 +94,15 @@ const Proizvodi = () => {
       </Helmet>
 
       <PageBreadcrumbs titles={['Proizvodi']} />
-      <div style={{ textAlign: !categories?.data && 'center' }}>
+      <div style={{ textAlign: (!categories?.data || loading) && 'center' }}>
         <Filters showView={false} />
         {categories?.data && !name && !code && !barcode
           ? categories?.data.map((category) => {
               return <CategoryCard category={category} key={category.id} />;
             })
-          : !categories?.data && <CircularProgress className="mt-4" />}
+          : (!categories?.data || loading) && (
+              <CircularProgress className="mt-4" />
+            )}
       </div>
       <Grid container spacing={2} className="mt-3 mb-4">
         {(name || code || barcode) &&
