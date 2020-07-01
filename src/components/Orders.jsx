@@ -139,7 +139,7 @@ const Orders = ({ userOrders }) => {
                 <Chip
                   component="span"
                   style={{
-                    backgroundColor: statusColor(order.status),
+                    backgroundColor: statusColor(order.delivery_status),
                     fontSize: '13px',
                   }}
                   label={order.delivery_status}
