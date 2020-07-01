@@ -31,7 +31,7 @@ const calculateSum = (product, delivery) => {
   const gross = productGross + +delivery;
 
   return {
-    productGross,
+    delivery,
     gross,
     net,
     vat,
@@ -81,7 +81,7 @@ const PriceBreakdown = ({ cart, delivery }) => {
           </li>
           <li className="mb-3">
             <Typography color="textPrimary">
-              {delivery && formatCurrency(delivery)}
+              {formatCurrency(priceBreakdown().delivery)}
             </Typography>
           </li>
           <li>
