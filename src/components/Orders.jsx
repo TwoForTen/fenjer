@@ -40,10 +40,14 @@ const useStatusColor = () => {
   const statusColor = (status) => {
     switch (status) {
       case 'U obradi':
-        return theme.palette.info.main;
-      case 'Obrađena':
         return theme.palette.warning.main;
+      case 'Obrađena':
+        return theme.palette.success.main;
+      case 'Na čekanju':
+        return theme.palette.info.main;
       case 'U isporuci':
+        return theme.palette.warning.main;
+      case 'Isporučeno':
         return theme.palette.success.main;
       default:
         break;
@@ -57,7 +61,7 @@ const Orders = ({ userOrders }) => {
   const dispatch = useDispatch();
   const statusColor = useStatusColor();
 
-  const [orders, setOrders] = useState({ data: [], links: {}, meta: {} });
+  const [orders, setOrders] = useState({ data: [] });
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -103,6 +107,7 @@ const Orders = ({ userOrders }) => {
             <TableCell className={classes.tableHead}>UKUPNA CIJENA</TableCell>
             <TableCell className={classes.tableHead}>DATUM KREIRANJA</TableCell>
             <TableCell className={classes.tableHead}>STATUS OBRADE</TableCell>
+            <TableCell className={classes.tableHead}>STATUS DOSTAVE</TableCell>
             <TableCell className={classes.tableHead}>
               PREGLEDAJ NARUDŽBU
             </TableCell>
@@ -116,7 +121,7 @@ const Orders = ({ userOrders }) => {
                 {new Intl.NumberFormat('hr-HR', {
                   style: 'currency',
                   currency: 'HRK',
-                }).format(order.gross)}
+                }).format(+order.gross + +order.delivery)}
               </TableCell>
               <TableCell>
                 {moment(order.created_at).format('DD.MM.YYYY, HH:mm:ss')}
@@ -129,6 +134,16 @@ const Orders = ({ userOrders }) => {
                     fontSize: '13px',
                   }}
                   label={order.status}
+                />
+              </TableCell>
+              <TableCell>
+                <Chip
+                  component="span"
+                  style={{
+                    backgroundColor: statusColor(order.status),
+                    fontSize: '13px',
+                  }}
+                  label={order.delivery_status}
                 />
               </TableCell>
               <TableCell>

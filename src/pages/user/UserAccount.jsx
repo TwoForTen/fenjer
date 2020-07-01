@@ -19,6 +19,7 @@ import OrderOverview from './OrderOverview';
 const useStyles = makeStyles((theme) => ({
   fullWidthBorder: {
     borderTop: `1px solid ${theme.palette.divider}`,
+    marginTop: theme.spacing(6),
   },
   tabs: {
     marginTop: `-${theme.spacing(6)}px`,
