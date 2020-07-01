@@ -19,7 +19,7 @@ import plant from '../assets/plant.jpg';
 
 const gridView = (theme) => {
   return {
-    maxWidth: '250px',
+    maxWidth: 'max-content',
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   };
@@ -28,7 +28,7 @@ const gridView = (theme) => {
 const useStyles = makeStyles((theme) => ({
   link: {
     [theme.breakpoints.down('md')]: {
-      maxWidth: '250px',
+      maxWidth: 'max-content',
     },
   },
   card: ({ view }) => {
@@ -93,6 +93,7 @@ const ProductCard = ({ type, productName, onClick, categoryName }) => {
     textDecoration: deal_price > 0 && 'line-through',
     fontSize: '13px',
   };
+
   return (
     <Card
       className={classes.card}

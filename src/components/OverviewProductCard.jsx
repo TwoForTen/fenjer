@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     minHeight: '140px',
     [theme.breakpoints.down('sm')]: {
-      maxWidth: '240px',
+      maxWidth: 'max-content',
+      height: '100%',
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     },
@@ -82,7 +83,7 @@ const CartProductCard = ({ product, onClick }) => {
         });
       }}
     >
-      <Grid container align={breakpoint ? 'center' : ''} spacing={2}>
+      <Grid container spacing={2}>
         <Grid item md={2} xs={12} className={classes.gridItem}>
           <div className={classes.imageContainer}>
             <img

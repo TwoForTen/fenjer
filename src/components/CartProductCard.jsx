@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     alignItems: 'center',
     [theme.breakpoints.down('sm')]: {
-      maxWidth: '250px',
+      maxWidth: 'max-content',
+      height: '100%',
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     },
