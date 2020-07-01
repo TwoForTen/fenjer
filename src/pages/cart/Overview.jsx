@@ -315,6 +315,7 @@ const Overview = () => {
                 return {
                   ...product,
                   price: +product.price,
+                  deal_price: +product.deal_price,
                 };
               });
               axios
@@ -325,7 +326,7 @@ const Overview = () => {
                   note: user.purchase?.note || '',
                 })
                 .then(() =>
-                  axios.get('/owner').then((res) => {
+                  axios.get('/contact').then((res) => {
                     setOrderFinished(true);
                     setPaymentInfo(res.data);
                     dispatch(clearCart());

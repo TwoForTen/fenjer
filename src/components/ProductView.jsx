@@ -66,7 +66,13 @@ const Product = () => {
     id,
     img,
     price,
+    deal_price,
   } = product;
+
+  const deal_price_styling = {
+    textDecoration: deal_price > 0 && 'line-through',
+    fontSize: '13px',
+  };
 
   return (
     <Paper className={classes.root}>
@@ -98,9 +104,20 @@ const Product = () => {
 
               <Grid item md={6} xs={12}>
                 <Typography variant="caption">Cijena</Typography>
-                <Typography style={{ lineHeight: '2' }} variant="body1">
+                <Typography
+                  style={{
+                    lineHeight: '2',
+                    ...(deal_price > 0 && deal_price_styling),
+                  }}
+                  variant="body1"
+                >
                   {price && formatCurrency(price)}
                 </Typography>
+                {deal_price > 0 && (
+                  <Typography color="secondary" variant="subtitle1">
+                    <strong>{formatCurrency(deal_price)}</strong>
+                  </Typography>
+                )}
               </Grid>
             </Grid>
           </div>

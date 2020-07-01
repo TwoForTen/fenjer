@@ -87,8 +87,12 @@ const ProductCard = ({ type, productName, onClick, categoryName }) => {
 
   const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
-  const { name, img, code, price, in_stock, category_name } = type;
+  const { name, img, code, price, in_stock, category_name, deal_price } = type;
 
+  const deal_price_styling = {
+    textDecoration: deal_price > 0 && 'line-through',
+    fontSize: '13px',
+  };
   return (
     <Card
       className={classes.card}
@@ -152,7 +156,17 @@ const ProductCard = ({ type, productName, onClick, categoryName }) => {
             >
               CIJENA
             </Typography>
-            <Typography variant="subtitle1">{formatCurrency(price)}</Typography>
+            <Typography
+              style={deal_price > 0 ? deal_price_styling : {}}
+              variant="subtitle1"
+            >
+              {formatCurrency(price)}
+            </Typography>
+            {deal_price > 0 && (
+              <Typography color="secondary" variant="subtitle1">
+                <strong>{formatCurrency(deal_price)}</strong>
+              </Typography>
+            )}
           </div>
         </Grid>
         <Grid

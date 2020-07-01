@@ -80,6 +80,7 @@ const CartProductCard = ({ product, onClick, index }) => {
     ordered_quantity,
     slug,
     product_id,
+    deal_price,
   } = product;
 
   return (
@@ -146,7 +147,9 @@ const CartProductCard = ({ product, onClick, index }) => {
             >
               CIJENA
             </Typography>
-            <Typography variant="subtitle1">{formatCurrency(price)}</Typography>
+            <Typography variant="subtitle1">
+              {formatCurrency(!!deal_price ? deal_price : price)}
+            </Typography>
           </div>
         </Grid>
         <Grid item md={2} xs={12} className={classes.gridItem}>
@@ -162,7 +165,11 @@ const CartProductCard = ({ product, onClick, index }) => {
             UKUPNA CIJENA
           </Typography>
           <Typography variant="subtitle1">
-            {formatCurrency(price * ordered_quantity)}
+            {formatCurrency(
+              !!deal_price
+                ? deal_price * ordered_quantity
+                : price * ordered_quantity
+            )}
           </Typography>
         </Grid>
       </Grid>
