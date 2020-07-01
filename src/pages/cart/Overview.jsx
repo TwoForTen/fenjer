@@ -58,7 +58,7 @@ const Overview = () => {
 
   const delivery = useDataFetch({
     method: 'GET',
-    url: '/owner',
+    url: '/contact',
   })?.delivery;
 
   useEffect(() => {
@@ -115,7 +115,7 @@ const Overview = () => {
                       className={classes.paperContent}
                       color="textSecondary"
                     >
-                      {user.name}
+                      {`${user.details.name} ${user.details.surname}`}
                     </Typography>
                   </Paper>
                 </Grid>
@@ -152,7 +152,7 @@ const Overview = () => {
                       </li>
                       <li>
                         <Typography color="textSecondary">
-                          {user.purchase?.delivery_info?.mobile_phone}
+                          {user.purchase?.delivery_info?.phone}
                         </Typography>
                       </li>
                     </ul>
@@ -191,7 +191,7 @@ const Overview = () => {
                       </li>
                       <li>
                         <Typography color="textSecondary">
-                          {user.purchase?.bill_info?.mobile_phone}
+                          {user.purchase?.bill_info?.phone}
                         </Typography>
                       </li>
                     </ul>

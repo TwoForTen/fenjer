@@ -77,7 +77,7 @@ const Registration = () => {
       .string()
       .required('Država je obavezna')
       .max(255, 'Država ne može sadržavati više od 255 znakova'),
-    mobile_phone: yup
+    phone: yup
       .string()
       .required('Broj mobitela je obavezan')
       .max(100, 'Broj mobitela ne može sadržavati više od 100 znakova'),
@@ -144,7 +144,7 @@ const Registration = () => {
               city: '',
               postal_code: '',
               country: '',
-              mobile_phone: '',
+              phone: '',
               company: '',
               oib: '',
               iban: '',
@@ -160,7 +160,7 @@ const Registration = () => {
                 city,
                 postal_code,
                 country,
-                mobile_phone,
+                phone,
                 company,
                 oib,
                 iban,
@@ -175,7 +175,7 @@ const Registration = () => {
                   city,
                   postal_code,
                   country,
-                  mobile_phone,
+                  phone,
                   company,
                   oib,
                   iban,
@@ -315,14 +315,12 @@ const Registration = () => {
                     <Grid item xs={12}>
                       <FastField
                         component={TextField}
-                        name="mobile_phone"
+                        name="phone"
                         fullWidth
                         label="Mobitel"
                         variant="outlined"
                         helperText={
-                          errors.mobile_phone &&
-                          touched.mobile_phone &&
-                          errors.mobile_phone
+                          errors.phone && touched.phone && errors.phone
                         }
                       />
                     </Grid>

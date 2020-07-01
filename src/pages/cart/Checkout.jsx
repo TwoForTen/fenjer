@@ -58,7 +58,7 @@ const Checkout = () => {
       surname,
       city,
       postal_code,
-      mobile_phone,
+      phone,
       address,
       payment_deadline,
     },
@@ -76,7 +76,7 @@ const Checkout = () => {
       surname: yup.string().required('Prezime je obavezno'),
       city: yup.string().required('Grad je obavezan'),
       postal_code: yup.string().required('Poštanski broj je obavezan'),
-      mobile_phone: yup.string().required('Broj mobitela je obavezan'),
+      phone: yup.string().required('Broj mobitela je obavezan'),
       address: yup.string().required('Adresa je obavezna'),
     }),
     bill_info:
@@ -91,7 +91,7 @@ const Checkout = () => {
         surname: yup.string().required('Prezime je obavezno'),
         city: yup.string().required('Grad je obavezan'),
         postal_code: yup.string().required('Poštanski broj je obavezan'),
-        mobile_phone: yup.string().required('Broj mobitela je obavezan'),
+        phone: yup.string().required('Broj mobitela je obavezan'),
         address: yup.string().required('Adresa je obavezna'),
       }),
   });
@@ -232,10 +232,7 @@ const Checkout = () => {
                   user.purchase?.delivery_info?.postal_code ||
                   postal_code ||
                   '',
-                mobile_phone:
-                  user.purchase?.delivery_info?.mobile_phone ||
-                  mobile_phone ||
-                  '',
+                phone: user.purchase?.delivery_info?.phone || phone || '',
               },
               bill_info: {
                 company: user.purchase?.bill_info?.company || '',
@@ -245,7 +242,7 @@ const Checkout = () => {
                 address: user.purchase?.bill_info?.address || '',
                 city: user.purchase?.bill_info?.city || '',
                 postal_code: user.purchase?.bill_info?.postal_code || '',
-                mobile_phone: user.purchase?.bill_info?.mobile_phone || '',
+                phone: user.purchase?.bill_info?.phone || '',
               },
             }}
             validateOnChange={false}
@@ -437,21 +434,21 @@ const Checkout = () => {
                       <Grid item xs={12}>
                         <TextField
                           fullWidth
-                          name="delivery_info.mobile_phone"
+                          name="delivery_info.phone"
                           label="Mobitel"
                           variant="outlined"
-                          value={values?.delivery_info?.mobile_phone}
+                          value={values?.delivery_info?.phone}
                           onChange={handleChange}
                           onBlur={handleBlur}
                           error={
-                            errors?.delivery_info?.mobile_phone &&
-                            touched?.delivery_info?.mobile_phone &&
+                            errors?.delivery_info?.phone &&
+                            touched?.delivery_info?.phone &&
                             true
                           }
                           helperText={
-                            errors?.delivery_info?.mobile_phone &&
-                            touched?.delivery_info?.mobile_phone &&
-                            errors?.delivery_info?.mobile_phone
+                            errors?.delivery_info?.phone &&
+                            touched?.delivery_info?.phone &&
+                            errors?.delivery_info?.phone
                           }
                         />
                       </Grid>
@@ -613,21 +610,21 @@ const Checkout = () => {
                         <Grid item xs={12}>
                           <TextField
                             fullWidth
-                            name="bill_info.mobile_phone"
+                            name="bill_info.phone"
                             label="Mobitel"
                             variant="outlined"
-                            value={values?.bill_info?.mobile_phone}
+                            value={values?.bill_info?.phone}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             error={
-                              errors?.bill_info?.mobile_phone &&
-                              touched?.bill_info?.mobile_phone &&
+                              errors?.bill_info?.phone &&
+                              touched?.bill_info?.phone &&
                               true
                             }
                             helperText={
-                              errors?.bill_info?.mobile_phone &&
-                              touched?.bill_info?.mobile_phone &&
-                              errors?.bill_info?.mobile_phone
+                              errors?.bill_info?.phone &&
+                              touched?.bill_info?.phone &&
+                              errors?.bill_info?.phone
                             }
                           />
                         </Grid>

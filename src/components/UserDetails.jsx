@@ -42,15 +42,7 @@ const UserDetails = ({ user }) => {
       .required(),
   });
 
-  const {
-    email,
-    company,
-    name,
-    surname,
-    city,
-    postal_code,
-    mobile_phone,
-  } = user;
+  const { email, company, name, surname, city, postal_code, phone } = user;
 
   return (
     <>
@@ -156,9 +148,9 @@ const UserDetails = ({ user }) => {
         <TextField
           fullWidth
           label="Broj mobitela"
-          name="mobile_phone"
+          name="phone"
           variant="outlined"
-          defaultValue={mobile_phone}
+          defaultValue={phone}
           disabled
           className={classes.textInput}
         />
