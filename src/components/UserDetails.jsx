@@ -20,6 +20,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { userLogout } from '../actions/auth';
 import { setLoading } from '../actions/loading';
+import { showSnackbar } from '../actions/snackbar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -149,9 +150,29 @@ const UserDetails = ({ user }) => {
           }}
           enableReinitialize
           onSubmit={(values, actions) => {
+            dispatch(setLoading());
             axios
               .post('/auth/update-profile', values)
-              .then((res) => actions.setSubmitting(false));
+              .then((res) => {
+                dispatch(setLoading());
+                dispatch(
+                  showSnackbar({
+                    message: 'Ažuriranje uspiješno.',
+                    severity: 'success',
+                  })
+                );
+                actions.setSubmitting(false);
+              })
+              .catch(() => {
+                dispatch(setLoading());
+                dispatch(
+                  showSnackbar({
+                    message: 'Ažuriranje neuspiješno.',
+                    severity: 'error',
+                  })
+                );
+                actions.setSubmitting(false);
+              });
           }}
         >
           {({ errors, touched, handleSubmit, isSubmitting }) => {
