@@ -370,7 +370,7 @@ const Contact = () => {
                 frameBorder="0"
                 height="450"
                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxHcVuajrRGTFmp5bS6NHK8JHA6JlyXH8
-          &q=Slavonska%20Avenija%2052"
+          &q=Slavonska%20Avenija%2052&language=hr"
                 title="Maps"
                 width="100%"
               ></iframe>
