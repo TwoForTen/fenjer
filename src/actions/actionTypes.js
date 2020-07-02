@@ -24,7 +24,7 @@ export const DECREMENT_CART_QUANTITY = 'DECREMENT_CART_QUANTITY';
 export const SHOW_ORDER = 'SHOW_ORDER';
 export const CLEAR_ORDER = 'CLEAR_ORDER';
 
-export const PRODUCTS_VIEW = 'PRODUCTS_VIEW';
+export const PRODUCT_VIEW = 'PRODUCT_VIEW';
 export const SET_QUERY = 'SET_QUERY';
 export const CLEAR_QUERY = 'CLEAR_QUERY';
 export const SORT = 'SORT';

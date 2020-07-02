@@ -52,7 +52,7 @@ const Footer = () => {
               <Typography variant="subtitle2">Odaberite</Typography>
               <List className="mt-3">
                 <ListItem>
-                  <Link to="o-nama">
+                  <Link to="/o-nama">
                     <Typography variant="body2">O Nama</Typography>
                   </Link>
                 </ListItem>

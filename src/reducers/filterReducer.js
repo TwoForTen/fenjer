@@ -1,5 +1,5 @@
 import {
-  PRODUCTS_VIEW,
+  PRODUCT_VIEW,
   SET_QUERY,
   CLEAR_QUERY,
   SORT,
@@ -17,7 +17,7 @@ const initialState = {
 
 export const filterReducer = (state = initialState, action) => {
   switch (action.type) {
-    case PRODUCTS_VIEW:
+    case PRODUCT_VIEW:
       return {
         ...state,
         product_view: action.payload === 'list' ? 'list' : 'grid',

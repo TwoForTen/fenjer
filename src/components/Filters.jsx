@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
@@ -51,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
 const Filters = ({ showView = true }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const location = useLocation();
+
   const THROTTLE_TIME = 250;
   const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
@@ -67,12 +70,11 @@ const Filters = ({ showView = true }) => {
   );
 
   useEffect(() => {
-    // Might Find A Different Way
-    return () => {
-      dispatch(productsView('list'));
-      dispatch(clearQuery());
-    };
-  }, []);
+    dispatch(productsView('list'));
+    dispatch(clearQuery());
+  }, [location.key]);
+
+  console.log(location);
 
   const FILTERS = (
     <Grid
