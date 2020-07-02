@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from '../axiosInstance';
 import _ from 'lodash';
 import moment from 'moment';
@@ -67,6 +67,17 @@ const Orders = ({ userOrders }) => {
   useEffect(() => {
     setOrders(userOrders);
   }, [userOrders]);
+
+  useEffect(() => {
+    const orders_pagination = document.querySelector(
+      '.MuiTablePagination-caption'
+    );
+    if (!!orders_pagination) {
+      const pagination_array = orders_pagination.innerText.split(' ');
+      orders_pagination.innerText =
+        pagination_array[0] + ' od ' + pagination_array[2];
+    }
+  }, [orders, page]);
 
   const handleChangePage = (_, newPage) => {
     axios.get(`/auth/orders?page=${newPage + 1}`).then((res) => {
@@ -157,6 +168,7 @@ const Orders = ({ userOrders }) => {
         </TableBody>
       </Table>
       <TablePagination
+        id="orders-pagination"
         component="div"
         rowsPerPageOptions={[]}
         count={orders.meta.total}
