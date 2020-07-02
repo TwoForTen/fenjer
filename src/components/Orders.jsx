@@ -121,7 +121,7 @@ const Orders = ({ userOrders }) => {
                 {formatCurrency(+order.gross + +order.delivery)}
               </TableCell>
               <TableCell>
-                {moment(order.created_at).format('DD.MM.YYYY, HH:mm:ss')}
+                {moment(order.created_at).format('DD.MM.YYYY. HH:mm:ss')}
               </TableCell>
               <TableCell>
                 <Chip
