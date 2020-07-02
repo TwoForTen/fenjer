@@ -44,7 +44,7 @@ const PasswordReset = () => {
         [yup.ref('password'), null],
         'Potvrda lozinke mora biti jednaka lozinki'
       )
-      .required('Ponovljena zaporka je obavezna'),
+      .required('Ponovljena lozinka je obavezna'),
   });
 
   if (params.tokenSlug === '') {

@@ -74,8 +74,6 @@ const Filters = ({ showView = true }) => {
     dispatch(clearQuery());
   }, [location.key]);
 
-  console.log(location);
-
   const FILTERS = (
     <Grid
       container

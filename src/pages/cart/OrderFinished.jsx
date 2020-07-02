@@ -37,8 +37,6 @@ const OrderFinished = ({ orderError, paymentInfo }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  console.log(paymentInfo);
-
   return (
     <>
       <Helmet titleTemplate="%s | Fenjer.hr">

@@ -17,11 +17,9 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Select } from 'formik-material-ui';
+import { TextField } from 'formik-material-ui';
 
 import PageBreadcrumbs from '../components/PageBreadcrumbs';
-
-import { showSnackbar } from '../actions/snackbar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,8 +31,6 @@ const useStyles = makeStyles((theme) => ({
     margin: `${theme.spacing(4)}px ${theme.spacing(10)}px`,
   },
 }));
-
-const COUNTRIES = ['Hrvatska', 'Španjolska', 'Kina', 'Italija', 'Novi Zeland'];
 
 const Registration = () => {
   const classes = useStyles();
@@ -186,7 +182,6 @@ const Registration = () => {
                 })
                 .catch((err) => {
                   actions.setSubmitting(false);
-                  console.log(err.response);
                   actions.setErrors({
                     authError:
                       err.response.data?.errors?.email[0] ||
