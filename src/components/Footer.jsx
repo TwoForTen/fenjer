@@ -49,29 +49,31 @@ const Footer = () => {
               <Typography variant="h6">DEKORACIJE MAVRIN</Typography>
             </Grid>
             <Grid item md={4} xs={6}>
-              <Typography variant="subtitle2">Odaberite</Typography>
+              <Typography variant="subtitle2">
+                <strong>Odaberite</strong>
+              </Typography>
               <List className="mt-3">
-                <ListItem>
+                <ListItem disableGutters>
                   <Link to="/o-nama">
                     <Typography variant="body2">O Nama</Typography>
                   </Link>
                 </ListItem>
-                <ListItem>
+                <ListItem disableGutters>
                   <Link to="/maticni-podaci">
                     <Typography variant="body2">Matični Podaci</Typography>
                   </Link>
                 </ListItem>
-                <ListItem>
+                <ListItem disableGutters>
                   <Link to="/uvjeti-prodaje">
                     <Typography variant="body2">Uvjeti Prodaje</Typography>
                   </Link>
                 </ListItem>
-                <ListItem>
+                <ListItem disableGutters>
                   <Link to="/proizvodi">
                     <Typography variant="body2">Proizvodi</Typography>
                   </Link>
                 </ListItem>
-                <ListItem>
+                <ListItem disableGutters>
                   <Link to="/kontakt">
                     <Typography variant="body2">Kontakt</Typography>
                   </Link>
@@ -79,23 +81,25 @@ const Footer = () => {
               </List>
             </Grid>
             <Grid item md={4} xs={6}>
-              <Typography variant="subtitle2">Kontakt Podaci</Typography>
+              <Typography variant="subtitle2">
+                <strong>Kontakt Podaci</strong>
+              </Typography>
               <List className="mt-3">
                 {data ? (
                   <>
                     {data.phones.map((phone) => {
                       return (
-                        <ListItem key={phone.number}>
+                        <ListItem disableGutters key={phone.number}>
                           <Typography variant="body2">
                             Info: {phone.number}
                           </Typography>
                         </ListItem>
                       );
                     })}
-                    <ListItem>
+                    <ListItem disableGutters>
                       <Typography variant="body2">Fax: {data.fax}</Typography>
                     </ListItem>
-                    <ListItem>
+                    <ListItem disableGutters>
                       <Typography variant="body2">
                         E-mail: {data.email}
                       </Typography>
@@ -103,16 +107,16 @@ const Footer = () => {
                   </>
                 ) : (
                   <>
-                    <ListItem>
+                    <ListItem disableGutters>
                       <Skeleton variant="text" animation="wave" width={160} />
                     </ListItem>
-                    <ListItem>
+                    <ListItem disableGutters>
                       <Skeleton variant="text" animation="wave" width={160} />
                     </ListItem>
-                    <ListItem>
+                    <ListItem disableGutters>
                       <Skeleton variant="text" animation="wave" width={160} />
                     </ListItem>
-                    <ListItem>
+                    <ListItem disableGutters>
                       <Skeleton variant="text" animation="wave" width={160} />
                     </ListItem>
                   </>
@@ -121,7 +125,10 @@ const Footer = () => {
             </Grid>
             <Grid item xs={12} className={classes.copyright}>
               <Typography variant="body2">
-                COPYRIGHT 2020 DEKORACIJE MAVRIN D.O.O., SVA PRAVA ZADRŽANA.
+                <strong>
+                  COPYRIGHT {new Date().getFullYear()} DEKORACIJE MAVRIN D.O.O.,
+                  SVA PRAVA ZADRŽANA.
+                </strong>
               </Typography>
             </Grid>
             <Grid item xs={12} className={classes.copyright}>
