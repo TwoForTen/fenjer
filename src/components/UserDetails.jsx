@@ -176,6 +176,9 @@ const UserDetails = ({ user }) => {
                     iban: values.iban,
                   })
                 );
+                actions.setFieldValue('new_password', '');
+                actions.setFieldValue('new_password_repeat', '');
+                actions.setFieldValue('password', '');
                 actions.setSubmitting(false);
               })
               .catch(() => {
