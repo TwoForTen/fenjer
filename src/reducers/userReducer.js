@@ -17,7 +17,7 @@ export const userReducer = (state = initialState, action) => {
     case STORE_USER:
       return {
         ...state,
-        details: { ...action.payload },
+        details: { ...state.details, ...action.payload },
       };
     case STORE_PURCHASE:
       return {

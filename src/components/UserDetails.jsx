@@ -18,7 +18,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { userLogout } from '../actions/auth';
+import { userLogout, storeUser } from '../actions/auth';
 import { setLoading } from '../actions/loading';
 import { showSnackbar } from '../actions/snackbar';
 
@@ -153,12 +153,27 @@ const UserDetails = ({ user }) => {
             dispatch(setLoading());
             axios
               .post('/auth/update-profile', values)
-              .then((res) => {
+              .then(() => {
                 dispatch(setLoading());
                 dispatch(
                   showSnackbar({
                     message: 'Ažuriranje uspiješno.',
                     severity: 'success',
+                  })
+                );
+                dispatch(
+                  storeUser({
+                    name: values.name,
+                    surname: values.surname,
+                    email: values.email,
+                    address: values.address,
+                    city: values.city,
+                    postal_code: values.postal_code,
+                    country: values.country,
+                    phone: values.phone,
+                    company: values.company,
+                    oib: values.oib,
+                    iban: values.iban,
                   })
                 );
                 actions.setSubmitting(false);
