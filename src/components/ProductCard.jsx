@@ -15,8 +15,6 @@ import constrictName from '../helpers/constrictName';
 import { format as formatCurrency } from '../helpers/formatCurrency';
 import sanitiseName from '../helpers/sanitiseName';
 
-import plant from '../assets/plant.jpg';
-
 const gridView = (theme) => {
   return {
     maxWidth: 'max-content',

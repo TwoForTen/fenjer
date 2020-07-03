@@ -1,6 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -12,8 +11,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 
 import useDataFetch from '../../hooks/useDataFetch';
-
-import showroom_img from '../../assets/showroom.jpg';
 
 const useStyles = makeStyles((theme) => ({
   coverImgContainer: {

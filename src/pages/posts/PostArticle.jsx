@@ -15,8 +15,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import useDataFetch from '../../hooks/useDataFetch';
 
-import plant from '../../assets/plant.jpg';
-
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: '15px',
@@ -139,8 +137,7 @@ const PostArticle = () => {
               {post.img ? (
                 <img
                   className={classes.image}
-                  src={plant}
-                  // src={process.env.REACT_APP_PROD_URL + post.img}
+                  src={process.env.REACT_APP_PROD_URL + post.img}
                   alt="article_img"
                 />
               ) : (
