@@ -7,6 +7,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import Skeleton from '@material-ui/lab/Skeleton';
+
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import Cancel from '@material-ui/icons/Cancel';
 
@@ -40,11 +42,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const isInStock = (in_stock) => {
-  switch (Boolean(in_stock)) {
-    case true:
+  switch (in_stock) {
+    case 1:
       return 'Proizvod raspoloživ';
-    case false:
+    case 0:
       return 'Proizvod nije raspoloživ';
+    case undefined:
+      return <Skeleton animation="wave" width={100} />;
     default:
       break;
   }
@@ -79,10 +83,24 @@ const Product = () => {
       <Grid container spacing={10}>
         <Grid item md={6} xs={12}>
           <Typography variant="h4" color="textPrimary" className="mb-3">
-            <strong>{name}</strong>
+            <strong>
+              {name ? (
+                name
+              ) : (
+                <>
+                  <Skeleton animation="wave" />
+                  <Skeleton animation="wave" style={{ width: '60%' }} />
+                </>
+              )}
+            </strong>
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            <strong>Šifra:</strong> {code}
+            <strong>Šifra:</strong>{' '}
+            {code ? (
+              code
+            ) : (
+              <Skeleton animation="wave" style={{ width: '20%' }} />
+            )}
           </Typography>
 
           <div className={classes.statusContainer}>
@@ -90,7 +108,14 @@ const Product = () => {
               <Grid item md={6} xs={12}>
                 <Typography variant="caption">Stanje</Typography>
                 <div style={{ display: 'flex', marginTop: '5px' }}>
-                  {Boolean(in_stock) ? (
+                  {in_stock === undefined ? (
+                    <Skeleton
+                      width={25}
+                      height={25}
+                      style={{ transform: 'scale(1)', borderRadius: '50%' }}
+                      className="mr-1"
+                    />
+                  ) : Boolean(in_stock) ? (
                     <CheckCircle
                       style={{ color: '#3CBC51' }}
                       className="mr-1"
@@ -111,7 +136,11 @@ const Product = () => {
                   }}
                   variant="body1"
                 >
-                  {price && formatCurrency(price)}
+                  {price ? (
+                    formatCurrency(price)
+                  ) : (
+                    <Skeleton animation="wave" style={{ width: '30%' }} />
+                  )}
                 </Typography>
                 {deal_price > 0 && (
                   <Typography color="secondary" variant="subtitle1">
@@ -122,7 +151,14 @@ const Product = () => {
             </Grid>
           </div>
 
-          <Typography>Pakiranje: {quantity} KOM</Typography>
+          <Typography>
+            Pakiranje:{' '}
+            {quantity ? (
+              `${quantity} KOM`
+            ) : (
+              <Skeleton animation="wave" style={{ width: '30%' }} />
+            )}
+          </Typography>
           <div
             style={{
               display: 'flex',
@@ -169,18 +205,48 @@ const Product = () => {
             </Button>
           </div>
           <Typography variant="h5">Opis</Typography>
-          <Typography className="mt-3 mb-3">{description}</Typography>
+          <Typography className="mt-3 mb-3">
+            {description ? (
+              description
+            ) : description === null ? (
+              <span style={{ fontStyle: 'italic' }}>
+                Ovaj proizvod nema opisa
+              </span>
+            ) : (
+              <>
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" style={{ width: '60%' }} />
+              </>
+            )}
+          </Typography>
           <Typography>
-            <strong>Boja:</strong> {color}
+            <strong>Boja:</strong>{' '}
+            {color ? (
+              color
+            ) : (
+              <Skeleton animation="wave" style={{ width: '30%' }} />
+            )}
           </Typography>
         </Grid>
 
         <Grid item xs={12} md={6} align="center">
-          <img
-            className={classes.image}
-            src={process.env.REACT_APP_PROD_URL + img}
-            alt="product_image"
-          />
+          {img ? (
+            <img
+              className={classes.image}
+              src={process.env.REACT_APP_PROD_URL + img}
+              alt="product_image"
+            />
+          ) : (
+            <Skeleton
+              animation="wave"
+              style={{
+                height: '100%',
+                borderRadius: '5px',
+                transform: 'scale(1)',
+              }}
+            />
+          )}
         </Grid>
       </Grid>
     </Paper>
