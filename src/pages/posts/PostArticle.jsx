@@ -22,8 +22,6 @@ import useDataFetch from '../../hooks/useDataFetch';
 
 import { setLoading } from '../../actions/loading';
 
-import image from '../../assets/image.jpeg';
-
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(3),
@@ -187,8 +185,7 @@ const PostArticle = () => {
                 {post.img ? (
                   <img
                     className={classes.image}
-                    // src={process.env.REACT_APP_PROD_URL + post.img}
-                    src={image}
+                    src={process.env.REACT_APP_PROD_URL + post.img}
                     alt="article_img"
                   />
                 ) : (

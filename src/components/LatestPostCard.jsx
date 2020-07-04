@@ -21,7 +21,7 @@ const LatestPostCard = ({ post }) => {
           {post ? (
             <CardMedia
               style={{ height: 140 }}
-              image={post && 'https://picsum.photos/300/200'}
+              image={post && post.img}
               title={post && post.title}
             />
           ) : (
