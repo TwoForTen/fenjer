@@ -47,7 +47,12 @@ const Checkout = () => {
 
   const deliverRef = useRef();
 
-  const [billCheckbox, setBillcheckbox] = useState(true);
+  const [billCheckbox, setBillcheckbox] = useState(() => {
+    if (user.purchase.billCheckbox !== undefined)
+      return user.purchase.billCheckbox;
+    return true;
+  });
+
   const [note, setNote] = useState('');
 
   const {
@@ -256,6 +261,7 @@ const Checkout = () => {
                       ? values.delivery_info
                       : values.bill_info,
                     note: note?.length > 0 && note,
+                    billCheckbox,
                   })
                 );
                 history.push({
@@ -719,7 +725,6 @@ const Checkout = () => {
                 alignItems: 'center',
               }}
             >
-              {/* <Checkbox defaultChecked color="default" disabled /> */}
               <Payment className="mr-4" fontSize="large" />
               <Typography variant="body1">
                 Plaćanje transakcijskim računom
@@ -749,7 +754,6 @@ const Checkout = () => {
                 alignItems: 'center',
               }}
             >
-              {/* <Checkbox defaultChecked color="default" disabled /> */}
               <Update className="mr-4" fontSize="large" />
               <Typography
                 variant="body1"

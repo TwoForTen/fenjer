@@ -26,6 +26,7 @@ export const userReducer = (state = initialState, action) => {
           delivery_info: { ...action.payload.delivery_info },
           bill_info: { ...action.payload.bill_info },
           note: action.payload.note,
+          billCheckbox: action.payload.billCheckbox,
         },
       };
     case CLEAR_PURCHASE:
