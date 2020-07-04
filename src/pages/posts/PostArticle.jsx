@@ -112,7 +112,7 @@ const PostArticle = () => {
 
       <PageBreadcrumbs titles={['Novosti', post.title]} />
       <Grid container spacing={3} className="mt-4 mb-4">
-        <Grid item xs={8}>
+        <Grid item xs={12} md={8}>
           <Card className={classes.card}>
             <CardContent>
               {post.title ? (
@@ -212,20 +212,30 @@ const PostArticle = () => {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <Typography variant="h5" className="mb-3" color="textPrimary">
             Posljednje novosti
           </Typography>
-          {!_.isEmpty(post)
-            ? latestPosts?.data
-                ?.filter((latestPost) => latestPost.id !== post.id)
-                .slice(0, 3)
-                .map((post) => {
-                  return <LatestPostCard key={post.id} post={post} />;
-                })
-            : skeleton_mock.map((mock) => {
-                return <LatestPostCard key={mock} />;
-              })}
+          <Grid item container spacing={2}>
+            {!_.isEmpty(post)
+              ? latestPosts?.data
+                  ?.filter((latestPost) => latestPost.id !== post.id)
+                  .slice(0, 3)
+                  .map((post) => {
+                    return (
+                      <Grid item xs={12} sm={4} md={12} key={post.id}>
+                        <LatestPostCard post={post} />{' '}
+                      </Grid>
+                    );
+                  })
+              : skeleton_mock.map((mock) => {
+                  return (
+                    <Grid item xs={12} sm={4} md={12} key={mock}>
+                      <LatestPostCard />
+                    </Grid>
+                  );
+                })}
+          </Grid>
         </Grid>
       </Grid>
     </>
