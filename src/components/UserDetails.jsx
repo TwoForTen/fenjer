@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from '../axiosInstance';
 import { Formik, FastField } from 'formik';
 import { useHistory } from 'react-router-dom';
@@ -16,7 +16,16 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
+
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import { userLogout, storeUser } from '../actions/auth';
 import { setLoading } from '../actions/loading';
@@ -41,7 +50,9 @@ const UserDetails = ({ user }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [open, setOpen] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -193,7 +204,15 @@ const UserDetails = ({ user }) => {
               });
           }}
         >
-          {({ errors, touched, handleSubmit, isSubmitting }) => {
+          {({
+            errors,
+            touched,
+            handleSubmit,
+            isSubmitting,
+            values,
+            handleChange,
+            handleBlur,
+          }) => {
             return (
               <form onSubmit={handleSubmit}>
                 <FastField
@@ -384,18 +403,45 @@ const UserDetails = ({ user }) => {
                     <DialogContentText>
                       Molimo Vas upišite lozinku kako bi ažurirali Vaš profil:
                     </DialogContentText>
-                    <FastField
+                    <FormControl
+                      variant="filled"
+                      className={classes.textInput}
                       fullWidth
-                      type="password"
                       margin="dense"
-                      component={TextField}
-                      label="Lozinka"
-                      name="password"
-                      variant="outlined"
-                      helperText={
-                        errors.password && touched.password && errors.password
-                      }
-                    />
+                    >
+                      <InputLabel htmlFor="password" variant="outlined">
+                        Lozinka
+                      </InputLabel>
+                      <OutlinedInput
+                        id="password"
+                        name="password"
+                        margin="dense"
+                        type={showPassword ? 'text' : 'password'}
+                        value={values.password}
+                        onChange={handleChange}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              size="small"
+                              className="mr-2"
+                              onClick={() =>
+                                setShowPassword((prevState) => !prevState)
+                              }
+                            >
+                              {showPassword ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        labelWidth={60}
+                      />
+                      {errors.password && touched.password && (
+                        <FormHelperText>{errors.password}</FormHelperText>
+                      )}
+                    </FormControl>
                   </DialogContent>
                   <DialogActions className="mt-2 mb-1 mr-3">
                     <Button
