@@ -224,6 +224,10 @@ const Product = () => {
             <strong>Boja:</strong>{' '}
             {color ? (
               color
+            ) : color === null ? (
+              <span style={{ fontStyle: 'italic' }}>
+                Ovaj proizvod nema informaciju o boji
+              </span>
             ) : (
               <Skeleton animation="wave" style={{ width: '30%' }} />
             )}

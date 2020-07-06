@@ -239,7 +239,7 @@ const Checkout = () => {
                   '',
                 phone: user.purchase?.delivery_info?.phone || phone || '',
               },
-              bill_info: {
+              bill_info: !billCheckbox && {
                 company: user.purchase?.bill_info?.company || '',
                 email: user.purchase?.bill_info?.email || '',
                 name: user.purchase?.bill_info?.name || '',
@@ -250,8 +250,6 @@ const Checkout = () => {
                 phone: user.purchase?.bill_info?.phone || '',
               },
             }}
-            validateOnChange={false}
-            validateOnMount
             onSubmit={(values) => {
               if (token) {
                 dispatch(

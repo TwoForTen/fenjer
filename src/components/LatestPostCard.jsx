@@ -21,7 +21,7 @@ const LatestPostCard = ({ post }) => {
           {post ? (
             <CardMedia
               style={{ height: 140 }}
-              image={post && post.img}
+              image={post && process.env.REACT_APP_PROD_URL + post.img}
               title={post && post.title}
             />
           ) : (
