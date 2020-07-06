@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Skeleton from '@material-ui/lab/Skeleton';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
@@ -94,38 +94,36 @@ const Cart = () => {
         })}
       </Grid>
       <div className={classes.detailsRoot}>
-        {!_.isEmpty(deliveryFee) ? (
-          <div>
-            <PriceBreakdown cart={cart} delivery={delivery} />
-            <div className={classes.deliveryContainer}>
+        <div>
+          <PriceBreakdown cart={cart} delivery={delivery} />
+          <div className={classes.deliveryContainer}>
+            <Typography color="textPrimary">Način preuzimanja robe:</Typography>
+            <div
+              style={{ display: 'flex', alignItems: 'center' }}
+              className="mt-2"
+            >
+              <img
+                src={delivery_icon}
+                alt="delivery_icon"
+                style={{ width: '60px' }}
+                className="mr-2 mb-2"
+              />
               <Typography color="textPrimary">
-                Način preuzimanja robe:
-              </Typography>
-              <div
-                style={{ display: 'flex', alignItems: 'center' }}
-                className="mt-2"
-              >
-                <img
-                  src={delivery_icon}
-                  alt="delivery_icon"
-                  style={{ width: '60px' }}
-                  className="mr-2 mb-2"
-                />
-                <Typography color="textPrimary">
-                  <strong>Dostava</strong>
-                </Typography>
-              </div>
-              <Typography variant="caption" color="textSecondary">
-                Dostava besplatna iznad{' '}
-                <strong>
-                  {delivery_free_above && formatCurrency(delivery_free_above)}
-                </strong>
+                <strong>Dostava</strong>
               </Typography>
             </div>
+            <Typography variant="caption" color="textSecondary">
+              {delivery_free_above ? (
+                <>
+                  Dostava besplatna iznad{' '}
+                  <strong>{formatCurrency(delivery_free_above)}</strong>
+                </>
+              ) : (
+                <Skeleton animation="wave" />
+              )}
+            </Typography>
           </div>
-        ) : (
-          <CircularProgress />
-        )}
+        </div>
         <Link to="/zavrsetak-kupnje">
           <Button
             variant="contained"

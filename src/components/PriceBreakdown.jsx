@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 
 import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { format as formatCurrency } from '../helpers/formatCurrency';
@@ -44,7 +45,9 @@ const PriceBreakdown = ({ cart, delivery }) => {
   const classes = useStyles();
 
   const priceBreakdown = useCallback(() => {
-    return calculateSum(cart, delivery);
+    if (cart && delivery) {
+      return calculateSum(cart, delivery);
+    }
   }, [cart, delivery]);
 
   return (
@@ -73,22 +76,38 @@ const PriceBreakdown = ({ cart, delivery }) => {
         <ul>
           <li className="mb-3">
             <Typography color="textPrimary">
-              {formatCurrency(priceBreakdown().net)}
+              {delivery ? (
+                formatCurrency(priceBreakdown().net)
+              ) : (
+                <Skeleton width={80} animation="wave" />
+              )}
             </Typography>
           </li>
           <li className="mb-3">
             <Typography color="textPrimary">
-              {formatCurrency(priceBreakdown().vat)}
+              {delivery ? (
+                formatCurrency(priceBreakdown().vat)
+              ) : (
+                <Skeleton width={80} animation="wave" />
+              )}
             </Typography>
           </li>
           <li className="mb-3">
             <Typography color="textPrimary">
-              {formatCurrency(priceBreakdown().delivery)}
+              {delivery ? (
+                formatCurrency(priceBreakdown().delivery)
+              ) : (
+                <Skeleton width={80} animation="wave" />
+              )}
             </Typography>
           </li>
           <li>
             <Typography color="textPrimary">
-              {formatCurrency(priceBreakdown().gross)}
+              {delivery ? (
+                formatCurrency(priceBreakdown().gross)
+              ) : (
+                <Skeleton width={80} animation="wave" />
+              )}
             </Typography>
           </li>
         </ul>
