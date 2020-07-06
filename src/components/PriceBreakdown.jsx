@@ -9,11 +9,21 @@ import { format as formatCurrency } from '../helpers/formatCurrency';
 const useStyles = makeStyles((theme) => ({
   detailsContainer: {
     display: 'inline-flex',
-    textAlign: 'right',
+    // textAlign: 'right',
     paddingRight: theme.spacing(3),
     marginRight: theme.spacing(3),
     marginBottom: theme.spacing(3),
     borderRight: `1px solid ${theme.palette.primary.main}`,
+    [theme.breakpoints.down('sm')]: {
+      border: 'none',
+    },
+  },
+  listItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
 }));
 
@@ -52,29 +62,12 @@ const PriceBreakdown = ({ cart, delivery }) => {
 
   return (
     <div className={classes.detailsContainer}>
-      <div className="mr-4">
-        <ul>
-          <li className="mb-3">
-            <Typography color="textSecondary">
+      <ul>
+        <li className="mb-3">
+          <div className={classes.listItem}>
+            <Typography color="textSecondary" className="mr-4">
               Ukupna cijena bez PDV-a
             </Typography>
-          </li>
-          <li className="mb-3">
-            <Typography color="textSecondary">PDV</Typography>
-          </li>
-          <li className="mb-3">
-            <Typography color="textSecondary">Dostava</Typography>
-          </li>
-          <li>
-            <Typography color="textSecondary">
-              Ukupna cijena sa PDV-om
-            </Typography>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <ul>
-          <li className="mb-3">
             <Typography color="textPrimary">
               {delivery ? (
                 formatCurrency(priceBreakdown().net)
@@ -82,8 +75,13 @@ const PriceBreakdown = ({ cart, delivery }) => {
                 <Skeleton width={80} animation="wave" />
               )}
             </Typography>
-          </li>
-          <li className="mb-3">
+          </div>
+        </li>
+        <li className="mb-3">
+          <div className={classes.listItem}>
+            <Typography color="textSecondary" className="mr-4">
+              PDV
+            </Typography>
             <Typography color="textPrimary">
               {delivery ? (
                 formatCurrency(priceBreakdown().vat)
@@ -91,8 +89,13 @@ const PriceBreakdown = ({ cart, delivery }) => {
                 <Skeleton width={80} animation="wave" />
               )}
             </Typography>
-          </li>
-          <li className="mb-3">
+          </div>
+        </li>
+        <li className="mb-3">
+          <div className={classes.listItem}>
+            <Typography color="textSecondary" className="mr-4">
+              Dostava
+            </Typography>
             <Typography color="textPrimary">
               {delivery ? (
                 formatCurrency(priceBreakdown().delivery)
@@ -100,8 +103,13 @@ const PriceBreakdown = ({ cart, delivery }) => {
                 <Skeleton width={80} animation="wave" />
               )}
             </Typography>
-          </li>
-          <li>
+          </div>
+        </li>
+        <li>
+          <div className={classes.listItem}>
+            <Typography className="mr-4" color="textSecondary">
+              Ukupna cijena sa PDV-om
+            </Typography>
             <Typography color="textPrimary">
               {delivery ? (
                 formatCurrency(priceBreakdown().gross)
@@ -109,9 +117,9 @@ const PriceBreakdown = ({ cart, delivery }) => {
                 <Skeleton width={80} animation="wave" />
               )}
             </Typography>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </li>
+      </ul>
     </div>
   );
 };
