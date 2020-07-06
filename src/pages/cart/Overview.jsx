@@ -302,11 +302,7 @@ const Overview = () => {
             justifyContent: 'space-between',
           }}
         >
-          {delivery ? (
-            <PriceBreakdown cart={cart} delivery={delivery} />
-          ) : (
-            <CircularProgress />
-          )}
+          <PriceBreakdown cart={cart} delivery={delivery} />
           <Button
             //Maybe Refactor To useReducer (?)
             onClick={() => {
