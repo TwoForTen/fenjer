@@ -87,23 +87,32 @@ const Footer = () => {
               <List className="mt-3">
                 {data ? (
                   <>
-                    {data.phones.map((phone) => {
-                      return (
-                        <ListItem disableGutters key={phone.number}>
+                    {data.phones &&
+                      data.phones.map((phone) => {
+                        return (
+                          <a href={`tel:${phone.number}`}>
+                            <ListItem disableGutters key={phone.number}>
+                              <Typography variant="body2">
+                                Info: {phone.number}
+                              </Typography>
+                            </ListItem>
+                          </a>
+                        );
+                      })}
+                    {data.fax && (
+                      <ListItem disableGutters>
+                        <Typography variant="body2">Fax: {data.fax}</Typography>
+                      </ListItem>
+                    )}
+                    {data.email && (
+                      <a href={`mailto: ${data.email}`}>
+                        <ListItem disableGutters>
                           <Typography variant="body2">
-                            Info: {phone.number}
+                            E-mail: {data.email}
                           </Typography>
                         </ListItem>
-                      );
-                    })}
-                    <ListItem disableGutters>
-                      <Typography variant="body2">Fax: {data.fax}</Typography>
-                    </ListItem>
-                    <ListItem disableGutters>
-                      <Typography variant="body2">
-                        E-mail: {data.email}
-                      </Typography>
-                    </ListItem>
+                      </a>
+                    )}
                   </>
                 ) : (
                   <>

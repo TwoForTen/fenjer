@@ -193,12 +193,14 @@ const Contact = () => {
                       {phones.map((phone) => {
                         return (
                           <li key={phone.number}>
-                            <Typography
-                              variant="subtitle1"
-                              color="textSecondary"
-                            >
-                              {phone.number}
-                            </Typography>
+                            <a href={`tel:${phone.number}`}>
+                              <Typography
+                                variant="subtitle1"
+                                color="textSecondary"
+                              >
+                                {phone.number}
+                              </Typography>
+                            </a>
                           </li>
                         );
                       })}
@@ -228,9 +230,11 @@ const Contact = () => {
                     >
                       E-mail:
                     </Typography>
-                    <Typography variant="subtitle1" color="textSecondary">
-                      {email}
-                    </Typography>
+                    <a href={`mailto: ${email}`}>
+                      <Typography variant="subtitle1" color="textSecondary">
+                        {email}
+                      </Typography>
+                    </a>
                   </div>
                 )}
                 {working_hours && (
@@ -328,26 +332,44 @@ const Contact = () => {
                             );
                           })}
                         </ul>
-                        <Typography
-                          className={classes.sectionSubtitle}
-                          color="textPrimary"
-                          variant="body1"
-                        >
-                          Mobitel:
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary">
-                          {field_sale.phone}
-                        </Typography>
-                        <Typography
-                          className={classes.sectionSubtitle}
-                          color="textPrimary"
-                          variant="body1"
-                        >
-                          E-mail:
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary">
-                          {field_sale.email}
-                        </Typography>
+                        {field_sale.phone && (
+                          <>
+                            <Typography
+                              className={classes.sectionSubtitle}
+                              color="textPrimary"
+                              variant="body1"
+                            >
+                              Mobitel:
+                            </Typography>
+                            <a href={`tel:${field_sale.phone}`}>
+                              <Typography
+                                variant="subtitle1"
+                                color="textSecondary"
+                              >
+                                {field_sale.phone}
+                              </Typography>
+                            </a>
+                          </>
+                        )}
+                        {field_sale.email && (
+                          <>
+                            <Typography
+                              className={classes.sectionSubtitle}
+                              color="textPrimary"
+                              variant="body1"
+                            >
+                              E-mail:
+                            </Typography>
+                            <a href={`mailto: ${field_sale.email}`}>
+                              <Typography
+                                variant="subtitle1"
+                                color="textSecondary"
+                              >
+                                {field_sale.email}
+                              </Typography>
+                            </a>
+                          </>
+                        )}
                         <Typography
                           className={classes.sectionSubtitle}
                           color="textPrimary"
