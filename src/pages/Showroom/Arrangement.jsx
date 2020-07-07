@@ -52,7 +52,7 @@ const Arrangement = () => {
               alt={selectedArrangement.name}
             />
           ) : selectedArrangement?.type === 'video' ? (
-            <video controls>
+            <video controls className={classes.coverImg}>
               <source
                 src={process.env.REACT_APP_PROD_URL + selectedArrangement.file}
                 type="video/mp4"
