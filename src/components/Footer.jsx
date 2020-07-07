@@ -90,8 +90,8 @@ const Footer = () => {
                     {data.phones &&
                       data.phones.map((phone) => {
                         return (
-                          <a href={`tel:${phone.number}`}>
-                            <ListItem disableGutters key={phone.number}>
+                          <a href={`tel:${phone.number}`} key={phone.number}>
+                            <ListItem disableGutters>
                               <Typography variant="body2">
                                 Info: {phone.number}
                               </Typography>
