@@ -1,13 +1,15 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 import PromotedProducts from '../components/PromotedProducts';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-// import imageOne from '../assets/home_carousel1.jpg';
-// import imageTwo from '../assets/home_carousel2.jpg';
-// import imageThree from '../assets/home_carousel3.jpg';
+import imageOne from '../assets/home_carousel1.jpg';
+import imageTwo from '../assets/home_carousel2.jpg';
+import imageThree from '../assets/home_carousel3.jpg';
 import imageFour from '../assets/home_carousel4.png';
 
 const useStyles = makeStyles(() => ({
@@ -31,10 +33,27 @@ const Home = () => {
       <Helmet>
         <title>Fenjer.hr</title>
       </Helmet>
-      <div
-        className={classes.container}
-        style={{ backgroundImage: `url(${imageFour})` }}
-      />
+      <Carousel
+        className="mb-4"
+        showThumbs={false}
+        showStatus={false}
+        autoPlay
+        interval={3000}
+        infiniteLoop
+      >
+        <div>
+          <img src={imageOne} />
+        </div>
+        <div>
+          <img src={imageTwo} />
+        </div>
+        <div>
+          <img src={imageThree} />
+        </div>
+        <div>
+          <img src={imageFour} />
+        </div>
+      </Carousel>
 
       <PromotedProducts />
     </>
