@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     // paddingBottom: '100%',
     '&:hover > $showroomMask': {
       opacity: '1',
-      cursor: 'pointer',
+      cursor: 'pointer !important',
     },
   },
   showroomImg: {
