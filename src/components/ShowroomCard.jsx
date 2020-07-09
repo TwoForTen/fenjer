@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     left: '0',
     opacity: '0',
     transition: '300ms',
+    // '&:hover': {
+    //   opacity: '1',
+    // },
   },
 }));
 
