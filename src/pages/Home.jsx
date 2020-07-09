@@ -34,7 +34,7 @@ const Home = () => {
         <title>Fenjer.hr</title>
       </Helmet>
       <Carousel
-        className="mb-4"
+        className="mb-4 mt-4"
         showThumbs={false}
         showStatus={false}
         autoPlay

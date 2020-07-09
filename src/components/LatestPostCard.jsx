@@ -16,8 +16,8 @@ const LatestPostCard = ({ post }) => {
 
   return (
     <Link to={post ? `/novosti/${post.id}` : ''}>
-      <Card className="mb-3" style={{ height: '100%' }}>
-        <CardActionArea style={{ height: '100%' }}>
+      <Card className="mb-3">
+        <CardActionArea>
           {post ? (
             <CardMedia
               style={{ height: 140 }}
