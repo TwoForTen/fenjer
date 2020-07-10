@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     height: 'auto',
     borderRadius: 'inherit',
     objectFit: 'cover',
+    cursor: 'pointer !important',
   },
   showroomMask: {
     height: '100%',
@@ -42,9 +43,6 @@ const useStyles = makeStyles((theme) => ({
     left: '0',
     opacity: '0',
     transition: '300ms',
-    '&:hover': {
-      opacity: '1',
-    },
   },
 }));
 
@@ -53,8 +51,6 @@ const ShowroomCard = ({ arrangement }) => {
   const history = useHistory();
 
   const { id, file, type, name } = arrangement;
-
-  console.log(type);
 
   return (
     <Paper
