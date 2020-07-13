@@ -14,7 +14,7 @@ import useDataFetch from '../../hooks/useDataFetch';
 
 const useStyles = makeStyles((theme) => ({
   coverImgContainer: {
-    height: '500px',
+    height: 'auto',
     borderRadius: theme.shape.borderRadius,
   },
   coverImg: {
