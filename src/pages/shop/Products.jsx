@@ -157,7 +157,7 @@ const Products = () => {
             style={{ textAlign: 'center' }}
             variant="body1"
             color="textPrimary"
-            className="mt-4"
+            className="mt-4 mb-4"
           >
             Nije pronađen niti jedan proizvod
           </Typography>
