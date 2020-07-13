@@ -31,7 +31,7 @@ const AboutUs = () => {
       <PageBreadcrumbs titles={['O nama']} />
       {data ? (
         <div className={classes.paragraphContainer}>
-          <Typography className="mt-4 mb-4" variant="body1" color="textPrimary">
+          <Typography variant="body1" color="textPrimary">
             {data.about_us}
           </Typography>
         </div>
