@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import _ from 'lodash';
 import axios from '../../axiosInstance';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';

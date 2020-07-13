@@ -5,29 +5,12 @@ import { Carousel } from 'react-responsive-carousel';
 
 import PromotedProducts from '../components/PromotedProducts';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 import imageOne from '../assets/home_carousel1.jpg';
 import imageTwo from '../assets/home_carousel2.jpg';
 import imageThree from '../assets/home_carousel3.jpg';
 import imageFour from '../assets/home_carousel4.png';
 
-const useStyles = makeStyles(() => ({
-  container: {
-    width: '100%',
-    height: '0',
-    paddingTop: '60%',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'contain',
-    backgroundPosition: 'center',
-  },
-}));
-
 const Home = () => {
-  const classes = useStyles();
-  // const CAROUSEL_IMAGES = [imageOne, imageTwo, imageThree, imageFour];
-
-  //TODO:: CAROUSEL COMPONENT
   return (
     <>
       <Helmet>
@@ -42,16 +25,16 @@ const Home = () => {
         infiniteLoop
       >
         <div>
-          <img src={imageOne} />
+          <img src={imageOne} alt="slika_prva" />
         </div>
         <div>
-          <img src={imageTwo} />
+          <img src={imageTwo} alt="slika_druga" />
         </div>
         <div>
-          <img src={imageThree} />
+          <img src={imageThree} alt="slika_treća" />
         </div>
         <div>
-          <img src={imageFour} />
+          <img src={imageFour} alt="slika_četvrta" />
         </div>
       </Carousel>
 

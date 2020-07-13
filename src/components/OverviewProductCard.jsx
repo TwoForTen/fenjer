@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 
 import constrictName from '../helpers/constrictName';
@@ -57,8 +56,6 @@ const CartProductCard = ({ product, onClick }) => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   const {
     name,

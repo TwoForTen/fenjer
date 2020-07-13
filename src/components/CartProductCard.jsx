@@ -10,7 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Close from '@material-ui/icons/Close';
 

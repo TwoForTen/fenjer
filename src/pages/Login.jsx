@@ -283,10 +283,9 @@ const Login = () => {
                 disabled={loading}
                 disableElevation
                 variant="contained"
-                onClick={handleClose}
                 color="secondary"
                 onClick={() => {
-                  // TODO: Convert To useReducer !!!!
+                  handleClose();
                   validationSchema
                     .validate({
                       email: emailValue,

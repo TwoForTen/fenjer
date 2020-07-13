@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from '../axiosInstance';
-import _ from 'lodash';
 import { Formik } from 'formik';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch } from 'react-redux';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from '../axiosInstance';
 import { Formik, FastField } from 'formik';
 import { Helmet } from 'react-helmet-async';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory, useLocation, Redirect } from 'react-router-dom';
 import * as yup from 'yup';
 
@@ -36,7 +36,6 @@ const Registration = () => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
-  const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
 
   const { state: locationState } = location;

@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
