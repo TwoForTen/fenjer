@@ -111,7 +111,7 @@ const Contact = () => {
       <Container>
         {_.isEmpty(contactData) ? (
           <div className={classes.centeredContainer}>
-            <CircularProgress className="mt-4" />
+            <CircularProgress />
           </div>
         ) : (
           <Grid container spacing={3}>
