@@ -17,6 +17,19 @@ const Showroom = () => {
       method: 'GET',
     }) || [];
 
+  if (arrangements?.data?.length < 1) {
+    return (
+      <>
+        <PageBreadcrumbs titles={['Showroom']} />
+        <div className={classes.centeredContainer}>
+          <Typography variant="body1" color="textPrimary">
+            Trenutno nema promoviranih aranžmana.
+          </Typography>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Helmet titleTemplate="%s | Fenjer.hr">

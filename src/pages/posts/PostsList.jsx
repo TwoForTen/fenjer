@@ -38,11 +38,14 @@ const PostsList = () => {
 
   if (posts?.data?.length < 1) {
     return (
-      <div className={classes.centeredContainer}>
-        <Typography variant="body1" color="textPrimary">
-          Nema nedavnih vijesti.
-        </Typography>
-      </div>
+      <>
+        <PageBreadcrumbs titles={['Novosti']} />
+        <div className={classes.centeredContainer}>
+          <Typography variant="body1" color="textPrimary">
+            Nema nedavnih vijesti.
+          </Typography>
+        </div>
+      </>
     );
   }
   return (
