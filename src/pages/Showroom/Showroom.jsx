@@ -3,6 +3,8 @@ import _ from 'lodash';
 import { Helmet } from 'react-helmet-async';
 
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 import PageBreadcrumbs from '../../components/PageBreadcrumbs';
 import ShowroomCard from '../../components/ShowroomCard';
@@ -10,7 +12,16 @@ import ShowroomCard from '../../components/ShowroomCard';
 import useDataFetch from '../../hooks/useDataFetch';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+const useStyles = makeStyles((theme) => ({
+  centeredContainer: {
+    textAlign: 'center',
+    margin: theme.spacing(3),
+  },
+}));
+
 const Showroom = () => {
+  const classes = useStyles();
+
   const arrangements =
     useDataFetch({
       url: '/arrangements',

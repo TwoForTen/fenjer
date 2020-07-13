@@ -87,7 +87,7 @@ const UserAccount = () => {
             maxWidth="md"
             style={{ textAlign: _.isEmpty(user) && 'center' }}
           >
-            {!_.isEmpty(user) ? (
+            {!_.isEmpty(user) && value === 0 ? (
               <UserDetails user={user} />
             ) : (
               <CircularProgress className="mt-4" />
