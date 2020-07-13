@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     margin: theme.spacing(3),
   },
+  interactiveLink: {
+    width: 'fit-content',
+  },
 }));
 
 const scrollIntoView = (element) => {
@@ -192,7 +195,10 @@ const Contact = () => {
                     <ul>
                       {phones.map((phone) => {
                         return (
-                          <li key={phone.number}>
+                          <li
+                            className={classes.interactiveLink}
+                            key={phone.number}
+                          >
                             <a href={`tel:${phone.number}`}>
                               <Typography
                                 variant="subtitle1"
@@ -222,7 +228,9 @@ const Contact = () => {
                   </div>
                 )}
                 {email && (
-                  <div className={classes.sectionList}>
+                  <div
+                    className={`${classes.sectionList} ${classes.interactiveLink}`}
+                  >
                     <Typography
                       className={classes.sectionSubtitle}
                       color="textPrimary"
@@ -333,7 +341,7 @@ const Contact = () => {
                           })}
                         </ul>
                         {field_sale.phone && (
-                          <>
+                          <div className={classes.interactiveLink}>
                             <Typography
                               className={classes.sectionSubtitle}
                               color="textPrimary"
@@ -349,10 +357,10 @@ const Contact = () => {
                                 {field_sale.phone}
                               </Typography>
                             </a>
-                          </>
+                          </div>
                         )}
                         {field_sale.email && (
-                          <>
+                          <div className={classes.interactiveLink}>
                             <Typography
                               className={classes.sectionSubtitle}
                               color="textPrimary"
@@ -368,7 +376,7 @@ const Contact = () => {
                                 {field_sale.email}
                               </Typography>
                             </a>
-                          </>
+                          </div>
                         )}
                         <Typography
                           className={classes.sectionSubtitle}

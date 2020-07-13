@@ -90,13 +90,13 @@ const Footer = () => {
                     {data.phones &&
                       data.phones.map((phone) => {
                         return (
-                          <a href={`tel:${phone.number}`} key={phone.number}>
-                            <ListItem disableGutters>
+                          <ListItem disableGutters key={phone.number}>
+                            <a href={`tel:${phone.number}`}>
                               <Typography variant="body2">
                                 Info: {phone.number}
                               </Typography>
-                            </ListItem>
-                          </a>
+                            </a>
+                          </ListItem>
                         );
                       })}
                     {data.fax && (
@@ -105,13 +105,13 @@ const Footer = () => {
                       </ListItem>
                     )}
                     {data.email && (
-                      <a href={`mailto: ${data.email}`}>
-                        <ListItem disableGutters>
+                      <ListItem disableGutters>
+                        <a href={`mailto: ${data.email}`}>
                           <Typography variant="body2">
                             E-mail: {data.email}
                           </Typography>
-                        </ListItem>
-                      </a>
+                        </a>
+                      </ListItem>
                     )}
                   </>
                 ) : (
