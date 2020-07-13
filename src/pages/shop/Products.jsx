@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import _ from 'lodash';
 import axios from '../../axiosInstance';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
@@ -27,6 +28,7 @@ const Products = () => {
   const params = useParams();
   const dispatch = useDispatch();
 
+  const [title, setTitle] = useState('');
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -78,7 +80,13 @@ const Products = () => {
 
   //FIX TITLE BUG HERE
   const categoryTitle = useMemo(() => {
-    return categoryData?.data[0]?.category_name;
+    setTitle(() => {
+      if (!_.isEmpty(categoryData?.data))
+        return categoryData?.data[0]?.category_name;
+    });
+    return !_.isEmpty(categoryData?.data)
+      ? categoryData?.data[0]?.category_name
+      : title;
   }, [categoryData]);
 
   const sortedProducts = (data) => {
