@@ -9,6 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Payment from '@material-ui/icons/Payment';
@@ -46,6 +47,8 @@ const Overview = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
+  const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('xs'));
+
   const { state: locationState } = location;
 
   const cart = useSelector((state) => state.cart);
@@ -104,7 +107,7 @@ const Overview = () => {
             </Typography>
           </div>
           <Grid container direction="column" spacing={3}>
-            <Grid item xs={12} container spacing={3}>
+            <Grid item xs={12} container spacing={breakpoint ? 0 : 3}>
               <Grid item sm={6} xs={12}>
                 <Grid item xs={12}>
                   <Paper className={classes.paperRoot}>
