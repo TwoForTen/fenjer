@@ -82,7 +82,7 @@ const Cart = () => {
       <Grid container spacing={2} className="mt-4 mb-4">
         {cart.map((product, index) => {
           return (
-            <Grid item md={12} sm={4} xs={6} key={product.id}>
+            <Grid item md={12} sm={4} xs={12} key={product.id}>
               <CartProductCard
                 onClick={() => dispatch(setProduct(product))}
                 product={product}

@@ -124,7 +124,7 @@ const Products = () => {
                   <Grid
                     item
                     key={product.id}
-                    xs={6}
+                    xs={12}
                     sm={4}
                     md={view === 'list' ? 12 : 3}
                   >

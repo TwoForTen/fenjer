@@ -285,7 +285,7 @@ const Overview = () => {
           <Grid container spacing={2} className="mb-4">
             {cart.map((product) => {
               return (
-                <Grid item md={12} sm={4} xs={6} key={product.id}>
+                <Grid item md={12} sm={4} xs={12} key={product.id}>
                   <OverviewProductCard
                     onClick={() => dispatch(setProduct(product))}
                     product={product}
