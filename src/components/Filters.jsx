@@ -56,6 +56,7 @@ const Filters = ({ showView = true }) => {
 
   const THROTTLE_TIME = 250;
   const breakpoint = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+  const breakpointUp = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
   const view = useSelector((state) => state.filter.product_view);
   const filterQuery = useSelector((state) => state.filter.queries);
@@ -94,7 +95,9 @@ const Filters = ({ showView = true }) => {
             e.persist();
             handleChange(e);
           }}
-          label="Pretraživanje po nazivu"
+          label={
+            breakpointUp && !breakpoint ? 'Naziv' : 'Pretraživanje po nazivu'
+          }
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -117,7 +120,9 @@ const Filters = ({ showView = true }) => {
           name="code"
           margin="normal"
           variant="outlined"
-          label="Pretraživanje po šifri"
+          label={
+            breakpointUp && !breakpoint ? 'Šifra' : 'Pretraživanje po šifri'
+          }
           className={classes.filterInput}
           defaultValue={filterQuery.code}
           onChange={(e) => {
@@ -146,7 +151,9 @@ const Filters = ({ showView = true }) => {
           margin="normal"
           name="barcode"
           variant="outlined"
-          label="Pretraživanje po barcodu"
+          label={
+            breakpointUp && !breakpoint ? 'Barcode' : 'Pretraživanje po barcodu'
+          }
           className={classes.filterInput}
           defaultValue={filterQuery.barcode}
           onChange={(e) => {
