@@ -71,19 +71,6 @@ const Proizvodi = () => {
     };
   }, []);
 
-  if (categories?.data?.length < 1) {
-    return (
-      <>
-        <PageBreadcrumbs titles={['Proizvodi']} />
-        <div className={classes.centeredContainer}>
-          <Typography variant="body1" color="textPrimary">
-            Nije pronađen ni jedan proizvod
-          </Typography>
-        </div>
-      </>
-    );
-  }
-
   return (
     <>
       <Helmet titleTemplate="%s | Fenjer.hr">
@@ -125,6 +112,16 @@ const Proizvodi = () => {
               )
           )}
       </Grid>
+        {!loading && !categories?.results_found && (
+            <Typography
+                style={{ textAlign: 'center' }}
+                variant="body1"
+                color="textPrimary"
+                className="mt-4 mb-4"
+            >
+                Nije pronađen niti jedan proizvod
+            </Typography>
+        )}
     </>
   );
 };
