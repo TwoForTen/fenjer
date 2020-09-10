@@ -34,7 +34,7 @@ const Proizvodi = () => {
   const filter = useSelector((state) => state.filter.queries);
   const { name, code, barcode } = filter;
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const categories =
     useDataFetch({
